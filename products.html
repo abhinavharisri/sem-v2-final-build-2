@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Products | SEM® Air Moving Solutions</title>
   <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" type="image/png" href="images/sem-logo.png"/>
   <style>
     .prod-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; }
     .prod-card { background:#fff; border:1px solid #dde1e7; border-radius:10px; overflow:hidden; cursor:pointer; transition:border-color .25s,box-shadow .25s,transform .25s; display:flex; flex-direction:column; }
     .prod-card:hover { transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,.12); border-color:#2A6496; }
+    .prod-card.linked-product { border-color:#2A6496; box-shadow:0 0 0 4px rgba(42,100,150,.14),0 12px 40px rgba(0,0,0,.12); transform:translateY(-4px); }
     .prod-card-img { height:220px; background:linear-gradient(135deg,#f0f4f8,#dce8f5); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; border-bottom:1px solid #dde1e7; overflow:hidden; position:relative; }
     .prod-card-img img { width:100%; height:100%; object-fit:cover; }
     .prod-card-img svg { opacity:.2; }
@@ -247,6 +249,24 @@
 </div>
 <section class="section bg-white">
   <div class="container">
+    <div class="usage-search-head product-usage-head" data-reveal>
+      <div>
+        <div class="eyebrow-line"><span class="eyebrow">Application Finder</span></div>
+        <h2>Search Products by Usage</h2>
+        <p class="text-muted mt-8">Type an application such as HVAC, air conditioning, fume extraction, or motor cooling.</p>
+      </div>
+    </div>
+
+    <div class="usage-search-panel product-usage-panel" data-reveal data-delay="1">
+      <div class="usage-search-box">
+        <span class="usage-search-icon" aria-hidden="true">⌕</span>
+        <input id="usage-search-input" class="usage-search-input" type="search" placeholder="HVAC, air conditioning, fume extraction..." autocomplete="off" aria-label="Search products by application or usage">
+        <button id="usage-search-clear" class="usage-search-clear" type="button" aria-label="Clear search">✕</button>
+      </div>
+      <div class="usage-search-chips" id="usage-search-chips" aria-label="Popular applications"></div>
+      <div class="usage-search-status" id="usage-search-status">Start typing to filter the catalogue by usage.</div>
+    </div>
+
     <div class="cat-tabs" id="cat-tabs">
       <button class="cat-tab active" data-cat="all">All Products</button>
       <button class="cat-tab" data-cat="Axial Fans">Axial Fans</button>
@@ -465,11 +485,10 @@ var mnav = document.querySelector('.nav-mobile');
 if (hbg) hbg.addEventListener('click', function() { hbg.classList.toggle('open'); mnav.classList.toggle('open'); });
 
 // ── BUILD GRID ────────────────────────────────────────────────
-function buildGrid(filter) {
+function renderProductCards(list) {
   var grid = document.getElementById('prod-grid');
   if (!grid) return;
-  var list = filter === 'all' ? SEM_PRODUCTS : SEM_PRODUCTS.filter(function(p) { return p.category === filter; });
-  grid.innerHTML = list.map(function(p) {
+  grid.innerHTML = list.length ? list.map(function(p) {
     var cnt = p.specs ? p.specs.length : 0;
     return '<div class="prod-card" data-id="' + p.id + '">' +
       '<div class="prod-card-img">' +
@@ -486,16 +505,22 @@ function buildGrid(filter) {
           '<span class="prod-card-arr">→</span>' +
         '</div>' +
       '</div></div>';
-  }).join('');
+  }).join('') : '<div class="usage-no-results">No products matched this usage. Try HVAC, air conditioning, fume extraction, motor cooling, plastic extrusion, or industrial ventilation.</div>';
   grid.querySelectorAll('.prod-card').forEach(function(card) {
     card.addEventListener('click', function() { openModal(card.dataset.id); });
   });
+}
+
+function buildGrid(filter) {
+  var list = filter === 'all' ? SEM_PRODUCTS : SEM_PRODUCTS.filter(function(p) { return p.category === filter; });
+  renderProductCards(list);
 }
 
 // Category tabs
 document.getElementById('cat-tabs').addEventListener('click', function(e) {
   var tab = e.target.closest('.cat-tab');
   if (!tab) return;
+  clearUsageSearch(false);
   document.querySelectorAll('.cat-tab').forEach(function(t) { t.classList.remove('active'); });
   tab.classList.add('active');
   var grid = document.getElementById('prod-grid');
@@ -505,6 +530,116 @@ document.getElementById('cat-tabs').addEventListener('click', function(e) {
     requestAnimationFrame(function() { grid.classList.add('visible'); });
   });
 });
+
+// Usage/application search
+var usageAliases = {
+  ac: 'air conditioning',
+  ahu: 'air handling units',
+  hvac: 'hvac air conditioning ventilation',
+  vfd: 'variable frequency drives',
+  kitchen: 'kitchen ventilation exhaust',
+  bathroom: 'bathroom exhaust inline ventilation',
+  fumes: 'fume extraction welding fume removal chemical fume extraction',
+  cooling: 'industrial cooling electronic cooling motor cooling condenser cooling forced cooling',
+  duct: 'duct booster inline ventilation',
+  railway: 'indian railways railway'
+};
+var popularUsage = ['HVAC','Air Conditioning','Plastic Extrusion','Forced Motor Cooling','Fume Extraction','Inline Ventilation','Condenser Cooling','Industrial Ventilation'];
+var usageInput = document.getElementById('usage-search-input');
+var usageStatus = document.getElementById('usage-search-status');
+var usageChips = document.getElementById('usage-search-chips');
+var usageClear = document.getElementById('usage-search-clear');
+
+if (usageChips) {
+  usageChips.innerHTML = popularUsage.map(function(app) {
+    return '<button class="usage-search-chip" type="button" data-usage="' + esc(app) + '">' + esc(app) + '</button>';
+  }).join('');
+  usageChips.addEventListener('click', function(e) {
+    var chip = e.target.closest('[data-usage]');
+    if (!chip) return;
+    usageInput.value = chip.dataset.usage;
+    runUsageSearch(usageInput.value);
+    usageInput.focus();
+  });
+}
+if (usageInput) usageInput.addEventListener('input', function() { runUsageSearch(usageInput.value); });
+if (usageClear) usageClear.addEventListener('click', function() {
+  usageInput.value = '';
+  clearUsageSearch(true);
+  usageInput.focus();
+});
+
+function runUsageSearch(value) {
+  var query = normalizeUsage(value);
+  if (usageClear) usageClear.classList.toggle('show', !!query);
+  document.querySelectorAll('.cat-tab').forEach(function(t) { t.classList.toggle('active', t.dataset.cat === 'all'); });
+
+  if (!query) {
+    renderProductCards(SEM_PRODUCTS);
+    if (usageStatus) usageStatus.textContent = 'Start typing to filter the catalogue by usage.';
+    return;
+  }
+
+  var matches = scoreUsageProducts(query).slice(0, 24).map(function(item) { return item.product; });
+  renderProductCards(matches);
+  if (usageStatus) usageStatus.textContent = matches.length
+    ? matches.length + ' product ' + (matches.length === 1 ? 'match' : 'matches') + ' for "' + value.trim() + '".'
+    : 'No direct match found for "' + value.trim() + '".';
+}
+
+function scoreUsageProducts(query) {
+  var expanded = expandUsageQuery(query);
+  var words = expanded.split(' ').filter(Boolean);
+  return SEM_PRODUCTS.map(function(product) {
+    var apps = product.applications || [];
+    var appText = normalizeUsage(apps.join(' '));
+    var nameText = normalizeUsage(product.name);
+    var categoryText = normalizeUsage(product.category);
+    var modelText = normalizeUsage((product.models || []).join(' '));
+    var descriptionText = normalizeUsage(product.description || '');
+    var haystack = [appText, nameText, categoryText, modelText, descriptionText].join(' ');
+    var score = 0;
+    if (appText.indexOf(query) >= 0) score += 90;
+    if (appText.indexOf(expanded) >= 0) score += 80;
+    if (nameText.indexOf(query) >= 0) score += 45;
+    if (categoryText.indexOf(query) >= 0) score += 30;
+    if (modelText.indexOf(query) >= 0) score += 25;
+    if (descriptionText.indexOf(query) >= 0) score += 18;
+    words.forEach(function(word) {
+      if (word.length < 2) return;
+      if (appText.indexOf(word) >= 0) score += 12;
+      else if (haystack.indexOf(word) >= 0) score += 4;
+    });
+    return { product: product, score: score };
+  }).filter(function(item) {
+    return item.score > 0;
+  }).sort(function(a, b) {
+    return b.score - a.score || a.product.name.localeCompare(b.product.name);
+  });
+}
+
+function clearUsageSearch(renderAll) {
+  if (usageInput) usageInput.value = '';
+  if (usageClear) usageClear.classList.remove('show');
+  if (usageStatus) usageStatus.textContent = 'Start typing to filter the catalogue by usage.';
+  if (renderAll) renderProductCards(SEM_PRODUCTS);
+}
+
+function expandUsageQuery(value) {
+  var clean = normalizeUsage(value);
+  var aliasText = clean.split(' ').map(function(word) { return usageAliases[word] || ''; }).filter(Boolean).join(' ');
+  return normalizeUsage([clean, aliasText].filter(Boolean).join(' '));
+}
+
+function normalizeUsage(value) {
+  return String(value || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+function esc(value) {
+  return String(value || '').replace(/[&<>"']/g, function(ch) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+  });
+}
 
 // ── MODAL ─────────────────────────────────────────────────────
 function openModal(id) {
@@ -915,6 +1050,21 @@ document.addEventListener('keydown', function(e) {
 // ── INIT ──────────────────────────────────────────────────────
 buildGrid('all');
 updateBadge();
+openLinkedProduct();
+
+function openLinkedProduct() {
+  var productId = new URLSearchParams(window.location.search).get('product');
+  if (!productId || !getProductById(productId)) return;
+  var card = Array.prototype.find.call(document.querySelectorAll('.prod-card[data-id]'), function(el) {
+    return el.dataset.id === productId;
+  });
+  if (card) {
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    card.classList.add('linked-product');
+    setTimeout(function() { card.classList.remove('linked-product'); }, 2200);
+  }
+  setTimeout(function() { openModal(productId); }, 450);
+}
 
 // ── SCROLL REVEAL (main.js not loaded on this page) ───────────
 var revealObs = new IntersectionObserver(function(entries) {

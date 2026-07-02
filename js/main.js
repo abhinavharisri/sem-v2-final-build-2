@@ -216,6 +216,13 @@ document.addEventListener('click', e => {
   const card = e.target.closest('[data-product-id]');
   if (card) openModal(card.dataset.productId);
 });
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const card = e.target.closest('[data-product-id]');
+  if (!card) return;
+  e.preventDefault();
+  openModal(card.dataset.productId);
+});
 
 // ── CATEGORY FILTER ──────────────────────────────────────────
 document.querySelectorAll('.cat-tab').forEach(tab => {
@@ -654,3 +661,233 @@ function buildProductGrid() {
 if (document.getElementById('product-grid')) {
   document.addEventListener('DOMContentLoaded', buildProductGrid);
 }
+
+// ── POPULAR PRODUCTS CAROUSEL (index.html) ────────────────────
+(function initPopularProducts() {
+  const track = document.getElementById('popular-products-track');
+  if (!track || typeof SEM_PRODUCTS === 'undefined') return;
+
+  const popularIds = [
+    'double-inlet-133',
+    'single-inlet-forward-curved',
+    'axial-fan-press-fit',
+    'inline-duct-fan',
+    'fume-extractor',
+    'plug-fans'
+  ];
+
+  const products = popularIds.map(id => getProductById(id)).filter(Boolean);
+  track.innerHTML = products.map(product => popularCard(product, false)).join('') +
+    products.map(product => popularCard(product, true)).join('');
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let rafId = null;
+  let lastTs = 0;
+  let paused = reducedMotion;
+  const speed = 34;
+
+  if (!reducedMotion) rafId = window.requestAnimationFrame(tick);
+  track.addEventListener('mouseenter', pause);
+  track.addEventListener('mouseleave', resume);
+  track.addEventListener('focusin', pause);
+  track.addEventListener('focusout', resume);
+
+  function tick(ts) {
+    if (!lastTs) lastTs = ts;
+    const delta = ts - lastTs;
+    lastTs = ts;
+
+    if (!paused) {
+      const loopStart = track.children[products.length] ? track.children[products.length].offsetLeft : track.scrollWidth / 2;
+      track.scrollLeft += (speed * delta) / 1000;
+      if (track.scrollLeft >= loopStart) track.scrollLeft -= loopStart;
+    }
+    rafId = window.requestAnimationFrame(tick);
+  }
+
+  function pause() {
+    paused = true;
+  }
+
+  function resume() {
+    if (reducedMotion) return;
+    paused = false;
+    lastTs = 0;
+    if (!rafId) rafId = window.requestAnimationFrame(tick);
+  }
+
+  function popularCard(product, duplicate) {
+    const image = product.images && product.images[0]
+      ? `<img src="${escHtml(product.images[0])}" alt="${escHtml(product.name)}" loading="lazy">`
+      : `<svg class="usage-result-placeholder" width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/><circle cx="32" cy="32" r="10" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>`;
+    const tags = (product.applications || []).slice(0, 3).map(app => `<span class="usage-result-tag">${escHtml(app)}</span>`).join('');
+    const models = (product.models || []).slice(0, 4).join(' · ') + ((product.models || []).length > 4 ? ' · ...' : '');
+    return `
+      <a class="usage-result-card popular-card" href="products.html?product=${encodeURIComponent(product.id)}"${duplicate ? ' aria-hidden="true" tabindex="-1"' : ''} aria-label="View ${escHtml(product.name)} on products page">
+        <div class="usage-result-image">${image}</div>
+        <div class="usage-result-body">
+          <div class="usage-result-cat">${escHtml(product.category)}</div>
+          <div class="usage-result-name">${escHtml(product.name)}</div>
+          <div class="usage-result-models">${escHtml(models)}</div>
+          <div class="usage-result-tags">${tags}</div>
+        </div>
+      </a>`;
+  }
+
+  function escHtml(value) {
+    return String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+})();
+
+// ── USAGE / APPLICATION SEARCH (index.html) ───────────────────
+(function initUsageSearch() {
+  const input = document.getElementById('usage-search-input');
+  const results = document.getElementById('usage-results');
+  const status = document.getElementById('usage-search-status');
+  const chips = document.getElementById('usage-search-chips');
+  const clearBtn = document.getElementById('usage-search-clear');
+  if (!input || !results || typeof SEM_PRODUCTS === 'undefined') return;
+
+  const aliases = {
+    ac: 'air conditioning',
+    ahu: 'air handling units',
+    hvac: 'hvac air conditioning ventilation',
+    vfd: 'variable frequency drives',
+    kitchen: 'kitchen ventilation exhaust',
+    bathroom: 'bathroom exhaust inline ventilation',
+    fumes: 'fume extraction welding fume removal chemical fume extraction',
+    cooling: 'industrial cooling electronic cooling motor cooling condenser cooling forced cooling',
+    duct: 'duct booster inline ventilation',
+    railway: 'indian railways railway'
+  };
+
+  const popularApps = [
+    'HVAC',
+    'Air Conditioning',
+    'Plastic Extrusion',
+    'Forced Motor Cooling',
+    'Fume Extraction',
+    'Inline Ventilation',
+    'Condenser Cooling',
+    'Industrial Ventilation'
+  ];
+
+  if (chips) {
+    chips.innerHTML = popularApps.map(app => `<button class="usage-search-chip" type="button" data-usage="${escHtml(app)}">${escHtml(app)}</button>`).join('');
+    chips.addEventListener('click', e => {
+      const chip = e.target.closest('[data-usage]');
+      if (!chip) return;
+      input.value = chip.dataset.usage;
+      input.focus();
+      render(input.value);
+    });
+  }
+
+  input.addEventListener('input', () => render(input.value));
+  results.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('[data-product-id]');
+    if (!card) return;
+    e.preventDefault();
+    openModal(card.dataset.productId);
+  });
+  clearBtn && clearBtn.addEventListener('click', () => {
+    input.value = '';
+    input.focus();
+    render('');
+  });
+
+  render('');
+
+  function render(value) {
+    const query = normalize(value);
+    if (clearBtn) clearBtn.classList.toggle('show', Boolean(query));
+
+    if (!query) {
+      const starters = scoreProducts('hvac').slice(0, 4);
+      results.innerHTML = starters.map(item => resultCard(item.product, item.matches)).join('');
+      if (status) status.textContent = 'Popular matches for common industrial applications.';
+      return;
+    }
+
+    const matches = scoreProducts(query).slice(0, 8);
+    if (status) status.textContent = matches.length
+      ? matches.length + ' product ' + (matches.length === 1 ? 'match' : 'matches') + ' for "' + value.trim() + '".'
+      : 'No direct match found for "' + value.trim() + '".';
+
+    results.innerHTML = matches.length
+      ? matches.map(item => resultCard(item.product, item.matches)).join('')
+      : '<div class="usage-no-results">Try another application such as HVAC, air conditioning, motor cooling, fume extraction, plastic extrusion, or inline ventilation.</div>';
+  }
+
+  function scoreProducts(query) {
+    const expanded = expandQuery(query);
+    const words = expanded.split(' ').filter(Boolean);
+
+    return SEM_PRODUCTS.map(product => {
+      const apps = product.applications || [];
+      const appText = normalize(apps.join(' '));
+      const nameText = normalize(product.name);
+      const categoryText = normalize(product.category);
+      const modelText = normalize((product.models || []).join(' '));
+      const descriptionText = normalize(product.description || '');
+      const haystack = [appText, nameText, categoryText, modelText, descriptionText].join(' ');
+      let score = 0;
+
+      if (appText.includes(query)) score += 90;
+      if (appText.includes(expanded)) score += 80;
+      if (nameText.includes(query)) score += 45;
+      if (categoryText.includes(query)) score += 30;
+      if (modelText.includes(query)) score += 25;
+      if (descriptionText.includes(query)) score += 18;
+
+      words.forEach(word => {
+        if (word.length < 2) return;
+        if (appText.includes(word)) score += 12;
+        else if (haystack.includes(word)) score += 4;
+      });
+
+      const matchingApps = apps.filter(app => {
+        const n = normalize(app);
+        return n.includes(query) || words.some(word => word.length > 2 && n.includes(word));
+      });
+
+      return { product, score, matches: matchingApps.length ? matchingApps : apps.slice(0, 3) };
+    })
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score || a.product.name.localeCompare(b.product.name));
+  }
+
+  function resultCard(product, matches) {
+    const image = product.images && product.images[0]
+      ? `<img src="${escHtml(product.images[0])}" alt="${escHtml(product.name)}" loading="lazy">`
+      : `<svg class="usage-result-placeholder" width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/><circle cx="32" cy="32" r="10" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>`;
+    const models = (product.models || []).slice(0, 4).join(' · ') + ((product.models || []).length > 4 ? ' · ...' : '');
+    const tags = (matches || []).slice(0, 3).map(app => `<span class="usage-result-tag">${escHtml(app)}</span>`).join('');
+
+    return `
+      <article class="usage-result-card" data-product-id="${escHtml(product.id)}" tabindex="0" role="button" aria-label="View ${escHtml(product.name)} specifications">
+        <div class="usage-result-image">${image}</div>
+        <div class="usage-result-body">
+          <div class="usage-result-cat">${escHtml(product.category)}</div>
+          <div class="usage-result-name">${escHtml(product.name)}</div>
+          <div class="usage-result-models">${escHtml(models)}</div>
+          <div class="usage-result-tags">${tags}</div>
+        </div>
+      </article>`;
+  }
+
+  function expandQuery(value) {
+    const clean = normalize(value);
+    const aliasText = clean.split(' ').map(word => aliases[word] || '').filter(Boolean).join(' ');
+    return normalize([clean, aliasText].filter(Boolean).join(' '));
+  }
+
+  function normalize(value) {
+    return String(value || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  function escHtml(value) {
+    return String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+})();
