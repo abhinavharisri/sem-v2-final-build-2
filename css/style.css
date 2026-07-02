@@ -1500,6 +1500,9 @@ p { line-height: 1.75; }
   right: 0;
   bottom: 0;
   width: min(600px, 96vw);
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   background: var(--white);
   z-index: 3001;
   display: flex;
@@ -1507,6 +1510,8 @@ p { line-height: 1.75; }
   box-shadow: -8px 0 40px rgba(0,0,0,0.15);
   transform: translateX(100%);
   transition: transform 0.35s var(--ease);
+  overflow: hidden;
+  overscroll-behavior: contain;
 }
 .global-cart-drawer.show { transform: translateX(0); }
 .global-cart-head {
@@ -1579,7 +1584,14 @@ p { line-height: 1.75; }
 }
 .global-checkout-step.done { color: #38a169; }
 .global-checkout-step.done .global-checkout-dot { background: #38a169; border-color: #38a169; color: #fff; }
-.global-cart-body { flex: 1; overflow-y: auto; padding: 16px 24px; min-height: 0; }
+.global-cart-body {
+  order: 3;
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 24px;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
+}
 .global-cart-panel { display: none; }
 .global-cart-panel.show { display: block; }
 .global-cart-empty {
@@ -1647,7 +1659,16 @@ p { line-height: 1.75; }
 .global-cf-hint { font-size: 0.6rem; margin-top: 3px; color: var(--text3); }
 .global-cf-hint.ok { color: #38a169; font-weight: 600; }
 .global-cf-hint.bad { color: #e53e3e; }
-.global-cart-foot { padding: 14px 24px; border-top: 1px solid var(--border); flex-shrink: 0; background: var(--bg); }
+.global-cart-foot {
+  order: 2;
+  padding: 14px 24px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--bg);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+  z-index: 1;
+}
 .global-cart-summary { font-size: 0.72rem; color: var(--text3); margin-bottom: 10px; line-height: 1.6; }
 .global-cart-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .global-cart-actions.single { grid-template-columns: 1fr; }
@@ -1676,6 +1697,8 @@ p { line-height: 1.75; }
 .global-customer-value { font-size: 0.78rem; font-weight: 600; color: var(--charcoal); overflow-wrap: anywhere; }
 
 @media (max-width: 560px) {
+  .global-cart-drawer { width: 100vw; }
+  .global-cart-head { padding: 18px 16px; }
   .global-checkout-progress { padding: 12px 16px; gap: 4px; }
   .global-checkout-step { gap: 5px; }
   .global-checkout-label { font-size: 0.54rem; }
