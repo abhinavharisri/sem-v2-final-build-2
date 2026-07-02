@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SEM® | Superior Electric Machines — Air Moving Solutions</title>
+  <meta name="description" content="Superior Electric Machines Pvt. Ltd. — 36+ years of precision engineering in blowers, fans and air moving solutions. ISO 9001:2015 certified."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .nav-cart-btn { display:flex; align-items:center; gap:7px; padding:8px 16px; background:#fff; border:1.5px solid #dde1e7; border-radius:100px; font-size:0.78rem; font-weight:600; color:#2d3748; cursor:pointer; transition:all 0.2s; text-decoration:none; }
+    .nav-cart-btn:hover { border-color:#2A6496; color:#2A6496; }
+    .cart-badge { background:#2A6496; color:#fff; font-size:0.6rem; font-weight:700; min-width:18px; height:18px; border-radius:100px; display:none; align-items:center; justify-content:center; padding:0 5px; }
+    .cart-badge.show { display:flex; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/sem-logo.png" alt="SEM Logo" class="nav-logo-img" onerror="this.style.display='none'">
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">Superior Electric Machines</span>
+        <span class="nav-logo-sub">Air Moving Solutions</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="products.html">Products</a>
+      <a href="applications.html">Applications</a>
+      <a href="downloads.html">Downloads</a>
+      <a href="distributors.html">Distributors</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-mobile">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="products.html">Products</a>
+  <a href="applications.html">Applications</a><a href="downloads.html">Downloads</a>
+  <a href="distributors.html">Distributors</a><a href="contact.html">Contact</a>
+</div>
+
+<main class="page-body">
+
+<!-- HERO -->
+<section class="hero" style="padding:0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;">
+  <!-- FULL BACKGROUND VIDEO -->
+  <div style="position:absolute;inset:0;z-index:0;background:#0d1520;">
+    <video id="hero-video" src="assets/videos/sem-applications.mp4" muted loop autoplay playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+    <!-- Placeholder shown when no video file present -->
+    <div id="hero-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#eef2f7 0%,#dce8f5 50%,#cfe0f0 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
+      <svg width="88" height="88" viewBox="0 0 88 88" fill="none"><circle cx="44" cy="44" r="34" stroke="#2A6496" stroke-width="1.5" stroke-dasharray="7 5"/><circle cx="44" cy="44" r="20" stroke="#2A6496" stroke-width="1.5"/><circle cx="44" cy="44" r="7" fill="#2A6496" opacity="0.25"/><line x1="44" y1="6" x2="44" y2="22" stroke="#2A6496" stroke-width="1.5"/><line x1="44" y1="66" x2="44" y2="82" stroke="#2A6496" stroke-width="1.5"/><line x1="6" y1="44" x2="22" y2="44" stroke="#2A6496" stroke-width="1.5"/><line x1="66" y1="44" x2="82" y2="44" stroke="#2A6496" stroke-width="1.5"/></svg>
+      <span style="font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#2A6496;opacity:0.6;text-align:center;">Add your video as assets/videos/sem-applications.mp4</span>
+    </div>
+    <!-- Dark overlay for text readability -->
+    <div style="position:absolute;inset:0;background:linear-gradient(105deg,rgba(13,21,32,0.55) 0%,rgba(13,21,32,0.3) 60%,rgba(13,21,32,0.1) 100%);"></div>
+  </div>
+
+  <!-- HERO CONTENT — centred over video -->
+  <div style="position:relative;z-index:2;flex:1;display:flex;align-items:center;padding:100px 32px 80px;max-width:var(--max-w-wide);margin:0 auto;width:100%;">
+    <div style="max-width:680px;">
+      <div class="hero-tag" style="background:rgba(42,100,150,0.25);border-color:rgba(42,100,150,0.4);color:#7eb8e8;" data-reveal>ISO 9001:2015 Certified</div>
+      <h1 style="color:#ffffff;margin-bottom:16px;" data-reveal data-delay="1">Engineering Air.<br><span style="color:#5aaee8;">Powering Industry.</span></h1>
+      <p style="font-size:1.05rem;color:rgba(255,255,255,0.75);font-style:italic;margin-bottom:32px;" data-reveal data-delay="2">making machines breathe and live long</p>
+      <div class="hero-actions" data-reveal data-delay="3">
+        <a href="products.html" class="btn btn-primary btn-lg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Explore Products
+        </a>
+        <a href="contact.html" class="btn btn-lg" style="background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.4);">Request a Quote</a>
+      </div>
+      <!-- Stats -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius);overflow:hidden;margin-top:48px;max-width:580px;" data-reveal data-delay="4">
+        <div style="padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.12);">
+          <div style="font-size:1.5rem;font-weight:800;color:#5aaee8;line-height:1;"><span data-count="36" data-suffix="+">36+</span></div>
+          <div style="font-size:0.58rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;">Years</div>
+        </div>
+        <div style="padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.12);">
+          <div style="font-size:1.5rem;font-weight:800;color:#5aaee8;line-height:1;"><span data-count="500" data-suffix="+">500+</span></div>
+          <div style="font-size:0.58rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;">Products</div>
+        </div>
+        <div style="padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.12);">
+          <div style="font-size:1.5rem;font-weight:800;color:#5aaee8;line-height:1;"><span data-count="20000">20K</span></div>
+          <div style="font-size:0.58rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;">Max CMH</div>
+        </div>
+        <div style="padding:18px 14px;text-align:center;">
+          <div style="font-size:1.5rem;font-weight:800;color:#5aaee8;line-height:1;"><span data-count="350">350</span>°C</div>
+          <div style="font-size:0.58rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;">High Temp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+
+<!-- SCROLLING APP STRIP -->
+<div class="app-strip">
+  <div class="app-strip-track">
+    <span class="app-chip"><span class="app-chip-dot"></span>Plastic Extrusion</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>HVAC Systems</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Forced Motor Cooling</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Fume Extraction</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Roof Extractors</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Inline Duct Booster</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Condenser Cooling</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Dust Extraction</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Indian Railways</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Electronic Cooling</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Gas Burners</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Refrigeration</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="app-chip"><span class="app-chip-dot"></span>Plastic Extrusion</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>HVAC Systems</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Forced Motor Cooling</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Fume Extraction</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Roof Extractors</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Inline Duct Booster</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Condenser Cooling</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Dust Extraction</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Indian Railways</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Electronic Cooling</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Gas Burners</span>
+    <span class="app-chip"><span class="app-chip-dot"></span>Refrigeration</span>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar border-bottom">
+  <div class="trust-bar-inner container">
+    <div class="trust-item"><div class="trust-icon">✓</div>ISO 9001:2015 Certified</div>
+    <div class="trust-item"><div class="trust-icon">⚙</div>36+ Years Engineering</div>
+    <div class="trust-item"><div class="trust-icon">⬡</div>OEM Manufacturer</div>
+    <div class="trust-item"><div class="trust-icon">↗</div>Export Ready</div>
+    <div class="trust-item"><div class="trust-icon">✦</div>Railways Approved</div>
+  </div>
+</div>
+
+<!-- APPLICATION VIDEOS GRID -->
+<section class="section bg-grey border-bottom">
+  <div class="container">
+    <div class="eyebrow-line" data-reveal><span class="eyebrow">Where SEM Operates</span></div>
+    <h2 data-reveal data-delay="1" style="margin-bottom:8px;">Built for Every Industrial Environment</h2>
+    <p class="text-muted" style="max-width:520px;margin-bottom:40px;" data-reveal data-delay="2">SEM air moving solutions power critical processes across industries worldwide — from HVAC to heavy manufacturing.</p>
+
+    <div class="video-grid stagger">
+      <!-- Wide card — main video placeholder -->
+      <div class="video-card video-card-wide">
+        <div class="video-card-inner">
+          <video src="assets/videos/plasticextrusion.mp4" muted loop autoplay playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        </div>
+        <div class="video-card-label">
+          <div class="video-card-label-cat">Blower Application</div>
+          <div class="video-card-label-name">Plastic Extrusion Machines</div>
+        </div>
+      </div>
+      <!-- Other video cards -->
+      <div class="video-card">
+        <div class="video-card-inner" style="aspect-ratio:1/1;">
+          <video src="assets/videos/hvac.mp4" muted loop autoplay playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        </div>
+        <div class="video-card-label">
+          <div class="video-card-label-cat">Fan Application</div>
+          <div class="video-card-label-name">HVAC Systems</div>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-card-inner">
+          <video src="assets/videos/motorcooling.mp4" muted loop autoplay playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        </div>
+        <div class="video-card-label">
+          <div class="video-card-label-cat">Axial Fan Application</div>
+          <div class="video-card-label-name">Forced Motor Cooling</div>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-card-inner">
+          <video src="assets/videos/fumeextractor.mp4" muted loop autoplay playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        </div>
+        <div class="video-card-label">
+          <div class="video-card-label-cat">Special Purpose</div>
+          <div class="video-card-label-name">Fume Extractor</div>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-card-inner">
+          <video src="assets/videos/inlineduct.mp4" muted loop autoplay playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        </div>
+        <div class="video-card-label">
+          <div class="video-card-label-cat">Inline Fan Application</div>
+          <div class="video-card-label-name">Inline Duct Booster Fan</div>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-card-inner">
+          <video src="assets/videos/roofextractor.mp4" muted loop autoplay playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        </div>
+        <div class="video-card-label">
+          <div class="video-card-label-cat">Roof Fan Application</div>
+          <div class="video-card-label-name">Roof Extractor Fan</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT PREVIEW -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="eyebrow-line" data-reveal><span class="eyebrow">Product Range</span></div>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:36px;">
+      <div>
+        <h2 data-reveal data-delay="1">500+ Precision-Engineered<br>Air Moving Solutions</h2>
+        <p class="text-muted mt-8" data-reveal data-delay="2" style="max-width:480px;">Click any product to view full technical specifications, dimensional data and model variants.</p>
+      </div>
+      <a href="products.html" class="btn btn-outline" data-reveal>View All Products →</a>
+    </div>
+    <!-- 4 category preview cards -->
+    <div class="stagger" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;">
+      <div class="card" style="padding:28px;cursor:pointer;" onclick="window.location='products.html'">
+        <div class="product-card-cat">Category 01</div>
+        <div class="product-card-name" style="font-size:1rem;margin:8px 0;">Blowers & Centrifugal Fans</div>
+        <p style="font-size:0.8rem;color:var(--text3);line-height:1.65;margin-bottom:16px;">Single Inlet · Double Inlet · Mini · Conventional · Backward Curved · Heavy Duty · Portable</p>
+        <span style="font-size:0.68rem;font-weight:700;color:var(--steel);">14 product families →</span>
+      </div>
+      <div class="card" style="padding:28px;cursor:pointer;" onclick="window.location='products.html'">
+        <div class="product-card-cat">Category 02</div>
+        <div class="product-card-name" style="font-size:1rem;margin:8px 0;">Axial Fans</div>
+        <p style="font-size:0.8rem;color:var(--text3);line-height:1.65;margin-bottom:16px;">Press Fit · Riveted Impeller · With Casing · With Grill · Motor Cooling Units</p>
+        <span style="font-size:0.68rem;font-weight:700;color:var(--steel);">2 product families →</span>
+      </div>
+      <div class="card" style="padding:28px;cursor:pointer;" onclick="window.location='products.html'">
+        <div class="product-card-cat">Category 03</div>
+        <div class="product-card-name" style="font-size:1rem;margin:8px 0;">Special Purpose Fans</div>
+        <p style="font-size:0.8rem;color:var(--text3);line-height:1.65;margin-bottom:16px;">Inline Duct · Cross Flow · Fume Extractors</p>
+        <span style="font-size:0.68rem;font-weight:700;color:var(--steel);">3 product families →</span>
+      </div>
+      <div class="card" style="padding:28px;cursor:pointer;" onclick="window.location='products.html'">
+        <div class="product-card-cat">Category 04</div>
+        <div class="product-card-name" style="font-size:1rem;margin:8px 0;">Motors & Custom</div>
+        <p style="font-size:0.8rem;color:var(--text3);line-height:1.65;margin-bottom:16px;">Induction · Pump Motors · Forced Cooling · Indian Railways · Bespoke</p>
+        <span style="font-size:0.68rem;font-weight:700;color:var(--steel);">4 product families →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<section class="section bg-grey border-top border-bottom">
+  <div class="container">
+    <div class="grid-2" data-reveal>
+      <div>
+        <div class="eyebrow-line"><span class="eyebrow">About SEM</span></div>
+        <h2 style="margin-bottom:16px;">36 Years of Industrial Engineering Excellence</h2>
+        <p class="text-muted" style="line-height:1.8;margin-bottom:20px;">Superior Electric Machines Pvt. Ltd. is a leading manufacturer of air moving solutions — developing, manufacturing and supplying external rotor blowers, axial fans, centrifugal fans, and inline duct fans with single and double inlet configurations for industries in India and abroad.</p>
+        <div class="about-features">
+          <div class="about-feature"><div class="about-feature-bar"></div><div><div class="about-feature-title">Quality & Reliability</div><div class="about-feature-text">ISO 9001:2015 certified with in-house testing and inspection on every product.</div></div></div>
+          <div class="about-feature"><div class="about-feature-bar"></div><div><div class="about-feature-title">Research & Development</div><div class="about-feature-text">Dedicated R&D wing focused on energy efficiency, noise reduction and environmental performance.</div></div></div>
+          <div class="about-feature"><div class="about-feature-bar"></div><div><div class="about-feature-title">Custom Engineering</div><div class="about-feature-text">In-house CAD/CAM design team creating bespoke solutions to individual specifications.</div></div></div>
+        </div>
+        <div class="mt-32"><a href="about.html" class="btn btn-outline">Learn More About SEM</a></div>
+      </div>
+      <div class="img-placeholder" style="min-height:360px;">
+        <!-- Replace: <img src="images/factory.jpg" alt="SEM Manufacturing" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius-lg);"> -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none"><rect x="8" y="24" width="56" height="40" rx="2" stroke="#2A6496" stroke-width="1.5"/><path d="M20 24V18a4 4 0 014-4h24a4 4 0 014 4v6" stroke="#2A6496" stroke-width="1.5"/></svg>
+        <span>Factory / Manufacturing Photo<br>Replace with real image</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-inner" data-reveal>
+      <div>
+        <h2>Need a custom air moving solution?</h2>
+        <p>0.25HP to 12.5HP+ · 100–20,000 CMH · Up to 350°C high-temp capability</p>
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn-white btn-lg">Request Engineering Consultation</a>
+        <a href="downloads.html" class="btn btn-outline-white btn-lg">Download Catalogue</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/sem-logo.png" alt="SEM" style="height:28px;margin-bottom:8px;" onerror="this.style.display='none'">
+        <p>Superior Electric Machines Pvt. Ltd. — making machines breathe and live long. ISO 9001:2015 certified.</p>
+        <div class="mt-16"><span class="iso-chip">ISO 9001:2015</span></div>
+      </div>
+      <div>
+        <div class="footer-col-title">Products</div>
+        <ul class="footer-links">
+          <li><a href="products.html">Centrifugal Fans</a></li>
+          <li><a href="products.html">Axial Fans</a></li>
+          <li><a href="products.html">Inline Duct Fans</a></li>
+          <li><a href="products.html">Motors</a></li>
+          <li><a href="products.html">Custom Solutions</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="applications.html">Applications</a></li>
+          <li><a href="distributors.html">Distributors</a></li>
+          <li><a href="downloads.html">Downloads</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links" style="gap:12px;">
+          <li style="font-size:0.82rem;color:var(--text3);">+91 8028361383</li>
+          <li><a href="mailto:info@superiorelectric.in">info@superiorelectric.in</a></li>
+          <li><a href="mailto:marketing@superiorelectric.in">marketing@superiorelectric.in</a></li>
+          <li><a href="http://www.superiorelectric.in" target="_blank">www.superiorelectric.in</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Superior Electric Machines Pvt. Ltd. All rights reserved.</span>
+      <span>SEM® Air Moving Solutions</span>
+    </div>
+  </div>
+</footer>
+
+<!-- SPEC MODAL -->
+<div class="modal-backdrop" id="modal-backdrop"></div>
+<div class="modal" id="spec-modal" role="dialog" aria-modal="true" aria-label="Product Specification">
+  <div class="modal-header">
+    <div class="modal-cat"></div>
+    <div class="modal-title"></div>
+    <div class="modal-models"></div>
+    <button class="modal-close modal-close-btn" aria-label="Close">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="modal-section-label">Description</div>
+    <p class="modal-desc"></p>
+    <div class="modal-section-label">Application Areas</div>
+    <div class="modal-app-tags"></div>
+    <div class="modal-section-label">Technical Specification</div>
+    <div class="spec-wrap"></div>
+    <div class="modal-note" style="display:none;"></div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" id="enquire-btn">📞 Enquire Now</button>
+    <a href="contact.html" class="btn btn-ghost">Full Contact Page</a>
+    <button class="btn btn-ghost modal-close-btn">Close</button>
+  </div>
+</div>
+
+<!-- ENQUIRE MODAL -->
+<div class="enquire-overlay" id="enquire-overlay">
+  <div class="enquire-bg"></div>
+  <div class="enquire-box">
+    <div class="enquire-top">
+      <div class="enquire-label">Enquire About</div>
+      <div class="enquire-product-name"></div>
+      <button class="enquire-close" id="enquire-close-btn">✕</button>
+    </div>
+    <div class="enquire-body">
+      <div class="enquire-item">
+        <div class="enquire-icon">📞</div>
+        <div>
+          <div class="enquire-item-label">Phone</div>
+          <div class="enquire-item-value">
+            <a href="tel:+918028361383">+91 8028361383</a><br>
+            <a href="tel:+918028361742">+91 8028361742</a><br>
+            <a href="tel:+918041171243">+91 8041171243</a>
+          </div>
+        </div>
+      </div>
+      <div class="enquire-item">
+        <div class="enquire-icon">💬</div>
+        <div>
+          <div class="enquire-item-label">WhatsApp</div>
+          <div class="enquire-item-value"><a href="https://wa.me/919448283843" target="_blank">+91 9448283843</a></div>
+        </div>
+      </div>
+      <div class="enquire-item">
+        <div class="enquire-icon">✉</div>
+        <div>
+          <div class="enquire-item-label">Email</div>
+          <div class="enquire-item-value"><a href="mailto:info@superiorelectric.in">info@superiorelectric.in</a><br><a href="mailto:marketing@superiorelectric.in">marketing@superiorelectric.in</a></div>
+        </div>
+      </div>
+      <div class="enquire-note">Please mention the product name and your technical requirements — airflow (CMH), static pressure (mm-wc), voltage, phase.</div>
+    </div>
+  </div>
+</div>
+
+<script src="js/products.js"></script>
+<script src="js/main.js"></script>
+<script>
+// Hide placeholder when video loads, show it if video errors
+var hv = document.getElementById('hero-video');
+var hp = document.getElementById('hero-placeholder');
+if (hv) {
+  hv.addEventListener('canplay', function() { if (hp) hp.style.display = 'none'; });
+  hv.addEventListener('error', function() { if (hp) hp.style.display = 'flex'; });
+}
+</script>
+<script>
+// Show cart badge count from localStorage
+(function() {
+  try {
+    var cart = JSON.parse(localStorage.getItem('sem-cart') || '[]');
+    var total = cart.reduce(function(s,i){ return s + i.qty; }, 0);
+    var badge = document.getElementById('cart-badge');
+    if (badge && total > 0) { badge.textContent = total; badge.classList.add('show'); }
+  } catch(e) {}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Applications | SEM® Air Moving Solutions</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .nav-cart-btn { display:flex; align-items:center; gap:7px; padding:8px 16px; background:#fff; border:1.5px solid #dde1e7; border-radius:100px; font-size:0.78rem; font-weight:600; color:#2d3748; cursor:pointer; transition:all 0.2s; text-decoration:none; }
+    .nav-cart-btn:hover { border-color:#2A6496; color:#2A6496; }
+    .cart-badge { background:#2A6496; color:#fff; font-size:0.6rem; font-weight:700; min-width:18px; height:18px; border-radius:100px; display:none; align-items:center; justify-content:center; padding:0 5px; }
+    .cart-badge.show { display:flex; }
+    .app-car { position:relative; width:100%; height:100%; overflow:hidden; }
+    .app-car-track { display:flex; height:100%; transition:transform .4s cubic-bezier(.4,0,.2,1); }
+    .app-car-slide { min-width:100%; height:100%; flex-shrink:0; }
+    .app-car-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+    .app-car-btn { position:absolute; top:50%; transform:translateY(-50%); width:26px; height:26px; background:rgba(255,255,255,.85); border:1px solid #dde1e7; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.8rem; color:#2A6496; cursor:pointer; z-index:2; box-shadow:0 1px 4px rgba(0,0,0,.12); transition:all .2s; }
+    .app-car-btn:hover { background:#2A6496; color:#fff; }
+    .app-car-prev { left:6px; }
+    .app-car-next { right:6px; }
+    .app-car-dots { position:absolute; bottom:6px; left:50%; transform:translateX(-50%); display:flex; gap:4px; z-index:2; }
+    .app-car-dot { width:5px; height:5px; border-radius:50%; background:rgba(42,100,150,.3); cursor:pointer; transition:all .2s; }
+    .app-car-dot.active { background:#2A6496; width:12px; border-radius:3px; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="index.html" class="nav-logo"><img src="images/sem-logo.png" alt="SEM" class="nav-logo-img" onerror="this.style.display='none'"><div class="nav-logo-text"><span class="nav-logo-name">Superior Electric Machines</span><span class="nav-logo-sub">Air Moving Solutions</span></div></a>
+  <div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="products.html">Products</a><a href="applications.html" class="active">Applications</a><a href="downloads.html">Downloads</a><a href="distributors.html">Distributors</a><a href="contact.html">Contact</a></div>
+  <div style="display:flex;align-items:center;gap:10px;"><a href="products.html" class="nav-cart-btn" id="nav-cart-btn">🛒 Cart <span class="cart-badge" id="cart-badge">0</span></a><a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a></div>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="nav-mobile"><a href="index.html">Home</a><a href="about.html">About</a><a href="products.html">Products</a><a href="applications.html" class="active">Applications</a><a href="downloads.html">Downloads</a><a href="distributors.html">Distributors</a><a href="contact.html">Contact</a></div>
+
+<main class="page-body">
+<div class="page-banner bg-white">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Applications</span></div>
+    <div class="eyebrow" data-reveal>Where SEM Operates</div>
+    <h1 data-reveal data-delay="1">Powering Industry<br>Across Every Sector</h1>
+    <p data-reveal data-delay="2">SEM fans and blowers are trusted in the most demanding industrial, commercial and specialty environments worldwide.</p>
+  </div>
+</div>
+
+<!-- FAN APPLICATIONS -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="eyebrow-line" data-reveal><span class="eyebrow">Fan Applications</span></div>
+    <h2 style="margin-bottom:36px;" data-reveal data-delay="1">Where Our Fans Are Used</h2>
+
+    <div class="app-row" data-reveal>
+      <div class="app-row-img">
+        <img src="images/refrigeration.jpg" alt="Refrigeration & Air Conditioning">
+      </div>
+      <div>
+        <div class="app-row-cat">Fan Application</div>
+        <div class="app-row-title">Refrigeration & Air Conditioning</div>
+        <div class="app-row-desc">SEM axial fans and backward curved radial fans are widely used in split AC units, condensers, evaporators and cold storage facilities — delivering reliable, low-noise airflow for temperature control systems.</div>
+        <div class="app-row-tags"><span class="app-row-tag">Split AC Indoor/Outdoor</span><span class="app-row-tag">Condenser Fans</span><span class="app-row-tag">Evaporator Fans</span><span class="app-row-tag">Cold Storage</span></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+      </div>
+    </div>
+
+    <div class="app-row" data-reveal>
+      <div class="app-row-img">
+        <img src="images/exhaust.jpg" alt="Dust Extraction & Exhaust Ventilation">
+      </div>
+      <div>
+        <div class="app-row-cat">Fan Application</div>
+        <div class="app-row-title">Dust Extraction & Exhaust Ventilation</div>
+        <div class="app-row-desc">Centrifugal fans and roof extractors from SEM provide effective dust extraction, industrial exhaust and smoke removal solutions for manufacturing facilities and commercial buildings.</div>
+        <div class="app-row-tags"><span class="app-row-tag">Dust Extraction Equipment</span><span class="app-row-tag">Roof Extractors</span><span class="app-row-tag">Smoke Extraction</span><span class="app-row-tag">Kitchen Exhaust</span></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+      </div>
+    </div>
+
+    <div class="app-row" data-reveal>
+      <div class="app-row-img">
+        <svg width="52" height="52" viewBox="0 0 64 64" fill="none"><rect x="8" y="8" width="48" height="48" rx="4" stroke="#2A6496" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="32" cy="32" r="14" stroke="#2A6496" stroke-width="1.5"/><circle cx="32" cy="32" r="5" fill="#2A6496" opacity="0.3"/></svg>
+        <span class="app-row-img-label">Add image here</span>
+      </div>
+      <div>
+        <div class="app-row-cat">Fan Application</div>
+        <div class="app-row-title">Thyristor & Forced Motor Cooling</div>
+        <div class="app-row-desc">Precision external rotor fans provide forced cooling for thyristors, variable frequency drives, control panels and industrial motors — maintaining optimal operating temperatures for electronic equipment.</div>
+        <div class="app-row-tags"><span class="app-row-tag">Thyristor Cooling</span><span class="app-row-tag">Forced Motor Cooling</span><span class="app-row-tag">VFD Cooling</span><span class="app-row-tag">Panel Cooling</span></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+      </div>
+    </div>
+
+    <div class="app-row" data-reveal>
+      <div class="app-row-img">
+        <img src="images/power.png" alt="Power & Electronic Equipment">
+      </div>
+      <div>
+        <div class="app-row-cat">Fan Application</div>
+        <div class="app-row-title">Power & Electronic Equipment</div>
+        <div class="app-row-desc">SEM fans are critical components in welding transformers, rectifiers, electronic equipment, control panels and power transformer cooling — ensuring reliable operation of high-value electrical systems.</div>
+        <div class="app-row-tags"><span class="app-row-tag">Welding Transformers</span><span class="app-row-tag">Electronic Equipment</span><span class="app-row-tag">Control Panels</span><span class="app-row-tag">Power Transformer</span></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+      </div>
+    </div>
+
+    <div class="app-row" data-reveal>
+      <div class="app-row-img" style="padding:0;">
+        <div class="app-car" id="railcar">
+          <div class="app-car-track" id="railcar-track">
+            <div class="app-car-slide"><img src="images/railway.avif" alt="Indian Railways 1"></div>
+            <div class="app-car-slide"><img src="images/railway2.webp" alt="Indian Railways 2"></div>
+          </div>
+          <div class="app-car-btn app-car-prev" onclick="railCarGo(-1)">‹</div>
+          <div class="app-car-btn app-car-next" onclick="railCarGo(1)">›</div>
+          <div class="app-car-dots">
+            <div class="app-car-dot active" id="raildot0" onclick="railCarSet(0)"></div>
+            <div class="app-car-dot" id="raildot1" onclick="railCarSet(1)"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="app-row-cat">Fan Application</div>
+        <div class="app-row-title">Indian Railways</div>
+        <div class="app-row-desc">SEM manufactures customized exhaust fans and blower units specifically certified for Indian Railways applications — including specialized voltage variants (190V, 110V) and railway-grade construction standards.</div>
+        <div class="app-row-tags"><span class="app-row-tag">Exhaust Fan 190V</span><span class="app-row-tag">Double Inlet Blower 415V</span><span class="app-row-tag">Double Inlet Blower 110V</span><span class="app-row-tag">Railway Certified</span></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOWER APPLICATIONS -->
+<section class="section bg-grey border-top">
+  <div class="container">
+    <div class="eyebrow-line" data-reveal><span class="eyebrow">Blower Applications</span></div>
+    <h2 style="margin-bottom:36px;" data-reveal data-delay="1">Where Our Blowers Are Used</h2>
+
+    <div class="app-row" style="background:var(--white);" data-reveal>
+      <div class="app-row-img">
+        <img src="images/plasticextrusion.webp" alt="Plastic Extrusion">
+      </div>
+      <div>
+        <div class="app-row-cat">Blower Application</div>
+        <div class="app-row-title">Plastic Extrusion</div>
+        <div class="app-row-desc">Heavy-duty centrifugal blowers from SEM provide the precise, consistent airflow required for plastic extrusion processes — supporting cooling, air-knife and conveying systems in polymer manufacturing.</div>
+        <div class="app-row-tags"><span class="app-row-tag">Plastic Extrusion</span><span class="app-row-tag">Forced Cooling</span><span class="app-row-tag">Air-Knife</span><span class="app-row-tag">Polymer Manufacturing</span></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+      </div>
+    </div>
+
+    <div class="app-row" style="background:var(--white);" data-reveal>
+      <div class="app-row-img">
+        <img src="images/heat.png" alt="Gas Burners & Air to Air Heat Exchangers">
+      </div>
+      <div>
+        <div class="app-row-cat">Blower Application</div>
+        <div class="app-row-title">Gas Burners & Air to Air Heat Exchangers</div>
+        <div class="app-row-desc">SEM blowers supply combustion air for gas burners and provide forced airflow for air-to-air heat exchangers and heat extractors — supporting industrial heating and thermal management systems.</div>
+        <div class="app-row-tags"><span class="app-row-tag">Gas Burners</span><span class="app-row-tag">Air to Air Heat Exchangers</span><span class="app-row-tag">Heat Extractors</span></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+      </div>
+    </div>
+
+    <div class="app-row" style="background:var(--white);" data-reveal>
+      <div class="app-row-img">
+        <img src="images/cleanroom.jpg" alt="Clean Room & Pharmaceutical">
+      </div>
+      <div>
+        <div class="app-row-cat">Blower Application</div>
+        <div class="app-row-title">Clean Room & Pharmaceutical</div>
+        <div class="app-row-desc">Precision backward curved radial fans and inline duct fans provide clean, controlled airflow for pharmaceutical manufacturing, clean rooms, clean air cabinets and air purification systems.</div>
+        <div class="app-row-tags"><span class="app-row-tag">Clean Room</span><span class="app-row-tag">Pharmaceutical</span><span class="app-row-tag">Clean Air Equipment</span><span class="app-row-tag">Air Purifying</span></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+      </div>
+    </div>
+
+    <div class="app-row" style="background:var(--white);" data-reveal>
+      <div class="app-row-img">
+        <img src="images/data.webp" alt="Reprographic Printing & Data Processing">
+      </div>
+      <div>
+        <div class="app-row-cat">Blower Application</div>
+        <div class="app-row-title">Reprographic Printing & Data Processing</div>
+        <div class="app-row-desc">Compact, precise blowers provide cooling and airflow for reprographic printing machines, xenon lamps, data processing equipment and central ventilating appliances in commercial and industrial settings.</div>
+        <div class="app-row-tags"><span class="app-row-tag">Reprographic Printing</span><span class="app-row-tag">Xenon Lamps</span><span class="app-row-tag">Data Processing</span><span class="app-row-tag">Central Ventilation</span></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container"><div class="cta-inner" data-reveal>
+    <div><h2>Have a specific application in mind?</h2><p>Our team specialises in custom solutions for unique industrial requirements.</p></div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;">
+      <a href="contact.html" class="btn btn-white btn-lg">Discuss Your Application</a>
+      <a href="products.html" class="btn btn-outline-white btn-lg">Browse Products</a>
+    </div>
+  </div></div>
+</section>
+</main>
+
+<footer class="footer"><div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand"><img src="images/sem-logo.png" alt="SEM" style="height:28px;margin-bottom:8px;" onerror="this.style.display='none'"><p>Superior Electric Machines Pvt. Ltd. — making machines breathe and live long.</p><div class="mt-16"><span class="iso-chip">ISO 9001:2015</span></div></div>
+    <div><div class="footer-col-title">Products</div><ul class="footer-links"><li><a href="products.html">Centrifugal Fans</a></li><li><a href="products.html">Axial Fans</a></li><li><a href="products.html">Motors</a></li></ul></div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="applications.html">Applications</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="footer-col-title">Contact</div><ul class="footer-links" style="gap:12px;"><li style="font-size:0.82rem;color:var(--text3);">+91 8028361383</li><li><a href="mailto:info@superiorelectric.in">info@superiorelectric.in</a></li><li><a href="mailto:marketing@superiorelectric.in">marketing@superiorelectric.in</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Superior Electric Machines Pvt. Ltd. All rights reserved.</span><span>SEM® Air Moving Solutions</span></div>
+</div></footer>
+<script src="js/main.js"></script>
+<script>
+(function() {
+  var idx = 0, total = 2;
+  function update() {
+    document.getElementById('railcar-track').style.transform = 'translateX(-' + (idx * 100) + '%)';
+    for (var i = 0; i < total; i++) {
+      var d = document.getElementById('raildot' + i);
+      if (d) d.classList.toggle('active', i === idx);
+    }
+  }
+  window.railCarGo = function(dir) { idx = ((idx + dir) % total + total) % total; update(); };
+  window.railCarSet = function(n) { idx = n; update(); };
+  setInterval(function() { railCarGo(1); }, 5000);
+})();
+</script>
+<script>
+// Show cart badge count from localStorage
+(function() {
+  try {
+    var cart = JSON.parse(localStorage.getItem('sem-cart') || '[]');
+    var total = cart.reduce(function(s,i){ return s + i.qty; }, 0);
+    var badge = document.getElementById('cart-badge');
+    if (badge && total > 0) { badge.textContent = total; badge.classList.add('show'); }
+  } catch(e) {}
+})();
+</script>
+</body>
+</html>

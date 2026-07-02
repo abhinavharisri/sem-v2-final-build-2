@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Downloads | SEM® Air Moving Solutions</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .nav-cart-btn { display:flex; align-items:center; gap:7px; padding:8px 16px; background:#fff; border:1.5px solid #dde1e7; border-radius:100px; font-size:0.78rem; font-weight:600; color:#2d3748; cursor:pointer; transition:all 0.2s; text-decoration:none; }
+    .nav-cart-btn:hover { border-color:#2A6496; color:#2A6496; }
+    .cart-badge { background:#2A6496; color:#fff; font-size:0.6rem; font-weight:700; min-width:18px; height:18px; border-radius:100px; display:none; align-items:center; justify-content:center; padding:0 5px; }
+    .cart-badge.show { display:flex; }
+  </style>
+  <style>
+    .dl-card { display:flex; align-items:center; gap:14px; padding:18px 20px; background:#fff; border:1px solid #dde1e7; border-radius:10px; text-decoration:none; color:inherit; transition:all .2s; }
+    .dl-card:hover { border-color:#2A6496; box-shadow:0 4px 16px rgba(42,100,150,.1); transform:translateY(-2px); }
+    .dl-icon { font-size:1.6rem; flex-shrink:0; }
+    .dl-name { font-size:.88rem; font-weight:700; color:#1a1c1e; margin-bottom:3px; }
+    .dl-meta { font-size:.68rem; color:#718096; font-weight:500; }
+  </style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="index.html" class="nav-logo"><img src="images/sem-logo.png" alt="SEM" class="nav-logo-img" onerror="this.style.display='none'"><div class="nav-logo-text"><span class="nav-logo-name">Superior Electric Machines</span><span class="nav-logo-sub">Air Moving Solutions</span></div></a>
+  <div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="products.html">Products</a><a href="applications.html">Applications</a><a href="downloads.html" class="active">Downloads</a><a href="distributors.html">Distributors</a><a href="contact.html">Contact</a></div>
+  <div style="display:flex;align-items:center;gap:10px;"><a href="products.html" class="nav-cart-btn" id="nav-cart-btn">🛒 Cart <span class="cart-badge" id="cart-badge">0</span></a><a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a></div>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="nav-mobile"><a href="index.html">Home</a><a href="about.html">About</a><a href="products.html">Products</a><a href="applications.html">Applications</a><a href="downloads.html" class="active">Downloads</a><a href="distributors.html">Distributors</a><a href="contact.html">Contact</a></div>
+
+<main class="page-body">
+<div class="page-banner bg-white">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Downloads</span></div>
+    <div class="eyebrow" data-reveal>Technical Documents</div>
+    <h1 data-reveal data-delay="1">Downloads &<br>Product Catalogues</h1>
+    <p data-reveal data-delay="2">Download SEM product catalogues and technical documentation for your reference.</p>
+  </div>
+</div>
+
+<section class="section bg-white">
+  <div class="container">
+    <div class="stagger" style="display:flex;flex-wrap:wrap;gap:16px;">
+      <a href="assets/downloads/SEM CATALOGUE FINAL NEW 2026.pdf" target="_blank" class="dl-card" style="flex:1;min-width:260px;">
+        <div class="dl-icon">📋</div>
+        <div>
+          <div class="dl-name">SEM Product Catalogue 2026</div>
+          <div class="dl-meta">PDF · Full Catalogue · All Products & Specifications</div>
+        </div>
+      </a>
+      <a href="assets/downloads/New Development Product.pdf" target="_blank" class="dl-card" style="flex:1;min-width:260px;">
+        <div class="dl-icon">📄</div>
+        <div>
+          <div class="dl-name">New Development Product</div>
+          <div class="dl-meta">PDF · New Development Product</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer"><div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand"><img src="images/sem-logo.png" alt="SEM" style="height:28px;margin-bottom:8px;" onerror="this.style.display='none'"><p>Superior Electric Machines Pvt. Ltd. — making machines breathe and live long.</p><div class="mt-16"><span class="iso-chip">ISO 9001:2015</span></div></div>
+    <div><div class="footer-col-title">Products</div><ul class="footer-links"><li><a href="products.html">Centrifugal Fans</a></li><li><a href="products.html">Axial Fans</a></li><li><a href="products.html">Motors</a></li></ul></div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="applications.html">Applications</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="footer-col-title">Contact</div><ul class="footer-links" style="gap:12px;"><li style="font-size:0.82rem;color:var(--text3);">+91 8028361383</li><li><a href="mailto:info@superiorelectric.in">info@superiorelectric.in</a></li><li><a href="mailto:marketing@superiorelectric.in">marketing@superiorelectric.in</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Superior Electric Machines Pvt. Ltd. All rights reserved.</span><span>SEM® Air Moving Solutions</span></div>
+</div></footer>
+<script src="js/main.js"></script>
+<script>
+// Show cart badge count from localStorage
+(function() {
+  try {
+    var cart = JSON.parse(localStorage.getItem('sem-cart') || '[]');
+    var total = cart.reduce(function(s,i){ return s + i.qty; }, 0);
+    var badge = document.getElementById('cart-badge');
+    if (badge && total > 0) { badge.textContent = total; badge.classList.add('show'); }
+  } catch(e) {}
+})();
+</script>
+</body>
+</html>
