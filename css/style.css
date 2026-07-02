@@ -902,14 +902,18 @@ p { line-height: 1.75; }
   grid-auto-flow: column;
   grid-auto-columns: minmax(270px, 31%);
   gap: 18px;
-  overflow-x: hidden;
+  overflow-x: auto;
   scroll-snap-type: none;
   scroll-behavior: auto;
-  padding: 2px 2px 6px;
-  scrollbar-width: none;
+  padding: 2px 2px 12px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--steel-bg2) transparent;
   will-change: scroll-position;
 }
-.popular-carousel-track::-webkit-scrollbar { display: none; }
+.popular-carousel-track::-webkit-scrollbar { height: 7px; }
+.popular-carousel-track::-webkit-scrollbar-track { background: transparent; }
+.popular-carousel-track::-webkit-scrollbar-thumb { background: var(--steel-bg2); border-radius: 100px; }
+.popular-carousel-track::-webkit-scrollbar-thumb:hover { background: var(--steel-l); }
 .popular-card {
   scroll-snap-align: none;
   min-height: 100%;
@@ -2087,6 +2091,35 @@ p { line-height: 1.75; }
   .stats-row { grid-template-columns: 1fr 1fr; }
   .hero-stats { grid-template-columns: repeat(2, 1fr); }
   .contact-grid { gap: 28px; }
+}
+
+@media (max-width: 768px) {
+  .mobile-performance.page-fade { animation: none; }
+  .mobile-performance .video-card,
+  .mobile-performance .product-card,
+  .mobile-performance .usage-result-card,
+  .mobile-performance .card {
+    transition: border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
+  }
+  .mobile-performance .video-card:hover,
+  .mobile-performance .product-card:hover,
+  .mobile-performance .usage-result-card:hover,
+  .mobile-performance .card:hover {
+    transform: none;
+    box-shadow: var(--shadow);
+  }
+  .mobile-performance .popular-carousel-track {
+    scroll-snap-type: x proximity;
+    will-change: auto;
+  }
+  .mobile-performance .app-strip-track {
+    animation-duration: 44s;
+  }
+  .mobile-performance [data-reveal],
+  .mobile-performance .stagger > * {
+    transition-duration: 0.28s;
+    transform: translateY(10px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

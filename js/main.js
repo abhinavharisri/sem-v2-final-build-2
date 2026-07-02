@@ -680,17 +680,19 @@ if (document.getElementById('product-grid')) {
   track.innerHTML = products.map(product => popularCard(product, false)).join('') +
     products.map(product => popularCard(product, true)).join('');
 
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let rafId = null;
   let lastTs = 0;
-  let paused = reducedMotion;
+  let paused = reducedMotion || isMobile;
   const speed = 34;
 
-  if (!reducedMotion) rafId = window.requestAnimationFrame(tick);
+  if (!reducedMotion && !isMobile) rafId = window.requestAnimationFrame(tick);
   track.addEventListener('mouseenter', pause);
   track.addEventListener('mouseleave', resume);
   track.addEventListener('focusin', pause);
   track.addEventListener('focusout', resume);
+  track.addEventListener('scroll', normalizeLoop, { passive: true });
 
   function tick(ts) {
     if (!lastTs) lastTs = ts;
@@ -705,12 +707,17 @@ if (document.getElementById('product-grid')) {
     rafId = window.requestAnimationFrame(tick);
   }
 
+  function normalizeLoop() {
+    const loopStart = track.children[products.length] ? track.children[products.length].offsetLeft : track.scrollWidth / 2;
+    if (track.scrollLeft >= loopStart) track.scrollLeft -= loopStart;
+  }
+
   function pause() {
     paused = true;
   }
 
   function resume() {
-    if (reducedMotion) return;
+    if (reducedMotion || isMobile) return;
     paused = false;
     lastTs = 0;
     if (!rafId) rafId = window.requestAnimationFrame(tick);
@@ -737,6 +744,44 @@ if (document.getElementById('product-grid')) {
   function escHtml(value) {
     return String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   }
+})();
+
+// ── MOBILE PERFORMANCE MODE ───────────────────────────────────
+(function initMobilePerformanceMode() {
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  if (!isMobile) return;
+
+  document.body.classList.add('mobile-performance');
+
+  const heroVideo = document.getElementById('hero-video');
+  if (heroVideo) {
+    heroVideo.preload = 'metadata';
+    const heroObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) heroVideo.play().catch(() => {});
+        else heroVideo.pause();
+      });
+    }, { threshold: 0.2 });
+    heroObserver.observe(heroVideo);
+  }
+
+  const appVideos = [...document.querySelectorAll('.video-grid video')];
+  appVideos.forEach(video => {
+    video.removeAttribute('autoplay');
+    video.preload = 'metadata';
+    video.pause();
+  });
+
+  if (!appVideos.length) return;
+  const videoObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (entry.isIntersecting) video.play().catch(() => {});
+      else video.pause();
+    });
+  }, { threshold: 0.35, rootMargin: '80px 0px' });
+
+  appVideos.forEach(video => videoObserver.observe(video));
 })();
 
 // ── USAGE / APPLICATION SEARCH (index.html) ───────────────────
