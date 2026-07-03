@@ -10,17 +10,6 @@
     .nav-cart-btn:hover { border-color:#2A6496; color:#2A6496; }
     .cart-badge { background:#2A6496; color:#fff; font-size:0.6rem; font-weight:700; min-width:18px; height:18px; border-radius:100px; display:none; align-items:center; justify-content:center; padding:0 5px; }
     .cart-badge.show { display:flex; }
-    .app-car { position:relative; width:100%; height:100%; overflow:hidden; }
-    .app-car-track { display:flex; height:100%; transition:transform .4s cubic-bezier(.4,0,.2,1); }
-    .app-car-slide { min-width:100%; height:100%; flex-shrink:0; }
-    .app-car-slide img { width:100%; height:100%; object-fit:cover; display:block; }
-    .app-car-btn { position:absolute; top:50%; transform:translateY(-50%); width:26px; height:26px; background:rgba(255,255,255,.85); border:1px solid #dde1e7; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.8rem; color:#2A6496; cursor:pointer; z-index:2; box-shadow:0 1px 4px rgba(0,0,0,.12); transition:all .2s; }
-    .app-car-btn:hover { background:#2A6496; color:#fff; }
-    .app-car-prev { left:6px; }
-    .app-car-next { right:6px; }
-    .app-car-dots { position:absolute; bottom:6px; left:50%; transform:translateX(-50%); display:flex; gap:4px; z-index:2; }
-    .app-car-dot { width:5px; height:5px; border-radius:50%; background:rgba(42,100,150,.3); cursor:pointer; transition:all .2s; }
-    .app-car-dot.active { background:#2A6496; width:12px; border-radius:3px; }
   </style>
 </head>
 <body>
@@ -76,14 +65,13 @@
 
     <div class="app-row" data-reveal>
       <div class="app-row-img">
-        <svg width="52" height="52" viewBox="0 0 64 64" fill="none"><rect x="8" y="8" width="48" height="48" rx="4" stroke="#2A6496" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="32" cy="32" r="14" stroke="#2A6496" stroke-width="1.5"/><circle cx="32" cy="32" r="5" fill="#2A6496" opacity="0.3"/></svg>
-        <span class="app-row-img-label">Add image here</span>
+        <img src="images/granite.webp" alt="Granite Polishing Machine">
       </div>
       <div>
         <div class="app-row-cat">Fan Application</div>
-        <div class="app-row-title">Thyristor & Forced Motor Cooling</div>
-        <div class="app-row-desc">Precision external rotor fans provide forced cooling for thyristors, variable frequency drives, control panels and industrial motors — maintaining optimal operating temperatures for electronic equipment.</div>
-        <div class="app-row-tags"><span class="app-row-tag">Thyristor Cooling</span><span class="app-row-tag">Forced Motor Cooling</span><span class="app-row-tag">VFD Cooling</span><span class="app-row-tag">Panel Cooling</span></div>
+        <div class="app-row-title">Granite Polishing Machine</div>
+        <div class="app-row-desc">SEM fans and blowers support granite polishing machines by providing steady cooling airflow for motors, control panels and polishing assemblies — helping manage heat, remove fine dust and maintain reliable operation during continuous stone-processing work.</div>
+        <div class="app-row-tags"><span class="app-row-tag">Granite Polishing</span><span class="app-row-tag">Machine Cooling</span><span class="app-row-tag">Dust Removal</span><span class="app-row-tag">Stone Processing</span></div>
         <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
       </div>
     </div>
@@ -102,19 +90,8 @@
     </div>
 
     <div class="app-row" data-reveal>
-      <div class="app-row-img" style="padding:0;">
-        <div class="app-car" id="railcar">
-          <div class="app-car-track" id="railcar-track">
-            <div class="app-car-slide"><img src="images/railway.avif" alt="Indian Railways 1"></div>
-            <div class="app-car-slide"><img src="images/railway2.webp" alt="Indian Railways 2"></div>
-          </div>
-          <div class="app-car-btn app-car-prev" onclick="railCarGo(-1)">‹</div>
-          <div class="app-car-btn app-car-next" onclick="railCarGo(1)">›</div>
-          <div class="app-car-dots">
-            <div class="app-car-dot active" id="raildot0" onclick="railCarSet(0)"></div>
-            <div class="app-car-dot" id="raildot1" onclick="railCarSet(1)"></div>
-          </div>
-        </div>
+      <div class="app-row-img">
+        <img src="images/railway.avif" alt="Indian Railways application">
       </div>
       <div>
         <div class="app-row-cat">Fan Application</div>
@@ -208,21 +185,6 @@
   <div class="footer-bottom"><span>© 2025 Superior Electric Machines Pvt. Ltd. All rights reserved.</span><span>SEM® Air Moving Solutions</span></div>
 </div></footer>
 <script src="js/main.js"></script>
-<script>
-(function() {
-  var idx = 0, total = 2;
-  function update() {
-    document.getElementById('railcar-track').style.transform = 'translateX(-' + (idx * 100) + '%)';
-    for (var i = 0; i < total; i++) {
-      var d = document.getElementById('raildot' + i);
-      if (d) d.classList.toggle('active', i === idx);
-    }
-  }
-  window.railCarGo = function(dir) { idx = ((idx + dir) % total + total) % total; update(); };
-  window.railCarSet = function(n) { idx = n; update(); };
-  setInterval(function() { railCarGo(1); }, 5000);
-})();
-</script>
 <script>
 // Show cart badge count from localStorage
 (function() {
