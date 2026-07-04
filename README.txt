@@ -39,7 +39,7 @@ HOW TO ADD REAL PHOTOS
 
 CONTACT DETAILS (already filled in from your contact.html)
 ------------------------------------------------------------
-Phone: +91 8028361383, +91 8028361742, +91 8041171243
+Phone: +91 8028361383, +91 8028361742, +91 9448283841
 Email: info@superiorelectric.in
 Address: B-214, 5th Main Rd, Peenya Industrial Area Phase IV, Bengaluru 560058
 Map: Google Maps embed already included on contact.html
