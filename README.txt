@@ -1,54 +1,82 @@
-SEM® Website — v2
-=================
-Open index.html directly in any browser — no server needed.
+Superior Electric Machines Website
+==================================
 
-FOLDER STRUCTURE
+Official static website for Superior Electric Machines Pvt. Ltd. (SEM), built
+for product discovery, industrial applications, catalogue downloads, distributor
+information, and sales enquiries.
+
+Live Site
+---------
+https://www.superiorelectric.in/
+
+Local Preview
+-------------
+This site uses clean URLs such as /products/ and /applications/. For local
+preview, run it through a small web server instead of opening index.html
+directly.
+
+From the project folder:
+
+python3 -m http.server 8000
+
+Then open:
+
+http://localhost:8000/
+
+Main Pages
+----------
+index.html             Homepage
+about/index.html       About SEM
+products/index.html    Product catalogue
+applications/index.html
+downloads/index.html
+distributors/index.html
+contact/index.html
+
+The older .html pages are kept as fallbacks for compatibility.
+
+Project Structure
+-----------------
+css/style.css          Site styling
+js/main.js             Navigation, modals, filters, animations, interactions
+js/products.js         Product data and specifications
+images/                Logo, product photos, application images
+assets/videos/         Homepage and application videos
+assets/downloads/      PDF catalogues and downloads
+
+Updating Content
 ----------------
-index.html          — Homepage
-about.html          — About SEM
-products.html       — Full product catalog (all products from catalog)
-applications.html   — Fan & Blower applications
-downloads.html      — Catalogue downloads
-distributors.html   — Authorised distributor network
-contact.html        — Contact form + map
+Products:
+Edit js/products.js to update product names, specifications, images, categories,
+and application tags.
 
-css/style.css       — All styles
-js/main.js          — All interactions (nav, modal, animations, filter)
-js/products.js      — All product data (20 product families, full spec tables)
-images/             — Put logo, product images, factory photos here
-assets/videos/      — Put application videos here (mp4)
-assets/downloads/   — Put PDF catalogues here
+Videos:
+Add MP4 files to assets/videos/ and reference them from index.html.
 
-HOW TO ADD VIDEOS (Homepage hero + application grid)
-------------------------------------------------------
-1. Add .mp4 files to assets/videos/
-2. In index.html, uncomment the <video> tags and set src=""
-3. The reel cycles automatically every 6 seconds
+Downloads:
+Add PDF files to assets/downloads/ and update downloads/index.html.
 
-HOW TO ADD PRODUCT IMAGES
----------------------------
-In js/products.js, each product has an array. 
-Replace the SVG placeholder in products.html's buildProductGrid() function 
-with: <img src="images/YOUR-PRODUCT-IMAGE.jpg" alt="...">
-
-HOW TO ADD REAL PHOTOS
-------------------------
-- Factory photo → images/factory.jpg → replace img-placeholder divs
-- Application photos → images/app-hvac.jpg etc → replace app-row-img divs
-- Product card images → images/product-1ec.jpg etc
-
-CONTACT DETAILS (already filled in from your contact.html)
-------------------------------------------------------------
+Contact Details
+---------------
 Phone: +91 8028361383, +91 8028361742, +91 9448283841
 Email: info@superiorelectric.in
-Address: B-214, 5th Main Rd, Peenya Industrial Area Phase IV, Bengaluru 560058
-Map: Google Maps embed already included on contact.html
+Address: B-214, 5th Main Road, Peenya Industrial Area Phase IV,
+Bengaluru 560058, Karnataka, India
 
-DISTRIBUTORS (already filled in from your distributors.html)
--------------------------------------------------------------
-- Andhra Pradesh / Telangana: CLEAN ZONE CONCEPTS (+91 8790577507)
-- Gujarat / Daman: KUNJ ENTERPRISE (+91 9898818447)
-- Tamil Nadu: Shibam Engineering & Pneumatics (+91 9894017862)
-- Haryana: GYAN ENTERPRISES (+91 9873234580)
-- Central India: TODO (placeholder shown)
-- International: TODO (placeholder shown)
+Deployment Notes
+----------------
+When deploying to GitHub Pages, commit both the root files and the clean URL
+folders:
+
+about/
+products/
+applications/
+downloads/
+distributors/
+contact/
+
+After deployment, check:
+
+https://www.superiorelectric.in/products/
+https://www.superiorelectric.in/applications/
+https://www.superiorelectric.in/contact/
