@@ -72,9 +72,10 @@ function checkNoEmojiUi() {
     'contact/index.html',
     'js/main.js',
     'js/nav.js',
-    'css/style.css'
+    'css/style.css',
+    'css/products.css'
   ];
-  const symbols = ['🛒', '🗑', '⚙', '📞', '✉', '📄', '📍', '🌐', '✓', '✕'];
+  const symbols = ['🛒', '🗑', '⚙', '📞', '✉', '📄', '📍', '🌐', '💬', '✓', '✕'];
   const offenders = files.filter(file => {
     const contents = read(file);
     return symbols.some(symbol => contents.includes(symbol));

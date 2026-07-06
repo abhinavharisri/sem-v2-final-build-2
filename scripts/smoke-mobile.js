@@ -11,6 +11,7 @@ function check(name, ok) {
 }
 
 const css = read('css/style.css');
+const productCss = read('css/products.css');
 const nav = read('js/nav.js');
 const main = read('js/main.js');
 const products = read('products.html');
@@ -43,6 +44,14 @@ check('product cart drawer exists', /cart-drawer/.test(products) && /cf-name/.te
 check('product modal add-to-cart exists', /pm-add-cart/.test(products) && /Add to Cart/.test(products));
 check('cart item visual uses fan icon', /ui-icon-fan/.test(css) && /cart-item-icon/.test(products) && /global-cart-item-icon/.test(css));
 check('product fallback artwork is category aware', /productFallback/.test(products) && /prod-fallback/.test(products) && /productCardFallback/.test(main));
+check('usage cards reuse category fallback artwork', /popularCard[\s\S]*productCardFallback\(product\.category\)/.test(main) && /resultCard[\s\S]*productCardFallback\(product\.category\)/.test(main));
+check('products page loads extracted stylesheet', /href="\/css\/products\.css"/.test(products) && /prod-grid/.test(productCss));
+check('products page has no inline style block', !/<style[\s>]/i.test(products));
+check('quote dialogs expose modal semantics', /global-cart-drawer" role="dialog"/.test(main) && /pmodal" role="dialog"/.test(products) && /cart-drawer" role="dialog"/.test(products));
+check('mobile menu exposes expanded state', /aria-expanded/.test(nav) && /aria-controls/.test(nav));
+check('quote summary can edit saved details', /data-global-edit-details/.test(main) && /data-edit-details/.test(products));
+check('product SEO links and schema are generated', /product-seo-links/.test(products) && /injectProductItemListSchema/.test(products) && /ItemList/.test(products));
+check('product cart empty state has browse action', /data-browse-products/.test(products) && /cart-empty-btn/.test(productCss));
 check('customer details persist globally', /sem-customer-details/.test(main) && /saveCustomerDetails/.test(main) && /restoreCustomerDetails/.test(main));
 check('customer details persist on products page', /sem-customer-details/.test(products) && /saveCustomerDetails/.test(products) && /restoreCustomerDetails/.test(products));
 

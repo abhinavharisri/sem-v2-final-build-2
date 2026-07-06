@@ -73,6 +73,7 @@
 
   function closeMobileNav() {
     if (hamburger) hamburger.classList.remove('open');
+    if (hamburger) hamburger.setAttribute('aria-expanded', 'false');
     if (mobileNav) mobileNav.classList.remove('open');
   }
 
@@ -85,10 +86,15 @@
 
   if (hamburger && mobileNav && !hamburger.dataset.semNavBound) {
     hamburger.dataset.semNavBound = 'true';
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-controls', 'site-mobile-nav');
+    if (!mobileNav.id) mobileNav.id = 'site-mobile-nav';
     hamburger.addEventListener('click', function(e) {
       e.stopPropagation();
-      hamburger.classList.toggle('open');
-      mobileNav.classList.toggle('open');
+      var open = !hamburger.classList.contains('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      mobileNav.classList.toggle('open', open);
     });
     document.addEventListener('click', function(e) {
       if ((nav && nav.contains(e.target)) || mobileNav.contains(e.target)) return;

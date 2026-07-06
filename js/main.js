@@ -237,13 +237,14 @@ if (cf) {
   const customerFieldIds = ['global-cf-name', 'global-cf-company', 'global-cf-gst', 'global-cf-email', 'global-cf-phone'];
   let checkoutStep = 1;
   let cart = readCart();
+  let lastCartTrigger = null;
 
   const drawerHtml = `
     <div class="global-cart-backdrop" id="global-cart-backdrop"></div>
-    <div class="global-cart-drawer" id="global-cart-drawer">
+    <div class="global-cart-drawer" id="global-cart-drawer" role="dialog" aria-modal="true" aria-labelledby="global-cart-title" tabindex="-1">
       <div class="global-cart-head">
         <div>
-          <div class="global-cart-title">Enquiry Cart</div>
+          <div class="global-cart-title" id="global-cart-title">Enquiry Cart</div>
           <div class="global-cart-sub">Complete your details to place order via WhatsApp</div>
         </div>
         <button class="global-cart-close" id="global-cart-close" aria-label="Close cart"><span class="ui-icon ui-icon-close" aria-hidden="true"></span></button>
@@ -320,6 +321,9 @@ if (cf) {
   document.getElementById('global-cart-close').addEventListener('click', closeCart);
   document.getElementById('global-cart-backdrop').addEventListener('click', closeCart);
   document.getElementById('global-cart-back').addEventListener('click', () => setCheckoutStep(checkoutStep - 1));
+  document.getElementById('global-order-summary').addEventListener('click', e => {
+    if (e.target.closest('[data-global-edit-details]')) setCheckoutStep(2);
+  });
   document.getElementById('global-cart-next').addEventListener('click', () => {
     if (checkoutStep === 1) setCheckoutStep(2);
     else if (checkoutStep === 2 && detailsValid()) setCheckoutStep(3);
@@ -342,7 +346,9 @@ if (cf) {
     });
   });
   document.addEventListener('keydown', e => {
+    if (!document.getElementById('global-cart-drawer').classList.contains('show')) return;
     if (e.key === 'Escape') closeCart();
+    if (e.key === 'Tab') trapFocus(e, document.getElementById('global-cart-drawer'));
   });
 
   restoreCustomerDetails();
@@ -405,6 +411,7 @@ if (cf) {
   }
 
   function openCart() {
+    lastCartTrigger = document.activeElement;
     if (window.SEMNav && typeof window.SEMNav.closeMobileNav === 'function') {
       window.SEMNav.closeMobileNav();
     }
@@ -414,12 +421,14 @@ if (cf) {
     document.getElementById('global-cart-backdrop').classList.add('show');
     document.getElementById('global-cart-drawer').classList.add('show');
     document.body.style.overflow = 'hidden';
+    document.getElementById('global-cart-close').focus();
   }
 
   function closeCart() {
     document.getElementById('global-cart-backdrop').classList.remove('show');
     document.getElementById('global-cart-drawer').classList.remove('show');
     document.body.style.overflow = '';
+    if (lastCartTrigger && typeof lastCartTrigger.focus === 'function') lastCartTrigger.focus();
   }
 
   function renderCart() {
@@ -610,7 +619,7 @@ if (cf) {
         ${itemRows}
       </div>
       <div class="global-order-block">
-        <div class="global-order-head">Customer Details</div>
+        <div class="global-order-head">Customer Details <button class="global-summary-edit" type="button" data-global-edit-details>Edit</button></div>
         <div class="global-customer-grid">
           <div><div class="global-customer-label">Name</div><div class="global-customer-value">${esc(name)}</div></div>
           <div><div class="global-customer-label">Company</div><div class="global-customer-value">${esc(company)}</div></div>
@@ -618,7 +627,23 @@ if (cf) {
           <div><div class="global-customer-label">Email</div><div class="global-customer-value">${esc(email)}</div></div>
           <div><div class="global-customer-label">Phone</div><div class="global-customer-value">${esc(phone)}</div></div>
         </div>
+        <div class="global-summary-note">Details are saved on this device for faster future enquiries.</div>
       </div>`;
+  }
+
+  function trapFocus(e, container) {
+    const focusable = Array.from(container.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'))
+      .filter(el => el.offsetParent !== null);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 
   function openWhatsApp() {
@@ -755,7 +780,7 @@ if (document.getElementById('product-grid')) {
   function popularCard(product, duplicate) {
     const image = product.images && product.images[0]
       ? `<img src="${escHtml(product.images[0])}" alt="${escHtml(product.name)}" loading="lazy" decoding="async">`
-      : `<svg class="usage-result-placeholder" width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/><circle cx="32" cy="32" r="10" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>`;
+      : productCardFallback(product.category);
     const tags = (product.applications || []).slice(0, 3).map(app => `<span class="usage-result-tag">${escHtml(app)}</span>`).join('');
     const models = (product.models || []).slice(0, 4).join(' · ') + ((product.models || []).length > 4 ? ' · ...' : '');
     return `
@@ -952,7 +977,7 @@ if (document.getElementById('product-grid')) {
   function resultCard(product, matches) {
     const image = product.images && product.images[0]
       ? `<img src="${escHtml(product.images[0])}" alt="${escHtml(product.name)}" loading="lazy" decoding="async">`
-      : `<svg class="usage-result-placeholder" width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/><circle cx="32" cy="32" r="10" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>`;
+      : productCardFallback(product.category);
     const models = (product.models || []).slice(0, 4).join(' · ') + ((product.models || []).length > 4 ? ' · ...' : '');
     const tags = (matches || []).slice(0, 3).map(app => `<span class="usage-result-tag">${escHtml(app)}</span>`).join('');
 
