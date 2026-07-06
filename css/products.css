@@ -248,3 +248,22 @@
 .compare-table td:first-child { font-weight:800; color:#1a1c1e; background:#fbfcfd; width:160px; }
 .compare-product-name { font-weight:800; color:#1a1c1e; line-height:1.35; }
 .compare-product-cat { font-size:.62rem; color:#718096; text-transform:uppercase; letter-spacing:.06em; margin-top:3px; }
+.compare-card-list { display:none; }
+.compare-card { border:1px solid #dde1e7; border-radius:10px; background:#fff; overflow:hidden; }
+.compare-card + .compare-card { margin-top:12px; }
+.compare-card-head { padding:14px 15px; background:#f7f8fa; border-bottom:1px solid #dde1e7; }
+.compare-card-row { display:grid; grid-template-columns:110px minmax(0,1fr); gap:10px; padding:10px 15px; border-bottom:1px solid #eef0f3; }
+.compare-card-row:last-child { border-bottom:none; }
+.compare-card-label { color:#2A6496; font-size:.6rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.compare-card-value { color:#2d3748; font-size:.76rem; line-height:1.55; overflow-wrap:anywhere; }
+.compare-card-value a { color:#2A6496; font-weight:800; text-decoration:underline; text-underline-offset:2px; }
+@media (max-width: 560px) {
+  .compare-bar { bottom:76px; width:calc(100vw - 24px); border-radius:9px; padding:11px 12px; }
+  .compare-box { width:100vw; max-height:100dvh; height:100dvh; margin:0; border-radius:0; }
+  .compare-head { padding:16px 18px; align-items:center; }
+  .compare-sub { font-size:.68rem; }
+  .compare-table-wrap { padding:14px; }
+  .compare-table { display:none; }
+  .compare-card-list { display:block; }
+  .compare-card-row { grid-template-columns:1fr; gap:3px; }
+}

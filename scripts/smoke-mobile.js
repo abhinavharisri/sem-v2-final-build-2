@@ -52,6 +52,8 @@ check('mobile menu exposes expanded state', /aria-expanded/.test(nav) && /aria-c
 check('quote summary can edit saved details', /data-global-edit-details/.test(main) && /data-edit-details/.test(products));
 check('product SEO links and schema are generated', /product-seo-links/.test(products) && /injectProductItemListSchema/.test(products) && /ItemList/.test(products));
 check('product cart empty state has browse action', /data-browse-products/.test(products) && /cart-empty-btn/.test(productCss));
+check('mobile compare cards are generated', /buildCompareCards/.test(products) && /compare-card-list/.test(productCss) && /@media \(max-width: 560px\)[\s\S]*\.compare-table \{ display:none; \}/.test(productCss));
+check('compare modal restores focus', /lastCompareTrigger/.test(products) && /compare-close'\)\.focus/.test(products));
 check('customer details persist globally', /sem-customer-details/.test(main) && /saveCustomerDetails/.test(main) && /restoreCustomerDetails/.test(main));
 check('customer details persist on products page', /sem-customer-details/.test(products) && /saveCustomerDetails/.test(products) && /restoreCustomerDetails/.test(products));
 

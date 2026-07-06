@@ -310,6 +310,7 @@ var cart = [];
 var compareIds = [];
 var lastModalTrigger = null;
 var lastCartTrigger = null;
+var lastCompareTrigger = null;
 try { cart = JSON.parse(localStorage.getItem('sem-cart') || '[]'); } catch(e) { cart = []; }
 
 // ── SCROLL STATE ──────────────────────────────────────────────
@@ -414,14 +415,17 @@ function refreshCompareState() {
 function openCompare() {
   if (compareIds.length < 2) return;
   var products = compareIds.map(getProductById).filter(Boolean);
-  document.getElementById('compare-table-wrap').innerHTML = buildCompareTable(products);
+  lastCompareTrigger = document.activeElement;
+  document.getElementById('compare-table-wrap').innerHTML = buildCompareTable(products) + buildCompareCards(products);
   document.getElementById('compare-modal').classList.add('show');
+  document.getElementById('compare-close').focus();
   document.body.style.overflow = 'hidden';
 }
 
 function closeCompare() {
   document.getElementById('compare-modal').classList.remove('show');
   document.body.style.overflow = '';
+  if (lastCompareTrigger && typeof lastCompareTrigger.focus === 'function') lastCompareTrigger.focus();
 }
 
 function buildCompareTable(products) {
@@ -440,6 +444,31 @@ function buildCompareTable(products) {
   return '<table class="compare-table"><tbody>' + rows.map(function(row) {
     return '<tr><td>' + row[0] + '</td>' + products.map(function(p) { return '<td>' + row[1](p) + '</td>'; }).join('') + '</tr>';
   }).join('') + '</tbody></table>';
+}
+
+function buildCompareCards(products) {
+  return '<div class="compare-card-list">' + products.map(function(p) {
+    var datasheet = PDF_MAP[p.id]
+      ? '<a href="' + PDF_MAP[p.id] + '" target="_blank">Download datasheet</a>'
+      : '<a href="https://wa.me/' + WA + '?text=' + encodeURIComponent('Hello SEM, please share the datasheet for ' + p.name + '.') + '" target="_blank">Request datasheet</a>';
+    var specs = [
+      ['Models', esc((p.models || []).join(' · '))],
+      ['Applications', esc((p.applications || []).slice(0, 5).join(' · '))],
+      ['Variants', p.specs && p.specs.length ? p.specs.length + ' model variants' : 'Custom specs'],
+      ['Airflow', esc(specRange(p, ['airflow_cmh','airflow','airflow_cfm']))],
+      ['Static Pressure', esc(specRange(p, ['static_pr']))],
+      ['Power', esc(specRange(p, ['watts','watts_max','current']))],
+      ['RPM', esc(specRange(p, ['rpm']))],
+      ['Supply', esc(specRange(p, ['supply','voltage']))],
+      ['Datasheet', datasheet]
+    ];
+    return '<article class="compare-card">' +
+      '<div class="compare-card-head"><div class="compare-product-name">' + esc(p.name) + '</div><div class="compare-product-cat">' + esc(p.category) + '</div></div>' +
+      specs.map(function(row) {
+        return '<div class="compare-card-row"><div class="compare-card-label">' + row[0] + '</div><div class="compare-card-value">' + row[1] + '</div></div>';
+      }).join('') +
+    '</article>';
+  }).join('') + '</div>';
 }
 
 function specRange(product, keys) {

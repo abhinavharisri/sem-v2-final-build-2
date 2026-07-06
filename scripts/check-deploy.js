@@ -96,6 +96,7 @@ try {
   run('check js/products.js', 'node', ['--check', 'js/products.js']);
   run('check scripts/sync-routes.js', 'node', ['--check', 'scripts/sync-routes.js']);
   run('check scripts/smoke-mobile.js', 'node', ['--check', 'scripts/smoke-mobile.js']);
+  run('check scripts/visual-mobile-qa.js', 'node', ['--check', 'scripts/visual-mobile-qa.js']);
   checkInlineScripts();
   checkNoEmojiUi();
   checkRouteCopies();
