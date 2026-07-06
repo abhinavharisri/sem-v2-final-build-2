@@ -244,7 +244,7 @@ if (cf) {
           <div class="global-cart-title">Enquiry Cart</div>
           <div class="global-cart-sub">Complete your details to place order via WhatsApp</div>
         </div>
-        <button class="global-cart-close" id="global-cart-close" aria-label="Close cart">✕</button>
+        <button class="global-cart-close" id="global-cart-close" aria-label="Close cart"><span class="ui-icon ui-icon-close" aria-hidden="true"></span></button>
       </div>
       <div class="global-checkout-progress" id="global-checkout-progress">
         <div class="global-checkout-step" data-step="1"><span class="global-checkout-dot">1</span><span class="global-checkout-label">Cart</span></div>
@@ -269,7 +269,7 @@ if (cf) {
             <label class="global-cf-label" for="global-cf-gst">GST Number *</label>
             <div class="global-cf-wrap">
               <input class="global-cf-input" id="global-cf-gst" type="text" placeholder="22AAAAA0000A1Z5" maxlength="15" autocomplete="off" spellcheck="false">
-              <div class="global-cf-tick" id="global-gst-tick">✓</div>
+              <div class="global-cf-tick" id="global-gst-tick"><span class="ui-icon ui-icon-check" aria-hidden="true"></span></div>
             </div>
             <div class="global-cf-hint" id="global-gst-hint">0 / 15 characters entered</div>
           </div>
@@ -278,7 +278,7 @@ if (cf) {
               <label class="global-cf-label" for="global-cf-email">Email Address *</label>
               <div class="global-cf-wrap">
                 <input class="global-cf-input" id="global-cf-email" type="email" placeholder="rajesh@company.com" autocomplete="email">
-                <div class="global-cf-tick" id="global-email-tick">✓</div>
+                <div class="global-cf-tick" id="global-email-tick"><span class="ui-icon ui-icon-check" aria-hidden="true"></span></div>
               </div>
               <div class="global-cf-hint" id="global-email-hint">Enter a valid email address</div>
             </div>
@@ -286,7 +286,7 @@ if (cf) {
               <label class="global-cf-label" for="global-cf-phone">Phone Number *</label>
               <div class="global-cf-wrap">
                 <input class="global-cf-input" id="global-cf-phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel">
-                <div class="global-cf-tick" id="global-phone-tick">✓</div>
+                <div class="global-cf-tick" id="global-phone-tick"><span class="ui-icon ui-icon-check" aria-hidden="true"></span></div>
               </div>
               <div class="global-cf-hint" id="global-phone-hint">Enter a 10 digit mobile number</div>
             </div>
@@ -304,7 +304,7 @@ if (cf) {
             Order on WhatsApp
           </button>
         </div>
-        <button class="global-clear-btn" id="global-clear-btn">🗑 Clear Cart</button>
+        <button class="global-clear-btn" id="global-clear-btn"><span class="ui-icon ui-icon-trash" aria-hidden="true"></span> Clear Cart</button>
       </div>
     </div>`;
 
@@ -389,7 +389,7 @@ if (cf) {
     const clearBtn = document.getElementById('global-clear-btn');
 
     if (!cart.length) {
-      itemsPanel.innerHTML = '<div class="global-cart-empty"><div class="global-cart-empty-icon">🛒</div><div>Your cart is empty</div><div style="font-size:.75rem;color:#a0aec0;margin-top:4px;">Add products from the catalogue</div><a href="/products/" class="btn btn-primary btn-sm" style="margin-top:8px;">View Products</a></div>';
+      itemsPanel.innerHTML = '<div class="global-cart-empty"><div class="global-cart-empty-icon"><span class="ui-icon ui-icon-cart" aria-hidden="true"></span></div><div>Your cart is empty</div><div style="font-size:.75rem;color:#a0aec0;margin-top:4px;">Add products from the catalogue</div><a href="/products/" class="btn btn-primary btn-sm" style="margin-top:8px;">View Products</a></div>';
       summaryPanel.innerHTML = '';
       progress.classList.remove('show');
       clearBtn.classList.remove('show');
@@ -401,7 +401,7 @@ if (cf) {
     clearBtn.classList.add('show');
     itemsPanel.innerHTML = cart.map((item, idx) => `
       <div class="global-cart-item">
-        <div class="global-cart-item-icon">⚙</div>
+        <div class="global-cart-item-icon"><span class="ui-icon ui-icon-gear" aria-hidden="true"></span></div>
         <div style="flex:1;min-width:0;">
           <div class="global-cart-item-name">${esc(item.name)}</div>
           <div class="global-cart-item-model">${esc(item.model)}</div>
@@ -411,7 +411,7 @@ if (cf) {
             <div class="global-cart-qty-num">${Number(item.qty) || 1}</div>
             <button class="global-cart-qty-btn" data-cart-delta="1" data-cart-index="${idx}">+</button>
           </div>
-          <button class="global-cart-remove" data-cart-remove="${idx}">✕ Remove</button>
+          <button class="global-cart-remove" data-cart-remove="${idx}"><span class="ui-icon ui-icon-close" aria-hidden="true"></span> Remove</button>
         </div>
       </div>`).join('');
 

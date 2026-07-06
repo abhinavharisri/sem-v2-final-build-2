@@ -36,11 +36,15 @@
     });
   }
 
+  function icon(name) {
+    return '<span class="ui-icon ui-icon-' + name + '" aria-hidden="true"></span>';
+  }
+
   function ensureMobileActions() {
     if (!mobileNav || mobileNav.querySelector('.nav-mobile-actions')) return;
     var actions = document.createElement('div');
     actions.className = 'nav-mobile-actions';
-    actions.innerHTML = '<a href="/products/" class="nav-cart-btn">&#128722; Cart <span class="cart-badge">0</span></a><a href="/contact/" class="btn btn-primary btn-sm">Get a Quote</a>';
+    actions.innerHTML = '<a href="/products/" class="nav-cart-btn">' + icon('cart') + ' Cart <span class="cart-badge">0</span></a><a href="/contact/" class="btn btn-primary btn-sm">Get a Quote</a>';
     mobileNav.appendChild(actions);
   }
 
@@ -81,6 +85,7 @@
 
   window.SEMNav = Object.assign(window.SEMNav || {}, {
     closeMobileNav: closeMobileNav,
+    icon: icon,
     readCart: readCart,
     updateCartBadges: updateCartBadges
   });

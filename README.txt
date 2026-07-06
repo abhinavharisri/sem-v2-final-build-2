@@ -39,7 +39,9 @@ Project Structure
 -----------------
 css/style.css          Site styling
 js/main.js             Navigation, modals, filters, animations, interactions
+js/nav.js              Shared header, mobile menu, and cart badge behavior
 js/products.js         Product data and specifications
+scripts/sync-routes.js Copies root .html pages to clean URL /index.html files
 images/                Logo, product photos, application images
 assets/videos/         Homepage and application videos
 assets/videos/optimized/
@@ -61,6 +63,15 @@ Add MP4 files to assets/videos/ and reference them from index.html.
 
 Downloads:
 Add PDF files to assets/downloads/ and update downloads/index.html.
+
+Clean URL copies:
+Edit the root fallback page first, for example products.html, then run:
+
+node scripts/sync-routes.js
+
+This copies the root pages into about/index.html, products/index.html,
+applications/index.html, downloads/index.html, distributors/index.html, and
+contact/index.html so both URL styles stay in sync.
 
 Contact Details
 ---------------
