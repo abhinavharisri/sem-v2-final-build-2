@@ -281,6 +281,10 @@
   <a href="/">Home</a><a href="/about/">About</a><a href="/products/" class="active">Products</a>
   <a href="/applications/">Applications</a><a href="/downloads/">Downloads</a>
   <a href="/distributors/">Distributors</a><a href="/contact/">Contact</a>
+  <div class="nav-mobile-actions">
+    <button class="nav-cart-btn" type="button">🛒 Cart <span class="cart-badge">0</span></button>
+    <a href="/contact/" class="btn btn-primary btn-sm">Get a Quote</a>
+  </div>
 </div>
 
 <main class="page-body">
@@ -956,13 +960,18 @@ function saveCart() {
 
 function updateBadge() {
   var total = cart.reduce(function(s,i) { return s + i.qty; }, 0);
-  var badge = document.getElementById('cart-badge');
-  if (!badge) return;
-  badge.textContent = total;
-  badge.classList.toggle('show', total > 0);
+  document.querySelectorAll('.cart-badge').forEach(function(badge) {
+    badge.textContent = total;
+    badge.classList.toggle('show', total > 0);
+  });
 }
 
-document.getElementById('nav-cart-btn').onclick = openCart;
+document.querySelectorAll('.nav-cart-btn').forEach(function(btn) {
+  btn.onclick = function(e) {
+    e.preventDefault();
+    openCart();
+  };
+});
 document.getElementById('cart-close').onclick   = closeCart;
 document.getElementById('cart-backdrop').onclick= closeCart;
 document.getElementById('cart-back-btn').onclick = function() {

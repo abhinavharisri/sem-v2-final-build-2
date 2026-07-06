@@ -270,8 +270,8 @@ if (cf) {
 
 // ── SITE-WIDE CART DRAWER ────────────────────────────────────
 (function initGlobalCart() {
-  const cartBtn = document.getElementById('nav-cart-btn');
-  if (!cartBtn || document.getElementById('cart-drawer')) return;
+  const cartBtns = Array.from(document.querySelectorAll('.nav-cart-btn'));
+  if (!cartBtns.length || document.getElementById('cart-drawer')) return;
 
   const WA = '919448283843';
   let checkoutStep = 1;
@@ -351,10 +351,10 @@ if (cf) {
 
   document.body.insertAdjacentHTML('beforeend', drawerHtml);
 
-  cartBtn.addEventListener('click', e => {
+  cartBtns.forEach(cartBtn => cartBtn.addEventListener('click', e => {
     e.preventDefault();
     openCart();
-  });
+  }));
 
   document.getElementById('global-cart-close').addEventListener('click', closeCart);
   document.getElementById('global-cart-backdrop').addEventListener('click', closeCart);
@@ -395,10 +395,10 @@ if (cf) {
 
   function updateBadge() {
     const total = cart.reduce((s, i) => s + (Number(i.qty) || 0), 0);
-    const badge = document.getElementById('cart-badge');
-    if (!badge) return;
-    badge.textContent = total;
-    badge.classList.toggle('show', total > 0);
+    document.querySelectorAll('.cart-badge').forEach(badge => {
+      badge.textContent = total;
+      badge.classList.toggle('show', total > 0);
+    });
   }
 
   function openCart() {
