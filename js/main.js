@@ -233,6 +233,8 @@ if (cf) {
   if (!cartBtns.length || document.getElementById('cart-drawer')) return;
 
   const WA = '919448283843';
+  const CUSTOMER_KEY = 'sem-customer-details';
+  const customerFieldIds = ['global-cf-name', 'global-cf-company', 'global-cf-gst', 'global-cf-email', 'global-cf-phone'];
   let checkoutStep = 1;
   let cart = readCart();
 
@@ -334,12 +336,16 @@ if (cf) {
   document.getElementById('global-cf-email').addEventListener('input', validateEmailField);
   document.getElementById('global-cf-phone').addEventListener('input', validatePhoneField);
   ['global-cf-name', 'global-cf-company'].forEach(id => {
-    document.getElementById(id).addEventListener('input', updateCheckoutStep);
+    document.getElementById(id).addEventListener('input', () => {
+      saveCustomerDetails();
+      updateCheckoutStep();
+    });
   });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeCart();
   });
 
+  restoreCustomerDetails();
   updateBadge();
 
   function readCart() {
@@ -350,6 +356,40 @@ if (cf) {
   function saveCart() {
     try { localStorage.setItem('sem-cart', JSON.stringify(cart)); } catch(e) {}
     updateBadge();
+  }
+
+  function readCustomerDetails() {
+    try { return JSON.parse(localStorage.getItem(CUSTOMER_KEY) || '{}'); }
+    catch(e) { return {}; }
+  }
+
+  function saveCustomerDetails() {
+    const details = {
+      name: document.getElementById('global-cf-name').value.trim(),
+      company: document.getElementById('global-cf-company').value.trim(),
+      gst: document.getElementById('global-cf-gst').value.trim(),
+      email: document.getElementById('global-cf-email').value.trim(),
+      phone: document.getElementById('global-cf-phone').value.trim()
+    };
+    try { localStorage.setItem(CUSTOMER_KEY, JSON.stringify(details)); } catch(e) {}
+  }
+
+  function restoreCustomerDetails() {
+    const details = readCustomerDetails();
+    const values = {
+      'global-cf-name': details.name,
+      'global-cf-company': details.company,
+      'global-cf-gst': details.gst,
+      'global-cf-email': details.email,
+      'global-cf-phone': details.phone
+    };
+    customerFieldIds.forEach(id => {
+      const input = document.getElementById(id);
+      if (input && values[id]) input.value = values[id];
+    });
+    validateGST();
+    validateEmailField();
+    validatePhoneField();
   }
 
   function updateBadge() {
@@ -497,6 +537,7 @@ if (cf) {
     input.value = input.value.toUpperCase().replace(/[^0-9A-Z]/g, '');
     const ok = isGST(input.value);
     setFieldState('global-cf-gst', 'global-gst-hint', 'global-gst-tick', ok, ok ? 'GST number verified' : input.value.length + ' / 15 characters entered', input.value.length > 0);
+    saveCustomerDetails();
     updateCheckoutStep();
   }
 
@@ -504,6 +545,7 @@ if (cf) {
     const input = document.getElementById('global-cf-email');
     const ok = isEmail(input.value.trim());
     setFieldState('global-cf-email', 'global-email-hint', 'global-email-tick', ok, ok ? 'Email address verified' : 'Use a valid email like name@company.com', input.value.trim().length > 0);
+    saveCustomerDetails();
     updateCheckoutStep();
   }
 
@@ -511,6 +553,7 @@ if (cf) {
     const input = document.getElementById('global-cf-phone');
     const ok = isPhone(input.value);
     setFieldState('global-cf-phone', 'global-phone-hint', 'global-phone-tick', ok, ok ? 'Phone number verified' : 'Enter a valid 10 digit mobile number', input.value.trim().length > 0);
+    saveCustomerDetails();
     updateCheckoutStep();
   }
 

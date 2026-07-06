@@ -507,6 +507,7 @@
 
 // ── CONFIG ────────────────────────────────────────────────────
 var WA = '919448283843';
+var CUSTOMER_KEY = 'sem-customer-details';
 var PDF_MAP = {
   "roof-top-fans": "/assets/downloads/New Development Product.pdf",
   "plug-fans": "/assets/downloads/New Development Product.pdf",
@@ -954,6 +955,37 @@ function saveCart() {
   updateBadge();
 }
 
+function readCustomerDetails() {
+  try { return JSON.parse(localStorage.getItem(CUSTOMER_KEY) || '{}'); }
+  catch(e) { return {}; }
+}
+
+function saveCustomerDetails() {
+  var details = {
+    name: document.getElementById('cf-name').value.trim(),
+    company: document.getElementById('cf-company').value.trim(),
+    gst: document.getElementById('cf-gst').value.trim(),
+    email: document.getElementById('cf-email').value.trim(),
+    phone: document.getElementById('cf-phone').value.trim()
+  };
+  try { localStorage.setItem(CUSTOMER_KEY, JSON.stringify(details)); } catch(e) {}
+}
+
+function restoreCustomerDetails() {
+  var details = readCustomerDetails();
+  var values = {
+    'cf-name': details.name,
+    'cf-company': details.company,
+    'cf-gst': details.gst,
+    'cf-email': details.email,
+    'cf-phone': details.phone
+  };
+  Object.keys(values).forEach(function(id) {
+    var input = document.getElementById(id);
+    if (input && values[id]) input.value = values[id];
+  });
+}
+
 function updateBadge() {
   if (window.SEMNav && typeof window.SEMNav.updateCartBadges === 'function') {
     window.SEMNav.updateCartBadges(cart);
@@ -1129,6 +1161,7 @@ document.getElementById('cf-gst').addEventListener('input', function() {
   this.classList.toggle('valid', ok);
   this.classList.toggle('error', len > 0 && !ok);
   tick.classList.toggle('show', ok);
+  saveCustomerDetails();
   checkForm();
 });
 
@@ -1155,6 +1188,7 @@ function validateEmailField() {
   var input = document.getElementById('cf-email');
   var ok = isEmail(input.value.trim());
   setFieldState('cf-email', 'email-hint', 'email-tick', ok, ok ? 'Email address verified' : 'Use a valid email like name@company.com', input.value.trim().length > 0);
+  saveCustomerDetails();
   checkForm();
 }
 
@@ -1162,6 +1196,7 @@ function validatePhoneField() {
   var input = document.getElementById('cf-phone');
   var ok = isPhone(input.value);
   setFieldState('cf-phone', 'phone-hint', 'phone-tick', ok, ok ? 'Phone number verified' : 'Enter a valid 10 digit mobile number', input.value.trim().length > 0);
+  saveCustomerDetails();
   checkForm();
 }
 
@@ -1179,10 +1214,17 @@ function checkForm() {
 }
 
 ['cf-name','cf-company'].forEach(function(id) {
-  document.getElementById(id).addEventListener('input', checkForm);
+  document.getElementById(id).addEventListener('input', function() {
+    saveCustomerDetails();
+    checkForm();
+  });
 });
 document.getElementById('cf-email').addEventListener('input', validateEmailField);
 document.getElementById('cf-phone').addEventListener('input', validatePhoneField);
+restoreCustomerDetails();
+document.getElementById('cf-gst').dispatchEvent(new Event('input'));
+validateEmailField();
+validatePhoneField();
 
 function buildOrderSummary() {
   var name    = document.getElementById('cf-name').value.trim() || 'Not entered';

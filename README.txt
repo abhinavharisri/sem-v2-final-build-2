@@ -42,6 +42,9 @@ js/main.js             Navigation, modals, filters, animations, interactions
 js/nav.js              Shared header, mobile menu, and cart badge behavior
 js/products.js         Product data and specifications
 scripts/sync-routes.js Copies root .html pages to clean URL /index.html files
+scripts/smoke-mobile.js Dependency-free mobile nav/cart smoke checks
+scripts/check-deploy.js Runs route sync, syntax checks, smoke checks, and
+                       deployment sanity checks
 images/                Logo, product photos, application images
 assets/videos/         Homepage and application videos
 assets/videos/optimized/
@@ -72,6 +75,15 @@ node scripts/sync-routes.js
 This copies the root pages into about/index.html, products/index.html,
 applications/index.html, downloads/index.html, distributors/index.html, and
 contact/index.html so both URL styles stay in sync.
+
+Pre-deploy checks:
+Run this before publishing changes:
+
+node scripts/check-deploy.js
+
+For a quicker mobile nav/cart structural check only:
+
+node scripts/smoke-mobile.js
 
 Contact Details
 ---------------
