@@ -31,8 +31,29 @@
   </div>
 </div>
 
+<section class="app-finder-section bg-white">
+  <div class="container">
+    <div class="app-finder" data-reveal>
+      <div class="app-finder-search">
+        <span class="app-finder-icon" aria-hidden="true"></span>
+        <input id="application-search" type="search" placeholder="Search applications..." autocomplete="off" aria-label="Search applications">
+        <button id="application-search-clear" class="app-finder-clear" type="button" aria-label="Clear search">Clear</button>
+      </div>
+      <div class="app-finder-chips" aria-label="Application filters">
+        <button type="button" class="app-finder-chip active" data-app-filter="all">All</button>
+        <button type="button" class="app-finder-chip" data-app-filter="Fan Application">Fans</button>
+        <button type="button" class="app-finder-chip" data-app-filter="Blower Application">Blowers</button>
+        <button type="button" class="app-finder-chip" data-app-filter="granite">Granite</button>
+        <button type="button" class="app-finder-chip" data-app-filter="railway">Railways</button>
+        <button type="button" class="app-finder-chip" data-app-filter="cooling">Cooling</button>
+      </div>
+      <div id="application-search-status" class="app-finder-status" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
 <!-- FAN APPLICATIONS -->
-<section class="section bg-white">
+<section class="section bg-white" data-app-section>
   <div class="container">
     <div class="eyebrow-line" data-reveal><span class="eyebrow">Fan Applications</span></div>
     <h2 style="margin-bottom:36px;" data-reveal data-delay="1">Where Our Fans Are Used</h2>
@@ -46,7 +67,7 @@
         <div class="app-row-title">Refrigeration & Air Conditioning</div>
         <div class="app-row-desc">SEM axial fans and backward curved radial fans are widely used in split AC units, condensers, evaporators and cold storage facilities — delivering reliable, low-noise airflow for temperature control systems.</div>
         <div class="app-row-tags"><span class="app-row-tag">Split AC Indoor/Outdoor</span><span class="app-row-tag">Condenser Fans</span><span class="app-row-tag">Evaporator Fans</span><span class="app-row-tag">Cold Storage</span></div>
-        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm" data-related-products="axial-fan-press-fit,axial-fan-riveted,single-inlet-forward-curved,single-inlet-backward-curved">View Related Products</a></div>
       </div>
     </div>
 
@@ -59,7 +80,7 @@
         <div class="app-row-title">Dust Extraction & Exhaust Ventilation</div>
         <div class="app-row-desc">Centrifugal fans and roof extractors from SEM provide effective dust extraction, industrial exhaust and smoke removal solutions for manufacturing facilities and commercial buildings.</div>
         <div class="app-row-tags"><span class="app-row-tag">Dust Extraction Equipment</span><span class="app-row-tag">Roof Extractors</span><span class="app-row-tag">Smoke Extraction</span><span class="app-row-tag">Kitchen Exhaust</span></div>
-        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm" data-related-products="fume-extractor,roof-top-fans,conventional-single-inlet-blower,inline-duct-fan">View Related Products</a></div>
       </div>
     </div>
 
@@ -72,7 +93,7 @@
         <div class="app-row-title">Granite Polishing Machine</div>
         <div class="app-row-desc">SEM fans and blowers support granite polishing machines by providing steady cooling airflow for motors, control panels and polishing assemblies — helping manage heat, remove fine dust and maintain reliable operation during continuous stone-processing work.</div>
         <div class="app-row-tags"><span class="app-row-tag">Granite Polishing</span><span class="app-row-tag">Machine Cooling</span><span class="app-row-tag">Dust Removal</span><span class="app-row-tag">Stone Processing</span></div>
-        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm" data-related-products="forced-motor-cooling,axial-fan-press-fit,heavy-duty-centrifugal-blower,belt-driven-blowers">View Related Products</a></div>
       </div>
     </div>
 
@@ -85,7 +106,7 @@
         <div class="app-row-title">Power & Electronic Equipment</div>
         <div class="app-row-desc">SEM fans are critical components in welding transformers, rectifiers, electronic equipment, control panels and power transformer cooling — ensuring reliable operation of high-value electrical systems.</div>
         <div class="app-row-tags"><span class="app-row-tag">Welding Transformers</span><span class="app-row-tag">Electronic Equipment</span><span class="app-row-tag">Control Panels</span><span class="app-row-tag">Power Transformer</span></div>
-        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm" data-related-products="backward-curved-radial-fans,single-inlet-backward-curved,forced-motor-cooling,induction-motors">View Related Products</a></div>
       </div>
     </div>
 
@@ -98,14 +119,14 @@
         <div class="app-row-title">Indian Railways</div>
         <div class="app-row-desc">SEM manufactures customized exhaust fans and blower units specifically certified for Indian Railways applications — including specialized voltage variants (190V, 110V) and railway-grade construction standards.</div>
         <div class="app-row-tags"><span class="app-row-tag">Exhaust Fan 190V</span><span class="app-row-tag">Double Inlet Blower 415V</span><span class="app-row-tag">Double Inlet Blower 110V</span><span class="app-row-tag">Railway Certified</span></div>
-        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm" data-related-products="axial-fan-press-fit,double-inlet-133,double-inlet-140,induction-motors">View Related Products</a></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- BLOWER APPLICATIONS -->
-<section class="section bg-grey border-top">
+<section class="section bg-grey border-top" data-app-section>
   <div class="container">
     <div class="eyebrow-line" data-reveal><span class="eyebrow">Blower Applications</span></div>
     <h2 style="margin-bottom:36px;" data-reveal data-delay="1">Where Our Blowers Are Used</h2>
@@ -119,7 +140,7 @@
         <div class="app-row-title">Plastic Extrusion</div>
         <div class="app-row-desc">Heavy-duty centrifugal blowers from SEM provide the precise, consistent airflow required for plastic extrusion processes — supporting cooling, air-knife and conveying systems in polymer manufacturing.</div>
         <div class="app-row-tags"><span class="app-row-tag">Plastic Extrusion</span><span class="app-row-tag">Forced Cooling</span><span class="app-row-tag">Air-Knife</span><span class="app-row-tag">Polymer Manufacturing</span></div>
-        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm" data-related-products="heavy-duty-centrifugal-blower,single-inlet-external-motor,belt-driven-blowers,double-inlet-200-255">View Related Products</a></div>
       </div>
     </div>
 
@@ -132,7 +153,7 @@
         <div class="app-row-title">Gas Burners & Air to Air Heat Exchangers</div>
         <div class="app-row-desc">SEM blowers supply combustion air for gas burners and provide forced airflow for air-to-air heat exchangers and heat extractors — supporting industrial heating and thermal management systems.</div>
         <div class="app-row-tags"><span class="app-row-tag">Gas Burners</span><span class="app-row-tag">Air to Air Heat Exchangers</span><span class="app-row-tag">Heat Extractors</span></div>
-        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm" data-related-products="heavy-duty-centrifugal-blower,single-inlet-external-motor,mini-blower,double-inlet-200-255">View Related Products</a></div>
       </div>
     </div>
 
@@ -145,7 +166,7 @@
         <div class="app-row-title">Clean Room & Pharmaceutical</div>
         <div class="app-row-desc">Precision backward curved radial fans and inline duct fans provide clean, controlled airflow for pharmaceutical manufacturing, clean rooms, clean air cabinets and air purification systems.</div>
         <div class="app-row-tags"><span class="app-row-tag">Clean Room</span><span class="app-row-tag">Pharmaceutical</span><span class="app-row-tag">Clean Air Equipment</span><span class="app-row-tag">Air Purifying</span></div>
-        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm" data-related-products="fume-extractor,backward-curved-radial-fans,inline-duct-fan,plug-fans">View Related Products</a></div>
       </div>
     </div>
 
@@ -158,7 +179,7 @@
         <div class="app-row-title">Reprographic Printing & Data Processing</div>
         <div class="app-row-desc">Compact, precise blowers provide cooling and airflow for reprographic printing machines, xenon lamps, data processing equipment and central ventilating appliances in commercial and industrial settings.</div>
         <div class="app-row-tags"><span class="app-row-tag">Reprographic Printing</span><span class="app-row-tag">Xenon Lamps</span><span class="app-row-tag">Data Processing</span><span class="app-row-tag">Central Ventilation</span></div>
-        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm">View Related Products</a></div>
+        <div class="mt-16"><a href="products.html" class="btn btn-outline btn-sm" data-related-products="mini-blower,cross-flow-fan,backward-curved-radial-fans,single-inlet-forward-curved">View Related Products</a></div>
       </div>
     </div>
   </div>
@@ -184,8 +205,212 @@
   </div>
   <div class="footer-bottom"><span>© 2025 Superior Electric Machines Pvt. Ltd. All rights reserved.</span><span>SEM® Air Moving Solutions</span></div>
 </div></footer>
+<script src="js/products.js"></script>
 <script src="js/main.js"></script>
 <script>
+// Application search and related-product reveal.
+(function() {
+  if (typeof SEM_PRODUCTS === 'undefined') return;
+
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.app-row'));
+  var relatedLinks = Array.prototype.slice.call(document.querySelectorAll('[data-related-products]'));
+  var searchInput = document.getElementById('application-search');
+  var clearBtn = document.getElementById('application-search-clear');
+  var status = document.getElementById('application-search-status');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('[data-app-filter]'));
+  var activeFilter = 'all';
+
+  relatedLinks.forEach(function(link) {
+    setRelatedButton(link, false);
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      var row = link.closest('.app-row');
+      if (!row) return;
+
+      var panel = row.querySelector('.app-related-products');
+      if (!panel) {
+        panel = document.createElement('div');
+        panel.className = 'app-related-products';
+        row.appendChild(panel);
+      }
+
+      var isOpen = panel.classList.contains('open');
+      document.querySelectorAll('.app-related-products.open').forEach(function(openPanel) {
+        if (openPanel !== panel) openPanel.classList.remove('open');
+      });
+      relatedLinks.forEach(function(other) {
+        if (other !== link) setRelatedButton(other, false);
+      });
+
+      if (!panel.innerHTML.trim()) {
+        var ids = relatedIds(link);
+        var products = ids.map(function(id) { return getProductById(id); }).filter(Boolean);
+        panel.innerHTML = relatedPanel(products, row.querySelector('.app-row-title'));
+      }
+
+      panel.classList.toggle('open', !isOpen);
+      setRelatedButton(link, !isOpen);
+
+      if (!isOpen) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  });
+
+  rows.forEach(function(row) {
+    row.dataset.searchText = buildRowSearchText(row);
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      activeFilter = 'all';
+      setActiveChip(activeFilter);
+      filterRows();
+    });
+  }
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      activeFilter = 'all';
+      setActiveChip(activeFilter);
+      filterRows();
+      searchInput.focus();
+    });
+  }
+  chips.forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      activeFilter = chip.dataset.appFilter || 'all';
+      setActiveChip(activeFilter);
+      if (searchInput) searchInput.value = '';
+      filterRows();
+    });
+  });
+  filterRows();
+
+  function setRelatedButton(link, open) {
+    var count = relatedIds(link).length;
+    link.classList.add('app-related-btn');
+    link.classList.toggle('open', open);
+    link.setAttribute('aria-expanded', open ? 'true' : 'false');
+    link.innerHTML = [
+      '<span>' + (open ? 'Hide Related Products' : 'View Related Products') + '</span>',
+      '<span class="app-related-count">' + count + '</span>',
+      '<span class="app-related-chevron" aria-hidden="true"></span>'
+    ].join('');
+  }
+
+  function relatedIds(link) {
+    return (link.dataset.relatedProducts || '').split(',').map(function(id) {
+      return id.trim();
+    }).filter(Boolean);
+  }
+
+  function filterRows() {
+    var query = normalize(searchInput ? searchInput.value : '');
+    var filter = normalize(activeFilter === 'all' ? '' : activeFilter);
+    var visibleCount = 0;
+
+    rows.forEach(function(row) {
+      var text = row.dataset.searchText || '';
+      var visible = (!query || text.indexOf(query) !== -1) && (!filter || text.indexOf(filter) !== -1);
+      row.classList.toggle('app-filter-hidden', !visible);
+      if (visible) visibleCount += 1;
+    });
+
+    document.querySelectorAll('[data-app-section]').forEach(function(section) {
+      var hasVisibleRows = Boolean(section.querySelector('.app-row:not(.app-filter-hidden)'));
+      section.classList.toggle('app-section-hidden', !hasVisibleRows);
+    });
+
+    if (clearBtn) clearBtn.classList.toggle('show', Boolean(query));
+    if (status) {
+      status.textContent = visibleCount === rows.length
+        ? rows.length + ' application areas'
+        : visibleCount + ' matching application' + (visibleCount === 1 ? '' : 's');
+    }
+  }
+
+  function setActiveChip(filter) {
+    chips.forEach(function(chip) {
+      chip.classList.toggle('active', (chip.dataset.appFilter || 'all') === filter);
+    });
+  }
+
+  function buildRowSearchText(row) {
+    var baseText = row.textContent || '';
+    var link = row.querySelector('[data-related-products]');
+    var productText = link ? relatedIds(link).map(function(id) {
+      var product = getProductById(id);
+      return product ? [product.name, product.category, (product.applications || []).join(' '), (product.models || []).join(' ')].join(' ') : '';
+    }).join(' ') : '';
+    return normalize(baseText + ' ' + productText);
+  }
+
+  function relatedPanel(products, titleEl) {
+    var title = titleEl ? titleEl.textContent.trim() : 'This Application';
+    if (!products.length) {
+      return '<div class="app-related-head"><div class="app-related-title">Related Products</div></div><div class="usage-no-results">No related products found.</div>';
+    }
+
+    return [
+      '<div class="app-related-head">',
+      '<div class="app-related-title">Related Products for ' + esc(title) + '</div>',
+      '<div class="app-related-note">Click a product to open it in the catalogue.</div>',
+      '</div>',
+      '<div class="app-related-grid">',
+      products.map(function(product, index) { return relatedCard(product, index); }).join(''),
+      '</div>',
+      recommendationCta(title)
+    ].join('');
+  }
+
+  function recommendationCta(title) {
+    var msg = 'Hello SEM, I need help selecting a fan or blower for ' + title + '. Please recommend suitable products.';
+    return [
+      '<div class="app-recommend-cta">',
+      '<div>',
+      '<div class="app-recommend-title">Need help choosing for ' + esc(title) + '?</div>',
+      '<div class="app-recommend-copy">Send the application to SEM and get a product recommendation.</div>',
+      '</div>',
+      '<a class="btn btn-primary btn-sm" href="https://wa.me/919448283843?text=' + encodeURIComponent(msg) + '" target="_blank" rel="noopener">Ask SEM</a>',
+      '</div>'
+    ].join('');
+  }
+
+  function relatedCard(product, index) {
+    var image = product.images && product.images[0]
+      ? '<img src="' + esc(product.images[0]) + '" alt="' + esc(product.name) + '" loading="lazy">'
+      : '<svg class="usage-result-placeholder" width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/><circle cx="32" cy="32" r="10" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>';
+    var models = (product.models || []).slice(0, 4).join(' · ') + ((product.models || []).length > 4 ? ' · ...' : '');
+    var tags = (product.applications || []).slice(0, 3).map(function(app) {
+      return '<span class="usage-result-tag">' + esc(app) + '</span>';
+    }).join('');
+    var fit = index === 0 ? 'Best Match' : index === 1 ? 'Also Used' : 'Custom Option';
+
+    return [
+      '<a class="usage-result-card" href="products.html?product=' + encodeURIComponent(product.id) + '" aria-label="View ' + esc(product.name) + ' in the product catalogue">',
+      '<div class="usage-result-image">' + image + '</div>',
+      '<div class="usage-result-body">',
+      '<div class="app-related-fit">' + fit + '</div>',
+      '<div class="usage-result-cat">' + esc(product.category) + '</div>',
+      '<div class="usage-result-name">' + esc(product.name) + '</div>',
+      '<div class="usage-result-models">' + esc(models) + '</div>',
+      '<div class="usage-result-tags">' + tags + '</div>',
+      '</div>',
+      '</a>'
+    ].join('');
+  }
+
+  function esc(value) {
+    return String(value || '').replace(/[&<>"']/g, function(ch) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+    });
+  }
+
+  function normalize(value) {
+    return String(value || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+})();
+
 // Show cart badge count from localStorage
 (function() {
   try {
