@@ -281,10 +281,6 @@
   <a href="/">Home</a><a href="/about/">About</a><a href="/products/" class="active">Products</a>
   <a href="/applications/">Applications</a><a href="/downloads/">Downloads</a>
   <a href="/distributors/">Distributors</a><a href="/contact/">Contact</a>
-  <div class="nav-mobile-actions">
-    <button class="nav-cart-btn" type="button">🛒 Cart <span class="cart-badge">0</span></button>
-    <a href="/contact/" class="btn btn-primary btn-sm">Get a Quote</a>
-  </div>
 </div>
 
 <main class="page-body">
@@ -499,6 +495,7 @@
   </div>
 </div>
 
+<script src="/js/nav.js"></script>
 <script src="/js/products.js"></script>
 <script>
 (function() {
@@ -548,18 +545,13 @@ var cart = [];
 var compareIds = [];
 try { cart = JSON.parse(localStorage.getItem('sem-cart') || '[]'); } catch(e) { cart = []; }
 
-// ── NAV ───────────────────────────────────────────────────────
+// ── SCROLL STATE ──────────────────────────────────────────────
 window.addEventListener('scroll', function() {
-  var nav = document.querySelector('.nav');
-  if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
   var h = document.documentElement;
   var pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
   var bar = document.getElementById('page-progress');
   if (bar) bar.style.width = pct + '%';
 }, {passive:true});
-var hbg = document.querySelector('.nav-hamburger');
-var mnav = document.querySelector('.nav-mobile');
-if (hbg) hbg.addEventListener('click', function() { hbg.classList.toggle('open'); mnav.classList.toggle('open'); });
 
 // ── BUILD GRID ────────────────────────────────────────────────
 function renderProductCards(list) {
@@ -959,6 +951,10 @@ function saveCart() {
 }
 
 function updateBadge() {
+  if (window.SEMNav && typeof window.SEMNav.updateCartBadges === 'function') {
+    window.SEMNav.updateCartBadges(cart);
+    return;
+  }
   var total = cart.reduce(function(s,i) { return s + i.qty; }, 0);
   document.querySelectorAll('.cart-badge').forEach(function(badge) {
     badge.textContent = total;
@@ -983,6 +979,9 @@ document.getElementById('cart-next-btn').onclick = function() {
 };
 
 function openCart() {
+  if (window.SEMNav && typeof window.SEMNav.closeMobileNav === 'function') {
+    window.SEMNav.closeMobileNav();
+  }
   if (!cart.length) checkoutStep = 1;
   renderCart();
   document.getElementById('cart-backdrop').classList.add('show');

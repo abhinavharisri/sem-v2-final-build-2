@@ -31,7 +31,7 @@
   <div class="nav-actions"><a href="/products/" class="nav-cart-btn" id="nav-cart-btn">🛒 Cart <span class="cart-badge" id="cart-badge">0</span></a><a href="/contact/" class="btn btn-primary btn-sm">Get a Quote</a></div>
   <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </div></nav>
-<div class="nav-mobile"><a href="/">Home</a><a href="/about/">About</a><a href="/products/">Products</a><a href="/applications/">Applications</a><a href="/downloads/" class="active">Downloads</a><a href="/distributors/">Distributors</a><a href="/contact/">Contact</a>  <div class="nav-mobile-actions"><a href="/products/" class="nav-cart-btn">🛒 Cart <span class="cart-badge">0</span></a><a href="/contact/" class="btn btn-primary btn-sm">Get a Quote</a></div>
+<div class="nav-mobile"><a href="/">Home</a><a href="/about/">About</a><a href="/products/">Products</a><a href="/applications/">Applications</a><a href="/downloads/" class="active">Downloads</a><a href="/distributors/">Distributors</a><a href="/contact/">Contact</a>
 </div>
 
 <main class="page-body">
@@ -103,17 +103,7 @@
   </div>
   <div class="footer-bottom"><span>© 2025 Superior Electric Machines Pvt. Ltd. All rights reserved.</span><span>SEM® Air Moving Solutions</span></div>
 </div></footer>
+<script src="/js/nav.js"></script>
 <script src="/js/main.js"></script>
-<script>
-// Show cart badge count from localStorage
-(function() {
-  try {
-    var cart = JSON.parse(localStorage.getItem('sem-cart') || '[]');
-    var total = cart.reduce(function(s,i){ return s + i.qty; }, 0);
-    var badge = document.getElementById('cart-badge');
-    if (badge && total > 0) { badge.textContent = total; badge.classList.add('show'); }
-  } catch(e) {}
-})();
-</script>
 </body>
 </html>

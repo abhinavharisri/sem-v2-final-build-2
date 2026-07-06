@@ -18,47 +18,6 @@ window.addEventListener('scroll', () => {
   progressBar.style.width = pct + '%';
 }, { passive: true });
 
-// ── NAV SCROLL SHADOW ────────────────────────────────────────
-const nav = document.querySelector('.nav');
-window.addEventListener('scroll', () => {
-  if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
-}, { passive: true });
-
-// ── HAMBURGER ────────────────────────────────────────────────
-const hamburger = document.querySelector('.nav-hamburger');
-const mobileNav = document.querySelector('.nav-mobile');
-if (hamburger && mobileNav) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileNav.classList.toggle('open');
-  });
-  document.addEventListener('click', e => {
-    if (!nav.contains(e.target)) {
-      hamburger.classList.remove('open');
-      mobileNav.classList.remove('open');
-    }
-  });
-}
-
-// ── ACTIVE NAV LINK ──────────────────────────────────────────
-const currentPath = normalizeNavPath(location.pathname);
-document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(a => {
-  if (normalizeNavPath(a.getAttribute('href') || '') === currentPath) a.classList.add('active');
-});
-
-function normalizeNavPath(path) {
-  if (!path || path === '/index.html') return '/';
-  return path
-    .replace(/\/index\.html$/, '/')
-    .replace(/\/about\.html$/, '/about/')
-    .replace(/\/products\.html$/, '/products/')
-    .replace(/\/applications\.html$/, '/applications/')
-    .replace(/\/downloads\.html$/, '/downloads/')
-    .replace(/\/distributors\.html$/, '/distributors/')
-    .replace(/\/contact\.html$/, '/contact/')
-    .replace(/([^/])$/, '$1/');
-}
-
 // ── SCROLL REVEAL ────────────────────────────────────────────
 const revealObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -394,6 +353,10 @@ if (cf) {
   }
 
   function updateBadge() {
+    if (window.SEMNav && typeof window.SEMNav.updateCartBadges === 'function') {
+      window.SEMNav.updateCartBadges(cart);
+      return;
+    }
     const total = cart.reduce((s, i) => s + (Number(i.qty) || 0), 0);
     document.querySelectorAll('.cart-badge').forEach(badge => {
       badge.textContent = total;
@@ -402,6 +365,9 @@ if (cf) {
   }
 
   function openCart() {
+    if (window.SEMNav && typeof window.SEMNav.closeMobileNav === 'function') {
+      window.SEMNav.closeMobileNav();
+    }
     cart = readCart();
     if (!cart.length) checkoutStep = 1;
     renderCart();
