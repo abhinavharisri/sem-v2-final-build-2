@@ -34,6 +34,7 @@
       badge.textContent = total;
       badge.classList.toggle('show', total > 0);
     });
+    updateQuoteBar(total);
   }
 
   function icon(name) {
@@ -48,12 +49,35 @@
     mobileNav.appendChild(actions);
   }
 
+  function ensureQuoteBar() {
+    if (document.getElementById('mobile-quote-bar')) return;
+    var bar = document.createElement('div');
+    bar.className = 'mobile-quote-bar';
+    bar.id = 'mobile-quote-bar';
+    bar.innerHTML = '<div class="mobile-quote-copy">' + icon('cart') + '<span><span id="mobile-quote-count">0 items selected</span><span class="mobile-quote-sub">Ready for enquiry</span></span></div><button class="mobile-quote-btn" id="mobile-quote-btn" type="button">View Quote</button>';
+    document.body.appendChild(bar);
+    document.getElementById('mobile-quote-btn').addEventListener('click', function() {
+      var cartBtn = document.querySelector('.nav-actions .nav-cart-btn') || document.querySelector('.nav-cart-btn');
+      if (cartBtn) cartBtn.click();
+    });
+  }
+
+  function updateQuoteBar(total) {
+    ensureQuoteBar();
+    var bar = document.getElementById('mobile-quote-bar');
+    var count = document.getElementById('mobile-quote-count');
+    if (!bar || !count) return;
+    count.textContent = total + ' item' + (total === 1 ? '' : 's') + ' selected';
+    bar.classList.toggle('show', total > 0);
+  }
+
   function closeMobileNav() {
     if (hamburger) hamburger.classList.remove('open');
     if (mobileNav) mobileNav.classList.remove('open');
   }
 
   ensureMobileActions();
+  ensureQuoteBar();
 
   window.addEventListener('scroll', function() {
     if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);

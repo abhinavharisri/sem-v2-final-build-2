@@ -650,16 +650,7 @@ function buildProductGrid() {
     return `
     <div class="product-card" data-product-id="${p.id}" data-cat="${p.category}">
       <div class="product-card-image">
-        <svg class="product-card-image-icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
-          <circle cx="32" cy="32" r="20" stroke="#2A6496" stroke-width="2" stroke-dasharray="4 4"/>
-          <circle cx="32" cy="32" r="10" stroke="#2A6496" stroke-width="2"/>
-          <circle cx="32" cy="32" r="3" fill="#2A6496"/>
-          <line x1="32" y1="4" x2="32" y2="14" stroke="#2A6496" stroke-width="2"/>
-          <line x1="32" y1="50" x2="32" y2="60" stroke="#2A6496" stroke-width="2"/>
-          <line x1="4" y1="32" x2="14" y2="32" stroke="#2A6496" stroke-width="2"/>
-          <line x1="50" y1="32" x2="60" y2="32" stroke="#2A6496" stroke-width="2"/>
-        </svg>
-        <span class="product-card-image-label">Product Image Placeholder</span>
+        ${productCardFallback(p.category)}
       </div>
       <div class="product-card-body">
         <div class="product-card-cat">${p.category}</div>
@@ -678,6 +669,22 @@ function buildProductGrid() {
     c.style.transitionDelay = Math.min(i * 0.04, 0.4) + 's';
     revealObs.observe(c);
   });
+}
+
+function productCardFallback(category) {
+  const label = escHtml(category || 'Product');
+  const key = String(category || '').toLowerCase();
+  let svg;
+  if (key.includes('motor')) {
+    svg = '<svg viewBox="0 0 80 80" fill="none"><rect x="18" y="27" width="38" height="26" rx="6" stroke="currentColor" stroke-width="2.4"/><path d="M56 34h8v12h-8M18 34h-6v12h6M25 22h24M25 58h24" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M27 32h20M27 38h20M27 44h20M27 50h20" stroke="currentColor" stroke-width="1.4" opacity=".55"/></svg>';
+  } else if (key.includes('axial')) {
+    svg = '<svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="27" stroke="currentColor" stroke-width="2.4"/><circle cx="40" cy="40" r="8" stroke="currentColor" stroke-width="2.4"/><path d="M41 31c9-13 22-5 13 6-4 5-10 4-13 3M49 43c15 2 16 17 2 16-6 0-9-6-10-10M35 47c-7 13-21 7-14-6 3-5 9-6 13-4" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M40 13v8M40 59v8M13 40h8M59 40h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".65"/></svg>';
+  } else if (key.includes('special')) {
+    svg = '<svg viewBox="0 0 80 80" fill="none"><path d="M19 50h42M23 50V29h34v21M29 29v-7h22v7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M29 38h22M29 44h22M22 57h36" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".58"/><circle cx="29" cy="58" r="3" fill="currentColor" opacity=".35"/><circle cx="51" cy="58" r="3" fill="currentColor" opacity=".35"/></svg>';
+  } else {
+    svg = '<svg viewBox="0 0 80 80" fill="none"><path d="M21 45c0-13 9-24 23-24h10v38H44c-14 0-23-11-23-24Z" stroke="currentColor" stroke-width="2.4"/><path d="M54 29h8M54 51h8M25 35h20M25 41h20M25 47h20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".62"/><circle cx="45" cy="40" r="7" stroke="currentColor" stroke-width="2"/></svg>';
+  }
+  return '<div class="product-card-fallback">' + svg + '<span>' + label + '</span></div>';
 }
 
 if (document.getElementById('product-grid')) {

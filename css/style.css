@@ -455,6 +455,54 @@ p { line-height: 1.75; }
   width: 100%;
   border-bottom: none;
 }
+.mobile-quote-bar {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 1200;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px 10px 14px;
+  background: rgba(26,28,30,0.96);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  box-shadow: 0 12px 34px rgba(0,0,0,0.24);
+}
+.mobile-quote-bar.show { display: none; }
+.mobile-quote-copy {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+.mobile-quote-copy .ui-icon {
+  width: 18px;
+  height: 18px;
+  color: #d4e8f5;
+}
+.mobile-quote-sub {
+  display: block;
+  margin-top: 1px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.58);
+}
+.mobile-quote-btn {
+  min-height: 36px;
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border-radius: 7px;
+  background: var(--steel);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
 
 /* ── PAGE BODY ──────────────────────────────────────────────── */
 .page-body { padding-top: var(--nav-h); }
@@ -835,6 +883,29 @@ p { line-height: 1.75; }
   text-transform: uppercase;
   color: var(--steel);
   opacity: 0.6;
+}
+.product-card-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--steel);
+  background: radial-gradient(circle at 50% 42%,rgba(255,255,255,0.86),rgba(255,255,255,0.2) 38%,transparent 39%), linear-gradient(135deg,#f8fbfe,var(--steel-bg2));
+}
+.product-card-fallback svg {
+  width: 76px;
+  height: 76px;
+  opacity: 0.34;
+}
+.product-card-fallback span {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.72;
 }
 .product-card-body {
   padding: 20px 22px;
@@ -2607,6 +2678,7 @@ p { line-height: 1.75; }
   .nav-links, .nav-cta, .nav-actions { display: none; }
   .nav-hamburger { display: flex; }
   .nav-mobile-actions { display: grid; }
+  .mobile-quote-bar.show { display: flex; }
   .section { padding: 56px 0; }
   .section-lg { padding: 72px 0; }
   .hero h1 { font-size: clamp(2.35rem, 13vw, 4rem); }
