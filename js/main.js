@@ -738,7 +738,7 @@ if (document.getElementById('product-grid')) {
 
   function popularCard(product, duplicate) {
     const image = product.images && product.images[0]
-      ? `<img src="${escHtml(product.images[0])}" alt="${escHtml(product.name)}" loading="lazy">`
+      ? `<img src="${escHtml(product.images[0])}" alt="${escHtml(product.name)}" loading="lazy" decoding="async">`
       : `<svg class="usage-result-placeholder" width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/><circle cx="32" cy="32" r="10" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>`;
     const tags = (product.applications || []).slice(0, 3).map(app => `<span class="usage-result-tag">${escHtml(app)}</span>`).join('');
     const models = (product.models || []).slice(0, 4).join(' · ') + ((product.models || []).length > 4 ? ' · ...' : '');
@@ -759,19 +759,18 @@ if (document.getElementById('product-grid')) {
   }
 })();
 
-// ── MOBILE PERFORMANCE MODE ───────────────────────────────────
-(function initMobilePerformanceMode() {
+// ── VIDEO PERFORMANCE MODE ───────────────────────────────────
+(function initVideoPerformanceMode() {
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  if (!isMobile) return;
-
-  document.body.classList.add('mobile-performance');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (isMobile) document.body.classList.add('mobile-performance');
 
   const heroVideo = document.getElementById('hero-video');
   if (heroVideo) {
-    heroVideo.preload = 'metadata';
+    heroVideo.preload = isMobile || reducedMotion ? 'metadata' : 'auto';
     const heroObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) heroVideo.play().catch(() => {});
+        if (entry.isIntersecting && !reducedMotion) heroVideo.play().catch(() => {});
         else heroVideo.pause();
       });
     }, { threshold: 0.2 });
@@ -781,18 +780,28 @@ if (document.getElementById('product-grid')) {
   const appVideos = [...document.querySelectorAll('.video-grid video')];
   appVideos.forEach(video => {
     video.removeAttribute('autoplay');
-    video.preload = 'metadata';
+    video.preload = 'none';
     video.pause();
   });
 
   if (!appVideos.length) return;
+  const loadVideo = video => {
+    if (!video.dataset.src || video.src) return;
+    video.src = video.dataset.src;
+    video.load();
+  };
+
   const videoObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       const video = entry.target;
-      if (entry.isIntersecting) video.play().catch(() => {});
-      else video.pause();
+      if (entry.isIntersecting) {
+        loadVideo(video);
+        if (!reducedMotion) video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
     });
-  }, { threshold: 0.35, rootMargin: '80px 0px' });
+  }, { threshold: 0.3, rootMargin: '160px 0px' });
 
   appVideos.forEach(video => videoObserver.observe(video));
 })();
@@ -918,7 +927,7 @@ if (document.getElementById('product-grid')) {
 
   function resultCard(product, matches) {
     const image = product.images && product.images[0]
-      ? `<img src="${escHtml(product.images[0])}" alt="${escHtml(product.name)}" loading="lazy">`
+      ? `<img src="${escHtml(product.images[0])}" alt="${escHtml(product.name)}" loading="lazy" decoding="async">`
       : `<svg class="usage-result-placeholder" width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/><circle cx="32" cy="32" r="10" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>`;
     const models = (product.models || []).slice(0, 4).join(' · ') + ((product.models || []).length > 4 ? ' · ...' : '');
     const tags = (matches || []).slice(0, 3).map(app => `<span class="usage-result-tag">${escHtml(app)}</span>`).join('');

@@ -42,6 +42,9 @@ js/main.js             Navigation, modals, filters, animations, interactions
 js/products.js         Product data and specifications
 images/                Logo, product photos, application images
 assets/videos/         Homepage and application videos
+assets/videos/optimized/
+                       Web-optimized MP4 files used by the live pages
+assets/posters/        Lightweight video poster frames
 assets/downloads/      PDF catalogues and downloads
 sitemap.xml            Search engine sitemap
 robots.txt             Search crawler instructions
