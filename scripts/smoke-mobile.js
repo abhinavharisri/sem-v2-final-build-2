@@ -54,6 +54,8 @@ check('product SEO links and schema are generated', /product-seo-links/.test(pro
 check('product cart empty state has browse action', /data-browse-products/.test(products) && /cart-empty-btn/.test(productCss));
 check('mobile compare cards are generated', /buildCompareCards/.test(products) && /compare-card-list/.test(productCss) && /@media \(max-width: 560px\)[\s\S]*\.compare-table \{ display:none; \}/.test(productCss));
 check('compare modal restores focus', /lastCompareTrigger/.test(products) && /compare-close'\)\.focus/.test(products));
+check('fan selection helper exists', /selector-panel/.test(products) && /sel-airflow/.test(products) && /scoreSelectorProduct/.test(products) && /selector-result-card/.test(productCss));
+check('model finder exists', /model-finder-input/.test(products) && /normalizeModel/.test(products) && /data-model-query/.test(products));
 check('customer details persist globally', /sem-customer-details/.test(main) && /saveCustomerDetails/.test(main) && /restoreCustomerDetails/.test(main));
 check('customer details persist on products page', /sem-customer-details/.test(products) && /saveCustomerDetails/.test(products) && /restoreCustomerDetails/.test(products));
 

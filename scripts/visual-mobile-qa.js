@@ -171,6 +171,38 @@ async function evaluate(client, sessionId, expression) {
     assert('products page has no horizontal overflow', productMetrics.scrollWidth <= productMetrics.viewport && productMetrics.bodyScrollWidth <= productMetrics.viewport, JSON.stringify(productMetrics));
 
     await evaluate(client, sessionId, `(() => {
+      document.querySelector('#model-finder-input').value = 'SDB 133';
+      document.querySelector('#model-finder-input').dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await wait(250);
+    const modelMetrics = await evaluate(client, sessionId, `(() => ({
+      resultCount: document.querySelectorAll('.selector-result-card').length,
+      firstModel: document.querySelector('.selector-result-model') && document.querySelector('.selector-result-model').textContent,
+      overflow: document.documentElement.scrollWidth > window.innerWidth
+    }))()`);
+    assert('model finder returns catalogue matches', modelMetrics.resultCount > 0 && /SDB 133/i.test(modelMetrics.firstModel || ''), JSON.stringify(modelMetrics));
+
+    await evaluate(client, sessionId, `(() => {
+      document.querySelector('#model-finder-input').value = '';
+      document.querySelector('#sel-airflow').value = '800';
+      document.querySelector('#sel-pressure').value = '40';
+      document.querySelector('#sel-supply').value = '230';
+      ['model-finder-input','sel-airflow','sel-pressure','sel-supply'].forEach(id => {
+        document.querySelector('#' + id).dispatchEvent(new Event('input', { bubbles: true }));
+        document.querySelector('#' + id).dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      return true;
+    })()`);
+    await wait(250);
+    const selectorMetrics = await evaluate(client, sessionId, `(() => ({
+      resultCount: document.querySelectorAll('.selector-result-card').length,
+      hasAction: !!document.querySelector('[data-selector-product]'),
+      overflow: document.documentElement.scrollWidth > window.innerWidth
+    }))()`);
+    assert('fan selector returns duty-point matches', selectorMetrics.resultCount > 0 && selectorMetrics.hasAction && !selectorMetrics.overflow, JSON.stringify(selectorMetrics));
+
+    await evaluate(client, sessionId, `(() => {
       const buttons = document.querySelectorAll('[data-compare-id]');
       buttons[0].click();
       buttons[1].click();
@@ -206,7 +238,7 @@ async function evaluate(client, sessionId, expression) {
   } finally {
     if (client) client.close();
     chrome.kill('SIGTERM');
-    fs.rmSync(profileDir, { recursive: true, force: true });
+    try { fs.rmSync(profileDir, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 }); } catch (error) {}
     if (chromeErrors.length) {
       const relevant = chromeErrors.filter(line => !/ERROR:.*(policy|variations|component)/i.test(line));
       if (relevant.length) console.log(`Chrome notes:\n${relevant.slice(0, 3).join('\n')}`);
