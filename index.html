@@ -101,10 +101,10 @@
   <!-- FULL BACKGROUND VIDEO -->
   <div style="position:absolute;inset:0;z-index:0;background:#0d1520;">
     <video id="hero-video" src="/assets/videos/optimized/sem-applications.mp4" poster="/assets/posters/sem-applications.jpg" muted loop autoplay playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
-    <!-- Placeholder shown when no video file present -->
-    <div id="hero-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#eef2f7 0%,#dce8f5 50%,#cfe0f0 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
+    <!-- Fallback only appears if the video file fails -->
+    <div id="hero-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#eef2f7 0%,#dce8f5 50%,#cfe0f0 100%);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
       <svg width="88" height="88" viewBox="0 0 88 88" fill="none"><circle cx="44" cy="44" r="34" stroke="#2A6496" stroke-width="1.5" stroke-dasharray="7 5"/><circle cx="44" cy="44" r="20" stroke="#2A6496" stroke-width="1.5"/><circle cx="44" cy="44" r="7" fill="#2A6496" opacity="0.25"/><line x1="44" y1="6" x2="44" y2="22" stroke="#2A6496" stroke-width="1.5"/><line x1="44" y1="66" x2="44" y2="82" stroke="#2A6496" stroke-width="1.5"/><line x1="6" y1="44" x2="22" y2="44" stroke="#2A6496" stroke-width="1.5"/><line x1="66" y1="44" x2="82" y2="44" stroke="#2A6496" stroke-width="1.5"/></svg>
-      <span style="font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#2A6496;opacity:0.6;text-align:center;">Add your video as assets/videos/optimized/sem-applications.mp4</span>
+      <span style="font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#2A6496;opacity:0.6;text-align:center;">Hero video unavailable</span>
     </div>
     <!-- Dark overlay for text readability -->
     <div style="position:absolute;inset:0;background:linear-gradient(105deg,rgba(13,21,32,0.55) 0%,rgba(13,21,32,0.3) 60%,rgba(13,21,32,0.1) 100%);"></div>
@@ -116,7 +116,7 @@
       <div class="hero-tag" style="background:rgba(42,100,150,0.25);border-color:rgba(42,100,150,0.4);color:#7eb8e8;" data-reveal>ISO 9001:2015 Certified</div>
       <h1 style="color:#ffffff;margin-bottom:16px;" data-reveal data-delay="1">Engineering Air.<br><span style="color:#5aaee8;">Powering Industry.</span></h1>
       <p style="font-size:1.05rem;color:rgba(255,255,255,0.75);font-style:italic;margin-bottom:32px;" data-reveal data-delay="2">making machines breathe and live long</p>
-      <div class="hero-actions" data-reveal data-delay="3">
+      <div class="hero-actions home-hero-actions" data-reveal data-delay="3">
         <a href="/products/" class="btn btn-primary btn-lg">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           Explore Products
@@ -124,22 +124,22 @@
         <a href="/contact/" class="btn btn-lg" style="background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.4);">Request a Quote</a>
       </div>
       <!-- Stats -->
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius);overflow:hidden;margin-top:48px;max-width:580px;" data-reveal data-delay="4">
-        <div style="padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.12);">
-          <div style="font-size:1.5rem;font-weight:800;color:#5aaee8;line-height:1;"><span data-count="45" data-suffix="+">45+</span></div>
-          <div style="font-size:0.58rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;">Years</div>
+      <div class="home-hero-stats" data-reveal data-delay="4">
+        <div class="home-hero-stat">
+          <div class="home-hero-stat-value"><span data-count="45" data-suffix="+">45+</span></div>
+          <div class="home-hero-stat-label">Years</div>
         </div>
-        <div style="padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.12);">
-          <div style="font-size:1.5rem;font-weight:800;color:#5aaee8;line-height:1;"><span data-count="500" data-suffix="+">500+</span></div>
-          <div style="font-size:0.58rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;">Products</div>
+        <div class="home-hero-stat">
+          <div class="home-hero-stat-value"><span data-count="500" data-suffix="+">500+</span></div>
+          <div class="home-hero-stat-label">Products</div>
         </div>
-        <div style="padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.12);">
-          <div style="font-size:1.5rem;font-weight:800;color:#5aaee8;line-height:1;"><span data-count="20000">20K</span></div>
-          <div style="font-size:0.58rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;">Max CMH</div>
+        <div class="home-hero-stat">
+          <div class="home-hero-stat-value"><span data-count="20000">20K</span></div>
+          <div class="home-hero-stat-label">Max CMH</div>
         </div>
-        <div style="padding:18px 14px;text-align:center;">
-          <div style="font-size:1.5rem;font-weight:800;color:#5aaee8;line-height:1;"><span data-count="350">350</span>°C</div>
-          <div style="font-size:0.58rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;">High Temp</div>
+        <div class="home-hero-stat">
+          <div class="home-hero-stat-value"><span data-count="350">350</span>°C</div>
+          <div class="home-hero-stat-label">High Temp</div>
         </div>
       </div>
     </div>
@@ -519,11 +519,12 @@
 <script src="/js/products.js"></script>
 <script src="/js/main.js"></script>
 <script>
-// Hide placeholder when video loads, show it if video errors
+// Keep the poster visible while video loads; show fallback only on real errors.
 var hv = document.getElementById('hero-video');
 var hp = document.getElementById('hero-placeholder');
 if (hv) {
-  hv.addEventListener('canplay', function() { if (hp) hp.style.display = 'none'; });
+  if (hp) hp.style.display = 'none';
+  hv.addEventListener('loadeddata', function() { if (hp) hp.style.display = 'none'; });
   hv.addEventListener('error', function() { if (hp) hp.style.display = 'flex'; });
 }
 </script>

@@ -767,6 +767,14 @@ if (document.getElementById('product-grid')) {
 
   const heroVideo = document.getElementById('hero-video');
   if (heroVideo) {
+    const heroFallback = document.getElementById('hero-placeholder');
+    if (heroFallback) heroFallback.style.display = 'none';
+    heroVideo.addEventListener('loadeddata', () => {
+      if (heroFallback) heroFallback.style.display = 'none';
+    }, { once: true });
+    heroVideo.addEventListener('error', () => {
+      if (heroFallback) heroFallback.style.display = 'flex';
+    }, { once: true });
     heroVideo.preload = isMobile || reducedMotion ? 'metadata' : 'auto';
     const heroObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
