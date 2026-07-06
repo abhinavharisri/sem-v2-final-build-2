@@ -43,6 +43,9 @@ js/products.js         Product data and specifications
 images/                Logo, product photos, application images
 assets/videos/         Homepage and application videos
 assets/downloads/      PDF catalogues and downloads
+sitemap.xml            Search engine sitemap
+robots.txt             Search crawler instructions
+404.html               Branded not-found page
 
 Updating Content
 ----------------
