@@ -362,7 +362,15 @@ p { line-height: 1.75; }
 .nav-links a:hover::after,
 .nav-links a.active::after { transform: scaleX(1); }
 .nav-links a.active { color: var(--steel); font-weight: 600; }
-.nav-cta { flex-shrink: 0; }
+.nav-cta,
+.nav-actions {
+  flex-shrink: 0;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .nav-hamburger {
   display: none;
   flex-direction: column;
@@ -2492,7 +2500,24 @@ p { line-height: 1.75; }
 }
 @media (max-width: 768px) {
   :root { --nav-h: 60px; }
-  .nav-links, .nav-cta { display: none; }
+  .nav-inner {
+    padding: 0 18px;
+    gap: 12px;
+  }
+  .nav-logo {
+    min-width: 0;
+    flex: 1;
+  }
+  .nav-logo-text {
+    min-width: 0;
+  }
+  .nav-logo-name,
+  .nav-logo-sub {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .nav-links, .nav-cta, .nav-actions { display: none; }
   .nav-hamburger { display: flex; }
   .section { padding: 56px 0; }
   .section-lg { padding: 72px 0; }
