@@ -220,6 +220,7 @@
   .compare-actions { width:100%; }
   .compare-action { flex:1; }
   .compare-table-wrap { padding:14px; }
+  .compare-chip { max-width:100%; flex:1 1 120px; }
 }
 
 /* ── DATASHEET BUTTON ── */
@@ -227,8 +228,11 @@
 .datasheet-btn:hover { background:#eaf2f9; border-color:#2A6496; }
 .compare-bar { position:fixed; left:50%; bottom:18px; z-index:1900; width:min(720px,calc(100vw - 32px)); background:#1a1c1e; color:#fff; border:1px solid rgba(255,255,255,.12); border-radius:10px; box-shadow:0 16px 48px rgba(0,0,0,.22); padding:12px 14px; display:none; align-items:center; justify-content:space-between; gap:12px; transform:translateX(-50%); }
 .compare-bar.show { display:flex; }
+.compare-bar-info { min-width:0; flex:1; }
 .compare-bar-title { font-size:.82rem; font-weight:800; }
 .compare-bar-sub { font-size:.68rem; color:rgba(255,255,255,.55); margin-top:2px; }
+.compare-chip-row { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; max-width:100%; }
+.compare-chip { max-width:180px; min-width:0; padding:4px 8px; border-radius:100px; background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.14); color:rgba(255,255,255,.86); font-size:.62rem; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .compare-actions { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
 .compare-action { padding:8px 12px; border-radius:7px; font-size:.74rem; font-weight:800; border:1px solid rgba(255,255,255,.18); color:#fff; cursor:pointer; }
 .compare-action.primary { background:#2A6496; border-color:#2A6496; }

@@ -236,9 +236,10 @@
 
 <!-- COMPARE -->
 <div class="compare-bar" id="compare-bar">
-  <div>
+  <div class="compare-bar-info">
     <div class="compare-bar-title" id="compare-bar-title">Compare products</div>
     <div class="compare-bar-sub" id="compare-bar-sub">Select up to 3 products.</div>
+    <div class="compare-chip-row" id="compare-chip-row" aria-label="Selected products"></div>
   </div>
   <div class="compare-actions">
     <button class="compare-action ghost" id="compare-clear" type="button">Clear</button>
@@ -406,10 +407,17 @@ function refreshCompareState() {
   var bar = document.getElementById('compare-bar');
   var title = document.getElementById('compare-bar-title');
   var sub = document.getElementById('compare-bar-sub');
+  var chipRow = document.getElementById('compare-chip-row');
   if (!bar) return;
   bar.classList.toggle('show', compareIds.length > 0);
   if (title) title.textContent = compareIds.length + ' product' + (compareIds.length === 1 ? '' : 's') + ' selected';
   if (sub) sub.textContent = compareIds.length < 2 ? 'Select at least 2 products to compare.' : 'Ready to compare key specifications.';
+  if (chipRow) {
+    chipRow.innerHTML = compareIds.map(function(id) {
+      var product = getProductById(id);
+      return product ? '<span class="compare-chip" title="' + esc(product.name) + '">' + esc(product.name) + '</span>' : '';
+    }).join('');
+  }
 }
 
 function openCompare() {

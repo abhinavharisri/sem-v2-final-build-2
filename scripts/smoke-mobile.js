@@ -53,6 +53,7 @@ check('quote summary can edit saved details', /data-global-edit-details/.test(ma
 check('product SEO links and schema are generated', /product-seo-links/.test(products) && /injectProductItemListSchema/.test(products) && /ItemList/.test(products));
 check('product cart empty state has browse action', /data-browse-products/.test(products) && /cart-empty-btn/.test(productCss));
 check('mobile compare cards are generated', /buildCompareCards/.test(products) && /compare-card-list/.test(productCss) && /@media \(max-width: 560px\)[\s\S]*\.compare-table \{ display:none; \}/.test(productCss));
+check('compare bar shows selected product chips', /compare-chip-row/.test(products) && /compare-chip/.test(productCss) && /getProductById\(id\)/.test(products));
 check('compare modal restores focus', /lastCompareTrigger/.test(products) && /compare-close'\)\.focus/.test(products));
 check('combined product finder supports models', /Search by Usage or Model/.test(products) && /SDB 133/.test(products) && /modelText/.test(products));
 check('fan selection helper is removed', !/selector-panel|sel-airflow|scoreSelectorProduct|model-finder-input/.test(products + productCss));

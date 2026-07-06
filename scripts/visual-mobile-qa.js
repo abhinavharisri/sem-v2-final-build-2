@@ -189,6 +189,18 @@ async function evaluate(client, sessionId, expression) {
       const buttons = document.querySelectorAll('[data-compare-id]');
       buttons[0].click();
       buttons[1].click();
+      return true;
+    })()`);
+    await wait(250);
+    const chipMetrics = await evaluate(client, sessionId, `(() => ({
+      chipCount: document.querySelectorAll('.compare-chip').length,
+      firstChip: document.querySelector('.compare-chip') && document.querySelector('.compare-chip').textContent,
+      barDisplay: getComputedStyle(document.querySelector('#compare-bar')).display,
+      overflow: document.documentElement.scrollWidth > window.innerWidth
+    }))()`);
+    assert('compare bar shows selected product chips', chipMetrics.chipCount >= 2 && chipMetrics.barDisplay !== 'none' && !chipMetrics.overflow, JSON.stringify(chipMetrics));
+
+    await evaluate(client, sessionId, `(() => {
       document.querySelector('#compare-open').click();
       return true;
     })()`);
