@@ -1,7 +1,7 @@
 /* 
   PRODUCT IMAGES — HOW TO ADD:
   Each product has an optional "images" array.
-  Add image paths like: images: ["images/products/PRODUCT-1.jpg","images/products/PRODUCT-2.jpg"]
+  Add image paths like: images: ["/images/products/PRODUCT-1.jpg","/images/products/PRODUCT-2.jpg"]
   The modal carousel will automatically show them.
   If no images array, a placeholder icon is shown.
 */
@@ -40,19 +40,19 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/1ec-1bt-2.jpg",
-      "images/products/1ec-1bt-3.jpg",
-      "images/products/1ec-1bt-4.jpg",
-      "images/products/6ec-1bt-1.jpg",
-      "images/products/6ec-1bt-2.jpg",
-      "images/products/6ec-1bt-3.jpg",
-      "images/products/9ec-3bt-1.jpg",
-      "images/products/10ec-1bt-1.jpg",
-      "images/products/10ec-1bt-2.jpg",
-      "images/products/10ec-1bt-3.jpg",
-      "images/products/11ec-3bt-1.jpg",
-      "images/products/11ec-3bt-2.jpg",
-      "images/products/11ec-3bt-3.jpg"
+      "/images/products/1ec-1bt-2.jpg",
+      "/images/products/1ec-1bt-3.jpg",
+      "/images/products/1ec-1bt-4.jpg",
+      "/images/products/6ec-1bt-1.jpg",
+      "/images/products/6ec-1bt-2.jpg",
+      "/images/products/6ec-1bt-3.jpg",
+      "/images/products/9ec-3bt-1.jpg",
+      "/images/products/10ec-1bt-1.jpg",
+      "/images/products/10ec-1bt-2.jpg",
+      "/images/products/10ec-1bt-3.jpg",
+      "/images/products/11ec-3bt-1.jpg",
+      "/images/products/11ec-3bt-2.jpg",
+      "/images/products/11ec-3bt-3.jpg"
     ],
     note: "Tolerance ±5% on Specified values"
   },
@@ -73,8 +73,8 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sdb-133-s2-1.jpg",
-      "images/products/sdb-133-s2-2.jpg"
+      "/images/products/sdb-133-s2-1.jpg",
+      "/images/products/sdb-133-s2-2.jpg"
     ],
     note: "Tolerance ±5% on Specified values"
   },
@@ -93,9 +93,9 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sdb-150-t2-1.jpg",
-      "images/products/sdb-150-t2-2.jpg",
-      "images/products/sdb-150-t2-3.jpg"
+      "/images/products/sdb-150-t2-1.jpg",
+      "/images/products/sdb-150-t2-2.jpg",
+      "/images/products/sdb-150-t2-3.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -115,11 +115,11 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sdb-150-t2-1.jpg",
-      "images/products/sdb-150-t2-2.jpg",
-      "images/products/sdb-150-t2-3.jpg",
-      "images/products/sdb-150-t2-4.jpg",
-      "images/products/sdb-150-t2-5.jpg"
+      "/images/products/sdb-150-t2-1.jpg",
+      "/images/products/sdb-150-t2-2.jpg",
+      "/images/products/sdb-150-t2-3.jpg",
+      "/images/products/sdb-150-t2-4.jpg",
+      "/images/products/sdb-150-t2-5.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -138,12 +138,12 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sdb-180-t2-1.jpg",
-      "images/products/sdb-180-t2-2.jpg",
-      "images/products/sdb-180-t2-3.jpg",
-      "images/products/sdb-180-t2-4.jpg",
-      "images/products/sdb-180-t2-5.jpg",
-      "images/products/sdb-180-t2-6.jpg"
+      "/images/products/sdb-180-t2-1.jpg",
+      "/images/products/sdb-180-t2-2.jpg",
+      "/images/products/sdb-180-t2-3.jpg",
+      "/images/products/sdb-180-t2-4.jpg",
+      "/images/products/sdb-180-t2-5.jpg",
+      "/images/products/sdb-180-t2-6.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -166,17 +166,17 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sdb-220-t2-1.jpg",
-      "images/products/sdb-220-t2-2.jpg",
-      "images/products/sdb-220-t2-3.jpg",
-      "images/products/sdb-220-t2-4.jpg",
-      "images/products/sdb-220-t2-5.jpg",
-      "images/products/sdb-240-t4-1.jpg",
-      "images/products/sdb-240-t4-2.jpg",
-      "images/products/sdb-240-t4-3.jpg",
-      "images/products/sdb255-t4-1.jpg",
-      "images/products/sdb255-t4-2.jpg",
-      "images/products/sdb255-t4-3.jpg"
+      "/images/products/sdb-220-t2-1.jpg",
+      "/images/products/sdb-220-t2-2.jpg",
+      "/images/products/sdb-220-t2-3.jpg",
+      "/images/products/sdb-220-t2-4.jpg",
+      "/images/products/sdb-220-t2-5.jpg",
+      "/images/products/sdb-240-t4-1.jpg",
+      "/images/products/sdb-240-t4-2.jpg",
+      "/images/products/sdb-240-t4-3.jpg",
+      "/images/products/sdb255-t4-1.jpg",
+      "/images/products/sdb255-t4-2.jpg",
+      "/images/products/sdb255-t4-3.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -194,14 +194,14 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sdb-250-bc-s2-1.jpg",
-      "images/products/sdb-250-bc-s2-2.jpg",
-      "images/products/sdb-250-bc-s2-3.jpg",
-      "images/products/sdb-250-bc-s2-4.jpg",
-      "images/products/sdb-250-bc-s2-5.jpg",
-      "images/products/sdb-250-bc-s2-6.jpg",
-      "images/products/sdb-250-bc-s2-7.jpg",
-      "images/products/sdb-250-bc-s2-8.jpg"
+      "/images/products/sdb-250-bc-s2-1.jpg",
+      "/images/products/sdb-250-bc-s2-2.jpg",
+      "/images/products/sdb-250-bc-s2-3.jpg",
+      "/images/products/sdb-250-bc-s2-4.jpg",
+      "/images/products/sdb-250-bc-s2-5.jpg",
+      "/images/products/sdb-250-bc-s2-6.jpg",
+      "/images/products/sdb-250-bc-s2-7.jpg",
+      "/images/products/sdb-250-bc-s2-8.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -218,10 +218,10 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp","Weight Kg"],
     images: [
-      "images/products/mb-1bt-1.jpg",
-      "images/products/mb-1bt-2.jpg",
-      "images/products/mb-1bt-3.jpg",
-      "images/products/mb-1bt-4.jpg"
+      "/images/products/mb-1bt-1.jpg",
+      "/images/products/mb-1bt-2.jpg",
+      "/images/products/mb-1bt-3.jpg",
+      "/images/products/mb-1bt-4.jpg"
     ],
         note: "Tolerance ±5% on Specified values. Cleat and Rivet type casing."
   },
@@ -241,11 +241,11 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sdb-53-s2-1.jpg",
-      "images/products/sdb-53-s2-2.jpg",
-      "images/products/sdb-53-s2-3.jpg",
-      "images/products/sdb-53-s2-4.jpg",
-      "images/products/sdb-53-s2-5.jpg"
+      "/images/products/sdb-53-s2-1.jpg",
+      "/images/products/sdb-53-s2-2.jpg",
+      "/images/products/sdb-53-s2-3.jpg",
+      "/images/products/sdb-53-s2-4.jpg",
+      "/images/products/sdb-53-s2-5.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -266,11 +266,11 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sdb-53-s2-1.jpg",
-      "images/products/sdb-53-s2-6.jpg",
-      "images/products/sdb-53-s2-7.jpg",
-      "images/products/sdb-53-s2-8.jpg",
-      "images/products/sdb-53-s2-9.jpg"
+      "/images/products/sdb-53-s2-1.jpg",
+      "/images/products/sdb-53-s2-6.jpg",
+      "/images/products/sdb-53-s2-7.jpg",
+      "/images/products/sdb-53-s2-8.jpg",
+      "/images/products/sdb-53-s2-9.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -287,9 +287,9 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sdb-53-s2-1.jpg",
-      "images/products/sdb-53-s2-2.jpg",
-      "images/products/sdb-53-s2-3.jpg"
+      "/images/products/sdb-53-s2-1.jpg",
+      "/images/products/sdb-53-s2-2.jpg",
+      "/images/products/sdb-53-s2-3.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -307,12 +307,12 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/seb-23-s2-1.jpg",
-      "images/products/seb-23-s2-2.jpg",
-      "images/products/seb-23-s2-3.jpg",
-      "images/products/seb-23-s2-4.jpg",
-      "images/products/seb-23-s2-5.jpg",
-      "images/products/seb-23-s2-6.jpg"
+      "/images/products/seb-23-s2-1.jpg",
+      "/images/products/seb-23-s2-2.jpg",
+      "/images/products/seb-23-s2-3.jpg",
+      "/images/products/seb-23-s2-4.jpg",
+      "/images/products/seb-23-s2-5.jpg",
+      "/images/products/seb-23-s2-6.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -337,14 +337,14 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Static PR (mm-wc)","dBA","Weight Kg"],
     images: [
-      "images/products/skd-400-s2-1.jpg",
-      "images/products/skd-400-s2-2.jpg",
-      "images/products/skd-400-s2-3.jpg",
-      "images/products/skd-400-s2-4.jpg",
-      "images/products/skd-400-s2-5.jpg",
-      "images/products/skd-400-s2-6.jpg",
-      "images/products/seb-23-s2-7.jpg",
-      "images/products/seb-23-s2-8.jpg"
+      "/images/products/skd-400-s2-1.jpg",
+      "/images/products/skd-400-s2-2.jpg",
+      "/images/products/skd-400-s2-3.jpg",
+      "/images/products/skd-400-s2-4.jpg",
+      "/images/products/skd-400-s2-5.jpg",
+      "/images/products/skd-400-s2-6.jpg",
+      "/images/products/seb-23-s2-7.jpg",
+      "/images/products/seb-23-s2-8.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -372,14 +372,14 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sbc-14-t2-1.jpg",
-      "images/products/sbc-14-t2-2.jpg",
-      "images/products/sbc-14-t2-3.jpg",
-      "images/products/sbc-14-t2-4.jpg",
-      "images/products/sbc-14-t2-5.jpg",
-      "images/products/sbc-25-s2-1.jpg",
-      "images/products/sbc-25-s2-2.jpg",
-      "images/products/sbc-25-s2-3.jpg"
+      "/images/products/sbc-14-t2-1.jpg",
+      "/images/products/sbc-14-t2-2.jpg",
+      "/images/products/sbc-14-t2-3.jpg",
+      "/images/products/sbc-14-t2-4.jpg",
+      "/images/products/sbc-14-t2-5.jpg",
+      "/images/products/sbc-25-s2-1.jpg",
+      "/images/products/sbc-25-s2-2.jpg",
+      "/images/products/sbc-25-s2-3.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -405,18 +405,18 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/1c-sbc-19-t2-1.jpg",
-      "images/products/1c-sbc-19-t2-2.jpg",
-      "images/products/1c-sbc-19-t2-3.jpg",
-      "images/products/1c-sbc-23-s2-1.jpg",
-      "images/products/1c-sbc-23-s2-2.jpg",
-      "images/products/1c-sbc-23-s2-3.jpg",
-      "images/products/2c-8ec-1btp-1.jpg",
-      "images/products/2c-8ec-1btp-2.jpg",
-      "images/products/2c-8ec-1btp-3.jpg",
-      "images/products/8ec-3btp-1.jpg",
-      "images/products/8ec-3btp-2.jpg",
-      "images/products/8ec-3btp-3.jpg"
+      "/images/products/1c-sbc-19-t2-1.jpg",
+      "/images/products/1c-sbc-19-t2-2.jpg",
+      "/images/products/1c-sbc-19-t2-3.jpg",
+      "/images/products/1c-sbc-23-s2-1.jpg",
+      "/images/products/1c-sbc-23-s2-2.jpg",
+      "/images/products/1c-sbc-23-s2-3.jpg",
+      "/images/products/2c-8ec-1btp-1.jpg",
+      "/images/products/2c-8ec-1btp-2.jpg",
+      "/images/products/2c-8ec-1btp-3.jpg",
+      "/images/products/8ec-3btp-1.jpg",
+      "/images/products/8ec-3btp-2.jpg",
+      "/images/products/8ec-3btp-3.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -436,10 +436,10 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Static PR (mm-wc)","dBA","Amb. Temp","Weight Kg"],
     images: [
-      "images/products/im-250-t2-1.jpg",
-      "images/products/im-250-t2-2.jpg",
-      "images/products/im-250-t2-3.jpg",
-      "images/products/im-250-t2-4.jpg"
+      "/images/products/im-250-t2-1.jpg",
+      "/images/products/im-250-t2-2.jpg",
+      "/images/products/im-250-t2-3.jpg",
+      "/images/products/im-250-t2-4.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -463,11 +463,11 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)"],
     images: [
-      "images/products/im250-t2-1.jpg",
-      "images/products/im250-t2-2.jpg",
-      "images/products/im250-t2-3.jpg",
-      "images/products/im250-t2-4.jpg",
-      "images/products/im250-t2-5.jpg"
+      "/images/products/im250-t2-1.jpg",
+      "/images/products/im250-t2-2.jpg",
+      "/images/products/im250-t2-3.jpg",
+      "/images/products/im250-t2-4.jpg",
+      "/images/products/im250-t2-5.jpg"
     ],
         note: "Custom made. Motor HP Range 0.25HP to 12.5HP and above on special requirement. Static Pressure Range 20mm-wc to 300mm-wc. Air Volume 100 CMH to 20000 CMH. Tolerance ±5% on Specified values."
   },
@@ -500,13 +500,13 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Fan Dia D(mm)","Height H(mm)","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/cm-150-s2-1.jpg",
-      "images/products/cm-150-s2-2.jpg",
-      "images/products/cm-150-s2-3.jpg",
-      "images/products/10af-3s2-1.jpg",
-      "images/products/10af-3s2-2.jpg",
-      "images/products/10af-3s2-3.jpg",
-      "images/products/10af-3s2-4.jpg"
+      "/images/products/cm-150-s2-1.jpg",
+      "/images/products/cm-150-s2-2.jpg",
+      "/images/products/cm-150-s2-3.jpg",
+      "/images/products/10af-3s2-1.jpg",
+      "/images/products/10af-3s2-2.jpg",
+      "/images/products/10af-3s2-3.jpg",
+      "/images/products/10af-3s2-4.jpg"
     ],
         note: "S = Suction type, B = Blowing type. Tolerance ±5% on Specified values."
   },
@@ -529,13 +529,13 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Fan Dia D(mm)","Height H(mm)","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/10af-3b2-2.jpg",
-      "images/products/10af-3b2-3.jpg",
-      "images/products/10af-3b2-4.jpg",
-      "images/products/18af-3s4-1.jpg",
-      "images/products/18af-3s4-2.jpg",
-      "images/products/18af-3s4-3.jpg",
-      "images/products/18af-3s4-4.jpg"
+      "/images/products/10af-3b2-2.jpg",
+      "/images/products/10af-3b2-3.jpg",
+      "/images/products/10af-3b2-4.jpg",
+      "/images/products/18af-3s4-1.jpg",
+      "/images/products/18af-3s4-2.jpg",
+      "/images/products/18af-3s4-3.jpg",
+      "/images/products/18af-3s4-4.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -552,7 +552,7 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Admissible Ambient Temp °C","Weight Kg"],
     images: [
-      "images/products/18af-3b4-bg-new-1.png"
+      "/images/products/18af-3b4-bg-new-1.png"
     ],
     note: "All dimensions are in mm. Fan blade is made of mild steel and powder coated. Ingress protection IP-54."
   },
@@ -569,8 +569,8 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Admissible Ambient Temp °C","Weight Kg"],
     images: [
-      "images/products/20af-3b4-new-1.png",
-      "images/products/20af-3b4-new-2.png"
+      "/images/products/20af-3b4-new-1.png",
+      "/images/products/20af-3b4-new-2.png"
     ],
     note: "All dimensions are in mm. Insulation class F. Ingress protection IP-54."
   },
@@ -596,16 +596,16 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sid-150-s2-1.jpg",
-      "images/products/sid-150-s2-2.jpg",
-      "images/products/sid-150-s2-3.jpg",
-      "images/products/sid-150-s2-4.jpg",
-      "images/products/sid-150-s2-5.jpg",
-      "images/products/sid-200-s2-1.jpg",
-      "images/products/sid-200-s2-2.jpg",
-      "images/products/sid-200-s2-3.jpg",
-      "images/products/sid-250-s2-1.jpg",
-      "images/products/sid-250-s2-2.jpg"
+      "/images/products/sid-150-s2-1.jpg",
+      "/images/products/sid-150-s2-2.jpg",
+      "/images/products/sid-150-s2-3.jpg",
+      "/images/products/sid-150-s2-4.jpg",
+      "/images/products/sid-150-s2-5.jpg",
+      "/images/products/sid-200-s2-1.jpg",
+      "/images/products/sid-200-s2-2.jpg",
+      "/images/products/sid-200-s2-3.jpg",
+      "/images/products/sid-250-s2-1.jpg",
+      "/images/products/sid-250-s2-2.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -622,13 +622,13 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Static PR (mm-wc)","dBA","Weight Kg"],
     images: [
-      "images/products/scf-100-s4-1.jpg",
-      "images/products/scf-100-s4-2.jpg",
-      "images/products/scf-100-s4-3.jpg",
-      "images/products/scf-100-s4-4.jpg",
-      "images/products/scf-100-s4-5.jpg",
-      "images/products/scf-100-s4-6.jpg",
-      "images/products/scf-100-s4-7.jpg"
+      "/images/products/scf-100-s4-1.jpg",
+      "/images/products/scf-100-s4-2.jpg",
+      "/images/products/scf-100-s4-3.jpg",
+      "/images/products/scf-100-s4-4.jpg",
+      "/images/products/scf-100-s4-5.jpg",
+      "/images/products/scf-100-s4-6.jpg",
+      "/images/products/scf-100-s4-7.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -645,9 +645,9 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","Voltage (V)","Phase","Current (A)","Watts (W)","RPM","Airflow CMH/CFM","Static PR (mm-wc)","Capacitor","dBA","Amb. Temp"],
     images: [
-      "images/products/fume-extractor-1.jpg",
-      "images/products/fume-extractor-2.jpg",
-      "images/products/fume-extractor-3.jpg"
+      "/images/products/fume-extractor-1.jpg",
+      "/images/products/fume-extractor-2.jpg",
+      "/images/products/fume-extractor-3.jpg"
     ],
         note: "Electrical and Flow Parameters can change depending on type of filter used."
   },
@@ -672,15 +672,15 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps max (A)","Full Load Watts (W)","RPM","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/im-390-t4-1.jpg",
-      "images/products/im-390-t4-2.jpg",
-      "images/products/im-390-t4-3.jpg",
-      "images/products/im-390-t4-4.jpg",
-      "images/products/ir-35-1.jpg",
-      "images/products/ir-35-2.jpg",
-      "images/products/ir-35-3.jpg",
-      "images/products/ir-35-4.jpg",
-      "images/products/ir-35-5.jpg"
+      "/images/products/im-390-t4-1.jpg",
+      "/images/products/im-390-t4-2.jpg",
+      "/images/products/im-390-t4-3.jpg",
+      "/images/products/im-390-t4-4.jpg",
+      "/images/products/ir-35-1.jpg",
+      "/images/products/ir-35-2.jpg",
+      "/images/products/ir-35-3.jpg",
+      "/images/products/ir-35-4.jpg",
+      "/images/products/ir-35-5.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -698,11 +698,11 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps max (A)","Watts max (W)","RPM","dBA","Amb. Temp °C","Weight Kg"],
     images: [
-      "images/products/sm-2-1.jpg",
-      "images/products/sm-2-2.jpg",
-      "images/products/sm-2-3.jpg",
-      "images/products/sm-2-4.jpg",
-      "images/products/sm-2-5.jpg"
+      "/images/products/sm-2-1.jpg",
+      "/images/products/sm-2-2.jpg",
+      "/images/products/sm-2-3.jpg",
+      "/images/products/sm-2-4.jpg",
+      "/images/products/sm-2-5.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -719,12 +719,12 @@ const SEM_PRODUCTS = [
     specs: [],
     spec_columns: [],
     images: [
-      "images/products/cm-150-s2---80-32--1.jpg",
-      "images/products/cm-150-s2---80-32--2.jpg",
-      "images/products/cm-150-s2---80-32--3.jpg",
-      "images/products/16af-3s4---frame-280hm-1.jpg",
-      "images/products/16af-3s4---frame-280hm-2.jpg",
-      "images/products/16af-3s4---frame-280hm-3.jpg"
+      "/images/products/cm-150-s2---80-32--1.jpg",
+      "/images/products/cm-150-s2---80-32--2.jpg",
+      "/images/products/cm-150-s2---80-32--3.jpg",
+      "/images/products/16af-3s4---frame-280hm-1.jpg",
+      "/images/products/16af-3s4---frame-280hm-2.jpg",
+      "/images/products/16af-3s4---frame-280hm-3.jpg"
     ],
         note: "Frames 63 to 400. Power Supply: 230V, 1Ø, 50Hz / 415V, 3Ø, 50Hz & Custom make. Contact us for specifications."
   },
@@ -743,7 +743,7 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Current (A)","Power (W)","Speed (RPM)","Airflow (m3/h)","Static-PR (mmWc)"],
     images: [
-      "images/products/belt-driven-blowers-user.png"
+      "/images/products/belt-driven-blowers-user.png"
     ],
     note: "New development product."
   },
@@ -760,7 +760,7 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Current (A)","Power (W)","Speed (RPM)","Airflow (m3/h)","Static-PR (mmWc)"],
     images: [
-      "images/products/plug-fans-user.png"
+      "/images/products/plug-fans-user.png"
     ],
     note: "New development product with aerofoil impeller technology for smooth airflow and reduced transmission losses."
   },
@@ -779,9 +779,9 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Current (A)","Power (W)","Speed (RPM)","Airflow (m3/h)","Static-PR (mmWc)"],
     images: [
-      "images/products/roof-top-fans-npd-1.png",
-      "images/products/roof-top-fans-npd-2.png",
-      "images/products/roof-top-fans-npd-3.png"
+      "/images/products/roof-top-fans-npd-1.png",
+      "/images/products/roof-top-fans-npd-2.png",
+      "/images/products/roof-top-fans-npd-3.png"
     ],
     note: "New development product. Product range can be customized to suit project-specific requirements."
   },

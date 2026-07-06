@@ -41,10 +41,23 @@ if (hamburger && mobileNav) {
 }
 
 // ── ACTIVE NAV LINK ──────────────────────────────────────────
-const page = location.pathname.split('/').pop() || 'index.html';
+const currentPath = normalizeNavPath(location.pathname);
 document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(a => {
-  if (a.getAttribute('href') === page) a.classList.add('active');
+  if (normalizeNavPath(a.getAttribute('href') || '') === currentPath) a.classList.add('active');
 });
+
+function normalizeNavPath(path) {
+  if (!path || path === '/index.html') return '/';
+  return path
+    .replace(/\/index\.html$/, '/')
+    .replace(/\/about\.html$/, '/about/')
+    .replace(/\/products\.html$/, '/products/')
+    .replace(/\/applications\.html$/, '/applications/')
+    .replace(/\/downloads\.html$/, '/downloads/')
+    .replace(/\/distributors\.html$/, '/distributors/')
+    .replace(/\/contact\.html$/, '/contact/')
+    .replace(/([^/])$/, '$1/');
+}
 
 // ── SCROLL REVEAL ────────────────────────────────────────────
 const revealObs = new IntersectionObserver(entries => {
@@ -410,7 +423,7 @@ if (cf) {
     const clearBtn = document.getElementById('global-clear-btn');
 
     if (!cart.length) {
-      itemsPanel.innerHTML = '<div class="global-cart-empty"><div class="global-cart-empty-icon">🛒</div><div>Your cart is empty</div><div style="font-size:.75rem;color:#a0aec0;margin-top:4px;">Add products from the catalogue</div><a href="products.html" class="btn btn-primary btn-sm" style="margin-top:8px;">View Products</a></div>';
+      itemsPanel.innerHTML = '<div class="global-cart-empty"><div class="global-cart-empty-icon">🛒</div><div>Your cart is empty</div><div style="font-size:.75rem;color:#a0aec0;margin-top:4px;">Add products from the catalogue</div><a href="/products/" class="btn btn-primary btn-sm" style="margin-top:8px;">View Products</a></div>';
       summaryPanel.innerHTML = '';
       progress.classList.remove('show');
       clearBtn.classList.remove('show');
@@ -618,7 +631,7 @@ if (cf) {
   }
 })();
 
-// ── PRODUCT GRID BUILDER (products.html) ─────────────────────
+// ── PRODUCT GRID BUILDER (/products/) ─────────────────────
 function buildProductGrid() {
   const grid = document.getElementById('product-grid');
   if (!grid || typeof SEM_PRODUCTS === 'undefined') return;
@@ -662,7 +675,7 @@ if (document.getElementById('product-grid')) {
   document.addEventListener('DOMContentLoaded', buildProductGrid);
 }
 
-// ── POPULAR PRODUCTS CAROUSEL (index.html) ────────────────────
+// ── POPULAR PRODUCTS CAROUSEL (/) ────────────────────
 (function initPopularProducts() {
   const track = document.getElementById('popular-products-track');
   if (!track || typeof SEM_PRODUCTS === 'undefined') return;
@@ -730,7 +743,7 @@ if (document.getElementById('product-grid')) {
     const tags = (product.applications || []).slice(0, 3).map(app => `<span class="usage-result-tag">${escHtml(app)}</span>`).join('');
     const models = (product.models || []).slice(0, 4).join(' · ') + ((product.models || []).length > 4 ? ' · ...' : '');
     return `
-      <a class="usage-result-card popular-card" href="products.html?product=${encodeURIComponent(product.id)}"${duplicate ? ' aria-hidden="true" tabindex="-1"' : ''} aria-label="View ${escHtml(product.name)} on products page">
+      <a class="usage-result-card popular-card" href="/products/?product=${encodeURIComponent(product.id)}"${duplicate ? ' aria-hidden="true" tabindex="-1"' : ''} aria-label="View ${escHtml(product.name)} on products page">
         <div class="usage-result-image">${image}</div>
         <div class="usage-result-body">
           <div class="usage-result-cat">${escHtml(product.category)}</div>
@@ -784,7 +797,7 @@ if (document.getElementById('product-grid')) {
   appVideos.forEach(video => videoObserver.observe(video));
 })();
 
-// ── USAGE / APPLICATION SEARCH (index.html) ───────────────────
+// ── USAGE / APPLICATION SEARCH (/) ───────────────────
 (function initUsageSearch() {
   const input = document.getElementById('usage-search-input');
   const results = document.getElementById('usage-results');
