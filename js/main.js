@@ -401,7 +401,7 @@ if (cf) {
     clearBtn.classList.add('show');
     itemsPanel.innerHTML = cart.map((item, idx) => `
       <div class="global-cart-item">
-        <div class="global-cart-item-icon"><span class="ui-icon ui-icon-gear" aria-hidden="true"></span></div>
+        <div class="global-cart-item-icon"><span class="ui-icon ui-icon-fan" aria-hidden="true"></span></div>
         <div style="flex:1;min-width:0;">
           <div class="global-cart-item-name">${esc(item.name)}</div>
           <div class="global-cart-item-model">${esc(item.model)}</div>
