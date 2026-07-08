@@ -80,8 +80,29 @@
   ensureMobileActions();
   ensureQuoteBar();
 
+  var lastScrollY = window.scrollY || 0;
+  var scrollTicking = false;
+
+  function updateNavScrollState() {
+    var currentY = window.scrollY || 0;
+    var delta = currentY - lastScrollY;
+    var mobileOpen = hamburger && hamburger.classList.contains('open');
+    var shouldHide = nav && !mobileOpen && currentY > nav.offsetHeight && delta > 6;
+
+    if (nav) {
+      nav.classList.toggle('scrolled', currentY > 20);
+      nav.classList.toggle('nav-hidden', shouldHide);
+    }
+    document.body.classList.toggle('nav-hidden', !!shouldHide);
+
+    if (Math.abs(delta) > 6 || currentY < 2) lastScrollY = currentY;
+    scrollTicking = false;
+  }
+
   window.addEventListener('scroll', function() {
-    if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+    if (scrollTicking) return;
+    scrollTicking = true;
+    window.requestAnimationFrame(updateNavScrollState);
   }, { passive: true });
 
   if (hamburger && mobileNav && !hamburger.dataset.semNavBound) {

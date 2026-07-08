@@ -16,8 +16,8 @@
   <meta name="twitter:title" content="Products | Industrial Fans, Blowers & Motors | SEM"/>
   <meta name="twitter:description" content="Explore SEM industrial fans, centrifugal blowers, axial fans, inline duct fans, roof extractors, motors and custom air moving solutions with technical specifications."/>
   <meta name="twitter:image" content="https://www.superiorelectric.in/images/sem-logo.png"/>
-  <link rel="stylesheet" href="/css/style.css"/>
-  <link rel="stylesheet" href="/css/products.css"/>
+  <link rel="stylesheet" href="/css/style.css?v=nav-dark-8"/>
+  <link rel="stylesheet" href="/css/products.css?v=turntable-2"/>
   <link rel="icon" type="image/png" href="/images/sem-logo.png"/>
 </head>
 <body>
@@ -25,7 +25,7 @@
 
 <nav class="nav"><div class="nav-inner">
   <a href="/" class="nav-logo">
-    <img src="/images/sem-logo.png" alt="SEM" class="nav-logo-img" onerror="this.style.display='none'">
+    <img src="/images/sem-logo-inverted.png?v=transparent-1" alt="SEM" class="nav-logo-img" onerror="this.style.display='none'">
     <div class="nav-logo-text"><span class="nav-logo-name">Superior Electric Machines</span><span class="nav-logo-sub">Air Moving Solutions</span></div>
   </a>
   <div class="nav-links">
@@ -260,7 +260,7 @@
   </div>
 </div>
 
-<script src="/js/nav.js"></script>
+<script src="/js/nav.js?v=hide-nav-1"></script>
 <script src="/js/products.js"></script>
 <script>
 (function() {
@@ -323,6 +323,23 @@ window.addEventListener('scroll', function() {
 }, {passive:true});
 
 // ── BUILD GRID ────────────────────────────────────────────────
+function productCardImage(src) {
+  var file = String(src || '').split('/').pop();
+  if (!file) return src;
+  return '/images/products/transparent/' + file.replace(/\.[^.]+$/, '.png') + '?v=cutout-3';
+}
+
+function productImageFallback(img, originalSrc) {
+  img.onerror = null;
+  img.src = originalSrc;
+}
+
+document.addEventListener('error', function(e) {
+  var img = e.target;
+  if (!img || img.tagName !== 'IMG' || !img.dataset.originalSrc) return;
+  productImageFallback(img, img.dataset.originalSrc);
+}, true);
+
 function renderProductCards(list) {
   var grid = document.getElementById('prod-grid');
   if (!grid) return;
@@ -336,7 +353,7 @@ function renderProductCards(list) {
       '<div class="prod-card-img">' +
         '<button class="prod-compare-btn' + (compareSelected ? ' selected' : '') + '" type="button" data-compare-id="' + p.id + '">' + (compareSelected ? '<span class="ui-icon ui-icon-check" aria-hidden="true"></span> Compare' : 'Compare') + '</button>' +
         (p.images && p.images.length > 0
-          ? '<img src="' + p.images[0] + '" alt="' + p.name + '" loading="lazy" decoding="async" width="320" height="220" style="width:100%;height:100%;object-fit:contain;display:block;background:#fff;padding:16px;box-sizing:border-box;">'
+          ? '<img src="' + esc(productCardImage(p.images[0])) + '" data-original-src="' + esc(p.images[0]) + '" alt="' + esc(p.name) + '" loading="lazy" decoding="async" width="320" height="220">'
           : productFallback(p.category)) +
       '</div>' +
       '<div class="prod-card-body">' +
@@ -344,6 +361,7 @@ function renderProductCards(list) {
         '<div class="prod-card-name">' + p.name + '</div>' +
         '<div class="prod-card-models">' + p.models.join(' · ') + '</div>' +
         '<div class="prod-card-tags">' + tags + '</div>' +
+        productCardTurntable(p) +
         '<div class="prod-card-foot">' +
           '<span class="prod-card-count">' + (cnt > 0 ? cnt + ' model variants' : 'Custom specs') + '</span>' +
           '<span class="prod-card-arr">→</span>' +
@@ -377,6 +395,24 @@ function renderProductCards(list) {
     });
   });
   refreshCompareState();
+}
+
+function productCardTurntable(product) {
+  var imgs = product.images || [];
+  if (!imgs.length) return '';
+  var duration = 4.8;
+  var frameCount = 5;
+  var frames = Array.from({length: frameCount}, function(_, i) {
+    var src = imgs[Math.floor(i * imgs.length / frameCount)] || imgs[i % imgs.length];
+    var delay = -(duration / frameCount * i).toFixed(2);
+    return '<span class="prod-card-quick360-frame" style="--delay:' + delay + 's">' +
+      '<img src="' + esc(productCardImage(src)) + '" data-original-src="' + esc(src) + '" alt="" loading="lazy" decoding="async">' +
+    '</span>';
+  }).join('');
+  return '<div class="prod-card-quick360" aria-hidden="true">' +
+    '<div class="prod-card-quick360-stage"><div class="prod-card-quick360-model">' + frames + '</div></div>' +
+    '<div class="prod-card-quick360-label">360<br>View</div>' +
+  '</div>';
 }
 
 function buildGrid(filter) {
@@ -695,7 +731,7 @@ function openModal(id) {
   carIdx = 0;
   var slides = Array.from({length: carTotal}, function(_, i) {
     return imgs[i]
-      ? '<div class="car-slide"><img src="' + imgs[i] + '" alt="' + p.name + ' ' + (i+1) + '" loading="lazy" decoding="async" width="560" height="300"></div>'
+      ? '<div class="car-slide"><img src="' + productCardImage(imgs[i]) + '" alt="' + p.name + ' ' + (i+1) + '" loading="lazy" decoding="async" width="560" height="300" data-original-src="' + imgs[i] + '"></div>'
       : '<div class="car-slide"><svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="22" stroke="#2A6496" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="32" cy="32" r="11" stroke="#2A6496" stroke-width="1.5"/><circle cx="32" cy="32" r="3.5" fill="#2A6496" opacity="0.35"/></svg><span>Image ' + (i+1) + ' — add to images/products/</span></div>';
   });
   var carHtml = '<div class="carousel"><div class="car-track" id="car-track">' + slides.join('') + '</div>';

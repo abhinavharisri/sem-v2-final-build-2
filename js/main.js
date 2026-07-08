@@ -747,6 +747,12 @@ if (document.getElementById('product-grid')) {
   track.addEventListener('focusin', pause);
   track.addEventListener('focusout', resume);
   track.addEventListener('scroll', normalizeLoop, { passive: true });
+  track.addEventListener('error', function(event) {
+    const img = event.target;
+    if (!img || img.tagName !== 'IMG' || !img.dataset.originalSrc || img.dataset.fallbackLoaded === 'true') return;
+    img.dataset.fallbackLoaded = 'true';
+    img.src = img.dataset.originalSrc;
+  }, true);
 
   function tick(ts) {
     if (!lastTs) lastTs = ts;
@@ -778,8 +784,9 @@ if (document.getElementById('product-grid')) {
   }
 
   function popularCard(product, duplicate) {
-    const image = product.images && product.images[0]
-      ? `<img src="${escHtml(product.images[0])}" alt="${escHtml(product.name)}" loading="lazy" decoding="async">`
+    const originalImage = product.images && product.images[0] ? product.images[0] : '';
+    const image = originalImage
+      ? `<img src="${escHtml(productCutoutImage(originalImage))}" data-original-src="${escHtml(originalImage)}" alt="${escHtml(product.name)}" loading="lazy" decoding="async">`
       : productCardFallback(product.category);
     const tags = (product.applications || []).slice(0, 3).map(app => `<span class="usage-result-tag">${escHtml(app)}</span>`).join('');
     const models = (product.models || []).slice(0, 4).join(' · ') + ((product.models || []).length > 4 ? ' · ...' : '');
@@ -797,6 +804,12 @@ if (document.getElementById('product-grid')) {
 
   function escHtml(value) {
     return String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+
+  function productCutoutImage(src) {
+    const file = String(src || '').split('/').pop();
+    if (!file) return src;
+    return '/images/products/transparent/' + file.replace(/\.[^.]+$/, '.png') + '?v=cutout-3';
   }
 })();
 

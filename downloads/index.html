@@ -15,18 +15,32 @@
   <meta name="twitter:title" content="Downloads | SEM Catalogues & Technical Documents"/>
   <meta name="twitter:description" content="Download SEM product catalogues and technical documents for industrial fans, blowers, motors, new developments and air moving solutions."/>
   <meta name="twitter:image" content="https://www.superiorelectric.in/images/sem-logo.png"/>
-  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/style.css?v=nav-dark-8"/>
   <link rel="icon" type="image/png" href="/images/sem-logo.png"/>
   <style>
     .nav-cart-btn { display:flex; align-items:center; gap:7px; padding:8px 16px; background:#fff; border:1.5px solid #dde1e7; border-radius:100px; font-size:0.78rem; font-weight:600; color:#2d3748; cursor:pointer; transition:all 0.2s; text-decoration:none; }
     .nav-cart-btn:hover { border-color:#2A6496; color:#2A6496; }
     .cart-badge { background:#2A6496; color:#fff; font-size:0.6rem; font-weight:700; min-width:18px; height:18px; border-radius:100px; display:none; align-items:center; justify-content:center; padding:0 5px; }
     .cart-badge.show { display:flex; }
+    :root { --nav-h:78px; --nav-bg:#122842; }
+    .nav { height:var(--nav-h); background:linear-gradient(110deg,#0f2237 0%,#122842 48%,#183f63 100%) !important; border-bottom:1px solid rgba(126,184,232,0.22) !important; }
+    .nav-logo { gap:14px; }
+    .nav-logo-img { height:44px !important; width:auto; }
+    .nav-logo-name { color:#fff !important; font-size:.84rem; }
+    .nav-logo-sub { color:rgba(255,255,255,.68) !important; font-size:.62rem; }
+    .nav-links a { color:rgba(255,255,255,.76) !important; }
+    .nav-links a:hover,
+    .nav-links a.active { color:#fff !important; }
+    .nav-links a::after { background:#7eb8e8 !important; }
+    .nav .nav-cart-btn { background:rgba(255,255,255,.08) !important; border-color:rgba(255,255,255,.24) !important; color:#fff !important; }
+    .nav .nav-cart-btn:hover { background:rgba(255,255,255,.14) !important; border-color:rgba(126,184,232,.72) !important; color:#fff !important; }
+    .nav .btn-primary { background:#fff !important; border-color:#fff !important; color:#102033 !important; }
+    @media (max-width:768px) { :root { --nav-h:66px; } .nav-logo-img { height:38px !important; } }
   </style>
 </head>
 <body>
 <nav class="nav"><div class="nav-inner">
-  <a href="/" class="nav-logo"><img src="/images/sem-logo.png" alt="SEM" decoding="async" class="nav-logo-img" onerror="this.style.display='none'"><div class="nav-logo-text"><span class="nav-logo-name">Superior Electric Machines</span><span class="nav-logo-sub">Air Moving Solutions</span></div></a>
+  <a href="/" class="nav-logo"><img src="/images/sem-logo-inverted.png?v=transparent-1" alt="SEM" decoding="async" class="nav-logo-img" onerror="this.style.display='none'"><div class="nav-logo-text"><span class="nav-logo-name">Superior Electric Machines</span><span class="nav-logo-sub">Air Moving Solutions</span></div></a>
   <div class="nav-links"><a href="/">Home</a><a href="/about/">About</a><a href="/products/">Products</a><a href="/applications/">Applications</a><a href="/downloads/" class="active">Downloads</a><a href="/distributors/">Distributors</a><a href="/contact/">Contact</a></div>
   <div class="nav-actions"><a href="/products/" class="nav-cart-btn" id="nav-cart-btn"><span class="ui-icon ui-icon-cart" aria-hidden="true"></span> Cart <span class="cart-badge" id="cart-badge">0</span></a><a href="/contact/" class="btn btn-primary btn-sm">Get a Quote</a></div>
   <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -103,7 +117,7 @@
   </div>
   <div class="footer-bottom"><span>© 2025 Superior Electric Machines Pvt. Ltd. All rights reserved.</span><span>SEM® Air Moving Solutions</span></div>
 </div></footer>
-<script src="/js/nav.js"></script>
-<script src="/js/main.js"></script>
+<script src="/js/nav.js?v=hide-nav-1"></script>
+<script src="/js/main.js?v=home-cutouts-1"></script>
 </body>
 </html>
