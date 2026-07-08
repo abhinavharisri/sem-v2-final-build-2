@@ -355,7 +355,6 @@ function renderProductCards(list) {
         (p.images && p.images.length > 0
           ? '<img src="' + esc(productCardImage(p.images[0])) + '" data-original-src="' + esc(p.images[0]) + '" alt="' + esc(p.name) + '" loading="lazy" decoding="async" width="320" height="220">'
           : productFallback(p.category)) +
-        productCardTurntable(p) +
       '</div>' +
       '<div class="prod-card-body">' +
         '<div class="prod-card-cat">' + p.category + '</div>' +
@@ -395,44 +394,6 @@ function renderProductCards(list) {
     });
   });
   refreshCompareState();
-}
-
-function productCardTurntable(product) {
-  var imgs = product.images || [];
-  if (!imgs.length) return '';
-  var duration = 6.4;
-  var frameCount = 6;
-  var radius = 34;
-  var frames = Array.from({length: frameCount}, function(_, i) {
-    var src = imgs[Math.floor(i * imgs.length / frameCount)] || imgs[i % imgs.length];
-    var angle = Math.round(i * (360 / frameCount));
-    var light = (0.6 + 0.42 * Math.cos(angle * Math.PI / 180)).toFixed(2);
-    return '<span class="prod-card-quick360-frame" style="--angle:' + angle + 'deg;--z:' + radius + 'px;--light:' + light + '">' +
-      '<img src="' + esc(productCardImage(src)) + '" data-original-src="' + esc(src) + '" alt="" loading="lazy" decoding="async">' +
-    '</span>';
-  }).join('');
-  return '<div class="prod-card-quick360" aria-hidden="true" style="--dur:' + duration + 's">' +
-    '<div class="prod-card-quick360-stage"><div class="prod-card-quick360-model">' + frames + '</div></div>' +
-    '<div class="prod-card-quick360-label">360°<br>View</div>' +
-  '</div>';
-}
-
-function productModalTurntableSlide(product, imgs) {
-  if (!imgs.length) return '';
-  var frameCount = 8;
-  var radius = 92;
-  var frames = Array.from({length: frameCount}, function(_, i) {
-    var src = imgs[Math.floor(i * imgs.length / frameCount)] || imgs[i % imgs.length];
-    var angle = Math.round(i * (360 / frameCount));
-    var light = (0.6 + 0.42 * Math.cos(angle * Math.PI / 180)).toFixed(2);
-    return '<span class="car-360-frame" style="--angle:' + angle + 'deg;--z:' + radius + 'px;--light:' + light + '">' +
-      '<img src="' + productCardImage(src) + '" alt="" loading="lazy" decoding="async">' +
-    '</span>';
-  }).join('');
-  return '<div class="car-slide car-slide-360">' +
-    '<div class="car-360-stage"><div class="car-360-model">' + frames + '</div></div>' +
-    '<span>360° Interactive View</span>' +
-  '</div>';
 }
 
 function buildGrid(filter) {
@@ -747,15 +708,13 @@ function openModal(id) {
   var slot = document.getElementById('pm-carousel-slot');
   slot.innerHTML = '';
   var imgs = p.images || [];
-  var imgCount = Math.max(imgs.length, 1);
-  var slides = Array.from({length: imgCount}, function(_, i) {
+  carTotal = Math.max(imgs.length, 1);
+  carIdx = 0;
+  var slides = Array.from({length: carTotal}, function(_, i) {
     return imgs[i]
       ? '<div class="car-slide"><img src="' + productCardImage(imgs[i]) + '" alt="' + p.name + ' ' + (i+1) + '" loading="lazy" decoding="async" width="560" height="300" data-original-src="' + imgs[i] + '"></div>'
       : '<div class="car-slide"><svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="22" stroke="#2A6496" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="32" cy="32" r="11" stroke="#2A6496" stroke-width="1.5"/><circle cx="32" cy="32" r="3.5" fill="#2A6496" opacity="0.35"/></svg><span>Image ' + (i+1) + ' — add to images/products/</span></div>';
   });
-  if (imgs.length > 0) slides.push(productModalTurntableSlide(p, imgs));
-  carTotal = slides.length;
-  carIdx = 0;
   var carHtml = '<div class="carousel"><div class="car-track" id="car-track">' + slides.join('') + '</div>';
   if (carTotal > 1) {
     carHtml += '<div class="car-btn car-prev" id="car-prev">‹</div><div class="car-btn car-next" id="car-next">›</div>';
@@ -768,7 +727,6 @@ function openModal(id) {
     document.getElementById('car-next').onclick = function() { goCar(carIdx + 1); };
     slot.querySelectorAll('.car-dot').forEach(function(d) { d.onclick = function() { goCar(+d.dataset.i); }; });
   }
-
   // Spec table
   var wrap = document.getElementById('pm-table');
   if (p.specs && p.specs.length > 0) {
