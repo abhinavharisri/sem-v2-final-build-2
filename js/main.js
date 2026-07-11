@@ -725,7 +725,7 @@ if (document.getElementById('product-grid')) {
     'double-inlet-133',
     'single-inlet-forward-curved',
     'axial-fan-press-fit',
-    'inline-duct-fan',
+    'cross-flow-fan',
     'fume-extractor',
     'plug-fans'
   ];
@@ -786,7 +786,7 @@ if (document.getElementById('product-grid')) {
   function popularCard(product, duplicate) {
     const originalImage = product.images && product.images[0] ? product.images[0] : '';
     const image = originalImage
-      ? `<img src="${escHtml(productCutoutImage(originalImage))}" data-original-src="${escHtml(originalImage)}" alt="${escHtml(product.name)}" loading="lazy" decoding="async">`
+      ? `<img src="${escHtml(productCutoutImage(originalImage, product.id))}" data-original-src="${escHtml(originalImage)}" alt="${escHtml(product.name)}" loading="lazy" decoding="async">`
       : productCardFallback(product.category);
     const tags = (product.applications || []).slice(0, 3).map(app => `<span class="usage-result-tag">${escHtml(app)}</span>`).join('');
     const models = (product.models || []).slice(0, 4).join(' · ') + ((product.models || []).length > 4 ? ' · ...' : '');
@@ -806,7 +806,15 @@ if (document.getElementById('product-grid')) {
     return String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   }
 
-  function productCutoutImage(src) {
+  function productCutoutImage(src, productId) {
+    const originalImageIds = new Set([
+      'single-inlet-backward-curved',
+      'portable-blower-inflatables',
+      'single-inlet-external-motor',
+      'heavy-duty-centrifugal-blower',
+      'inline-duct-fan'
+    ]);
+    if (originalImageIds.has(productId)) return src;
     const file = String(src || '').split('/').pop();
     if (!file) return src;
     return '/images/products/transparent/' + file.replace(/\.[^.]+$/, '.png') + '?v=cutout-3';

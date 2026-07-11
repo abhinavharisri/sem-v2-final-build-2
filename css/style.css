@@ -323,39 +323,44 @@ p { line-height: 1.75; }
   transform: translateY(-100%);
 }
 .nav-inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr) max-content;
   align-items: center;
-  justify-content: space-between;
   height: 100%;
   max-width: var(--max-w-wide);
   margin: 0 auto;
   padding: 0 34px;
-  gap: 24px;
+  gap: 28px;
 }
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 14px;
-  flex-shrink: 0;
+  gap: 13px;
+  justify-self: start;
+  min-width: 0;
   text-decoration: none;
 }
 .nav-logo-img {
   height: 44px;
   width: auto;
+  flex-shrink: 0;
 }
 .nav-logo-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.2;
+  min-width: 0;
+  line-height: 1.14;
 }
 .nav-logo-name {
-  font-size: 0.84rem;
-  font-weight: 700;
+  font-size: clamp(0.92rem, 0.9vw, 1rem);
+  font-weight: 750;
   color: var(--white);
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 .nav-logo-sub {
-  font-size: 0.62rem;
+  margin-top: 2px;
+  font-size: 0.6rem;
   color: rgba(255,255,255,0.68);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -363,12 +368,12 @@ p { line-height: 1.75; }
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2px;
-  flex: 1;
+  gap: 8px;
   justify-content: center;
+  justify-self: center;
 }
 .nav-links a {
-  padding: 8px 14px;
+  padding: 8px 10px;
   font-size: 0.78rem;
   font-weight: 500;
   color: rgba(255,255,255,0.76);
@@ -394,7 +399,7 @@ p { line-height: 1.75; }
 .nav-links a.active { color: var(--white); font-weight: 600; }
 .nav-cta,
 .nav-actions {
-  flex-shrink: 0;
+  justify-self: end;
 }
 .nav-actions {
   display: flex;
@@ -2710,6 +2715,27 @@ p { line-height: 1.75; }
   .stat-box:nth-child(2) { border-right: none; }
   .stat-box:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
   .stat-box:nth-child(4) { border-right: none; border-top: 1px solid var(--border); }
+}
+@media (max-width: 1180px) {
+  .nav-inner {
+    display: flex;
+    padding: 0 24px;
+  }
+  .nav-logo {
+    flex: 1;
+    max-width: none;
+  }
+  .nav-links,
+  .nav-cta,
+  .nav-actions {
+    display: none;
+  }
+  .nav-hamburger {
+    display: flex;
+  }
+  .nav-mobile-actions {
+    display: grid;
+  }
 }
 @media (max-width: 900px) {
   .grid-2 { grid-template-columns: 1fr; gap: 32px; }

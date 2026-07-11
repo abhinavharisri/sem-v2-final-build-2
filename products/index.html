@@ -26,7 +26,7 @@
 <nav class="nav"><div class="nav-inner">
   <a href="/" class="nav-logo">
     <img src="/images/sem-logo-inverted.png?v=transparent-1" alt="SEM" class="nav-logo-img" onerror="this.style.display='none'">
-    <div class="nav-logo-text"><span class="nav-logo-name">Superior Electric Machines</span><span class="nav-logo-sub">Air Moving Solutions</span></div>
+    <div class="nav-logo-text"><span class="nav-logo-name">Superior Electric Machines Private Limited</span><span class="nav-logo-sub">Air Moving Solutions</span></div>
   </a>
   <div class="nav-links">
     <a href="/">Home</a><a href="/about/">About</a>
@@ -323,7 +323,20 @@ window.addEventListener('scroll', function() {
 }, {passive:true});
 
 // ── BUILD GRID ────────────────────────────────────────────────
-function productCardImage(src) {
+var ORIGINAL_IMAGE_PRODUCT_IDS = [
+  'single-inlet-backward-curved',
+  'portable-blower-inflatables',
+  'single-inlet-external-motor',
+  'heavy-duty-centrifugal-blower',
+  'inline-duct-fan'
+];
+
+function shouldUseOriginalProductImage(productId) {
+  return ORIGINAL_IMAGE_PRODUCT_IDS.indexOf(productId) >= 0;
+}
+
+function productCardImage(src, productId) {
+  if (shouldUseOriginalProductImage(productId)) return src;
   var file = String(src || '').split('/').pop();
   if (!file) return src;
   return '/images/products/transparent/' + file.replace(/\.[^.]+$/, '.png') + '?v=cutout-3';
@@ -353,7 +366,11 @@ function renderProductCards(list) {
       '<div class="prod-card-img">' +
         '<button class="prod-compare-btn' + (compareSelected ? ' selected' : '') + '" type="button" data-compare-id="' + p.id + '">' + (compareSelected ? '<span class="ui-icon ui-icon-check" aria-hidden="true"></span> Compare' : 'Compare') + '</button>' +
         (p.images && p.images.length > 0
-          ? '<img src="' + esc(productCardImage(p.images[0])) + '" data-original-src="' + esc(p.images[0]) + '" alt="' + esc(p.name) + '" loading="lazy" decoding="async" width="320" height="220">'
+          ? '<img src="' + esc(productCardImage(p.images[0], p.id)) + '" data-original-src="' + esc(p.images[0]) + '" data-image-index="0" alt="' + esc(p.name) + '" loading="lazy" decoding="async" width="320" height="220">' +
+            (p.images.length > 1
+              ? '<button class="prod-img-nav prod-img-prev" type="button" data-card-img-dir="-1" aria-label="Previous image for ' + esc(p.name) + '">‹</button>' +
+                '<button class="prod-img-nav prod-img-next" type="button" data-card-img-dir="1" aria-label="Next image for ' + esc(p.name) + '">›</button>'
+              : '')
           : productFallback(p.category)) +
       '</div>' +
       '<div class="prod-card-body">' +
@@ -376,6 +393,13 @@ function renderProductCards(list) {
         toggleCompare(compareBtn.dataset.compareId);
         return;
       }
+      var imageBtn = e.target.closest('[data-card-img-dir]');
+      if (imageBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        cycleProductCardImage(card, Number(imageBtn.dataset.cardImgDir) || 1);
+        return;
+      }
       openModal(card.dataset.id);
     });
     card.addEventListener('keydown', function(e) {
@@ -394,6 +418,18 @@ function renderProductCards(list) {
     });
   });
   refreshCompareState();
+}
+
+function cycleProductCardImage(card, dir) {
+  var product = getProductById(card.dataset.id);
+  if (!product || !product.images || product.images.length < 2) return;
+  var img = card.querySelector('.prod-card-img img');
+  if (!img) return;
+  var nextIndex = ((Number(img.dataset.imageIndex) || 0) + dir + product.images.length) % product.images.length;
+  var nextSrc = product.images[nextIndex];
+  img.dataset.imageIndex = String(nextIndex);
+  img.dataset.originalSrc = nextSrc;
+  img.src = productCardImage(nextSrc, product.id);
 }
 
 function buildGrid(filter) {
@@ -712,7 +748,7 @@ function openModal(id) {
   carIdx = 0;
   var slides = Array.from({length: carTotal}, function(_, i) {
     return imgs[i]
-      ? '<div class="car-slide"><img src="' + productCardImage(imgs[i]) + '" alt="' + p.name + ' ' + (i+1) + '" loading="lazy" decoding="async" width="560" height="300" data-original-src="' + imgs[i] + '"></div>'
+      ? '<div class="car-slide"><img src="' + productCardImage(imgs[i], p.id) + '" alt="' + p.name + ' ' + (i+1) + '" loading="lazy" decoding="async" width="560" height="300" data-original-src="' + imgs[i] + '"></div>'
       : '<div class="car-slide"><svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="22" stroke="#2A6496" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="32" cy="32" r="11" stroke="#2A6496" stroke-width="1.5"/><circle cx="32" cy="32" r="3.5" fill="#2A6496" opacity="0.35"/></svg><span>Image ' + (i+1) + ' — add to images/products/</span></div>';
   });
   var carHtml = '<div class="carousel"><div class="car-track" id="car-track">' + slides.join('') + '</div>';

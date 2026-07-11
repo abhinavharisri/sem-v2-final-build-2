@@ -93,6 +93,7 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
+      "/images/products/sdb-150-t2-4.jpg",
       "/images/products/sdb-150-t2-1.jpg",
       "/images/products/sdb-150-t2-2.jpg",
       "/images/products/sdb-150-t2-3.jpg"
@@ -115,8 +116,8 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
-      "/images/products/sdb-150-t2-1.jpg",
       "/images/products/sdb-150-t2-2.jpg",
+      "/images/products/sdb-150-t2-1.jpg",
       "/images/products/sdb-150-t2-3.jpg",
       "/images/products/sdb-150-t2-4.jpg",
       "/images/products/sdb-150-t2-5.jpg"
@@ -138,9 +139,9 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
+      "/images/products/sdb-180-t2-3.jpg",
       "/images/products/sdb-180-t2-1.jpg",
       "/images/products/sdb-180-t2-2.jpg",
-      "/images/products/sdb-180-t2-3.jpg",
       "/images/products/sdb-180-t2-4.jpg",
       "/images/products/sdb-180-t2-5.jpg",
       "/images/products/sdb-180-t2-6.jpg"
@@ -194,13 +195,13 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
+      "/images/products/sdb-250-bc-s2-7.jpg",
       "/images/products/sdb-250-bc-s2-1.jpg",
       "/images/products/sdb-250-bc-s2-2.jpg",
       "/images/products/sdb-250-bc-s2-3.jpg",
       "/images/products/sdb-250-bc-s2-4.jpg",
       "/images/products/sdb-250-bc-s2-5.jpg",
       "/images/products/sdb-250-bc-s2-6.jpg",
-      "/images/products/sdb-250-bc-s2-7.jpg",
       "/images/products/sdb-250-bc-s2-8.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
@@ -241,10 +242,10 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
+      "/images/products/sdb-53-s2-4.jpg",
       "/images/products/sdb-53-s2-1.jpg",
       "/images/products/sdb-53-s2-2.jpg",
       "/images/products/sdb-53-s2-3.jpg",
-      "/images/products/sdb-53-s2-4.jpg",
       "/images/products/sdb-53-s2-5.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
@@ -287,9 +288,9 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
+      "/images/products/sdb-53-s2-3.jpg",
       "/images/products/sdb-53-s2-1.jpg",
       "/images/products/sdb-53-s2-2.jpg",
-      "/images/products/sdb-53-s2-3.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -307,12 +308,15 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
+      "/images/products/seb-23-s2-new.jpg",
       "/images/products/seb-23-s2-1.jpg",
       "/images/products/seb-23-s2-2.jpg",
       "/images/products/seb-23-s2-3.jpg",
       "/images/products/seb-23-s2-4.jpg",
       "/images/products/seb-23-s2-5.jpg",
-      "/images/products/seb-23-s2-6.jpg"
+      "/images/products/seb-23-s2-6.jpg",
+      "/images/products/seb-23-s2-8.jpg",
+      "/images/products/seb-23-s2-7.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
   },
@@ -372,10 +376,10 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
+      "/images/products/sbc-14-t2-4.jpg",
       "/images/products/sbc-14-t2-1.jpg",
       "/images/products/sbc-14-t2-2.jpg",
       "/images/products/sbc-14-t2-3.jpg",
-      "/images/products/sbc-14-t2-4.jpg",
       "/images/products/sbc-14-t2-5.jpg",
       "/images/products/sbc-25-s2-1.jpg",
       "/images/products/sbc-25-s2-2.jpg",
@@ -436,9 +440,10 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Static PR (mm-wc)","dBA","Amb. Temp","Weight Kg"],
     images: [
+      "/images/products/single-inlet-external-motor-new.jpg",
+      "/images/products/im-250-t2-3.jpg",
       "/images/products/im-250-t2-1.jpg",
       "/images/products/im-250-t2-2.jpg",
-      "/images/products/im-250-t2-3.jpg",
       "/images/products/im-250-t2-4.jpg"
     ],
         note: "Tolerance ±5% on Specified values"
@@ -463,6 +468,7 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)"],
     images: [
+      "/images/products/heavy-duty-centrifugal-blower-new.jpg",
       "/images/products/im250-t2-1.jpg",
       "/images/products/im250-t2-2.jpg",
       "/images/products/im250-t2-3.jpg",
@@ -500,13 +506,16 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Fan Dia D(mm)","Height H(mm)","Amb. Temp °C","Weight Kg"],
     images: [
+      "/images/products/10af-3b2-4.jpg",
       "/images/products/cm-150-s2-1.jpg",
       "/images/products/cm-150-s2-2.jpg",
       "/images/products/cm-150-s2-3.jpg",
       "/images/products/10af-3s2-1.jpg",
       "/images/products/10af-3s2-2.jpg",
       "/images/products/10af-3s2-3.jpg",
-      "/images/products/10af-3s2-4.jpg"
+      "/images/products/10af-3s2-4.jpg",
+      "/images/products/10af-3b2-2.jpg",
+      "/images/products/10af-3b2-3.jpg"
     ],
         note: "S = Suction type, B = Blowing type. Tolerance ±5% on Specified values."
   },
@@ -596,6 +605,7 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Amps (A)","Watts (W)","RPM","Airflow CMH","Airflow CFM","Static PR (mm-wc)","dBA","CAP µf","Amb. Temp °C","Weight Kg"],
     images: [
+      "/images/products/inline-duct-fan-new.jpg",
       "/images/products/sid-150-s2-1.jpg",
       "/images/products/sid-150-s2-2.jpg",
       "/images/products/sid-150-s2-3.jpg",
