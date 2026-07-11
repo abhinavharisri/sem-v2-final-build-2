@@ -70,6 +70,8 @@ a { text-decoration: none; color: inherit; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
 ul { list-style: none; }
 input, select, textarea { font-family: inherit; }
+:focus-visible { outline:3px solid rgba(42,100,150,.28); outline-offset:3px; }
+button:focus:not(:focus-visible),a:focus:not(:focus-visible) { outline:none; }
 
 /* ── UI ICONS ───────────────────────────────────────────────── */
 .ui-icon {
@@ -2711,6 +2713,18 @@ p { line-height: 1.75; }
   background: var(--white);
   border-top: 1px solid var(--border);
 }
+
+/* Application briefs */
+.application-briefs-head { display:flex; justify-content:space-between; align-items:end; gap:40px; margin-bottom:28px; }
+.application-briefs-head > p { max-width:510px; color:var(--text3); font-size:.84rem; }
+.application-briefs-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.application-brief { padding:24px; border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--white); }
+.application-brief > span { color:var(--steel); font-size:.62rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.application-brief h3 { margin:8px 0 14px; }
+.application-brief p { margin-top:8px; color:var(--text3); font-size:.76rem; line-height:1.65; }
+.application-brief p strong { color:var(--text2); }
+.application-brief a { display:inline-block; margin-top:18px; color:var(--steel); font-size:.7rem; font-weight:800; }
+@media(max-width:900px){.application-briefs-grid{grid-template-columns:1fr}.application-briefs-head{align-items:flex-start;flex-direction:column;gap:12px}}
 .client-showcase-head {
   display: flex;
   align-items: end;

@@ -94,9 +94,12 @@ try {
   run('check js/nav.js', 'node', ['--check', 'js/nav.js']);
   run('check js/main.js', 'node', ['--check', 'js/main.js']);
   run('check js/products.js', 'node', ['--check', 'js/products.js']);
+  run('check js/products-page.js', 'node', ['--check', 'js/products-page.js']);
+  run('generate product pages and sitemap', 'node', ['scripts/generate-product-pages.js']);
   run('check scripts/sync-routes.js', 'node', ['--check', 'scripts/sync-routes.js']);
   run('check scripts/smoke-mobile.js', 'node', ['--check', 'scripts/smoke-mobile.js']);
   run('check scripts/visual-mobile-qa.js', 'node', ['--check', 'scripts/visual-mobile-qa.js']);
+  run('check generated pages and local links', 'node', ['scripts/audit-site.js']);
   checkInlineScripts();
   checkNoEmojiUi();
   checkRouteCopies();

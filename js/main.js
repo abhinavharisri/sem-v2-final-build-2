@@ -8,6 +8,26 @@
 // ── PAGE FADE ────────────────────────────────────────────────
 document.body.classList.add('page-fade');
 
+// Supply page-level breadcrumb structured data where a static page has none.
+(function injectBreadcrumbSchema() {
+  const hasBreadcrumb = Array.from(document.querySelectorAll('script[type="application/ld+json"]')).some(script => script.textContent.includes('BreadcrumbList'));
+  if (hasBreadcrumb || document.querySelector('script[data-sem-breadcrumb]')) return;
+  const parts = location.pathname.split('/').filter(Boolean);
+  if (!parts.length) return;
+  const labels = { about:'About', products:'Products', applications:'Applications', downloads:'Downloads', distributors:'Distributors', contact:'Contact' };
+  const items = [{ '@type':'ListItem', position:1, name:'Home', item:'https://www.superiorelectric.in/' }];
+  let path = '';
+  parts.forEach((part, index) => {
+    path += '/' + part;
+    items.push({ '@type':'ListItem', position:index + 2, name:labels[part] || part.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase()), item:'https://www.superiorelectric.in' + path + '/' });
+  });
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.dataset.semBreadcrumb = 'true';
+  script.textContent = JSON.stringify({ '@context':'https://schema.org', '@type':'BreadcrumbList', itemListElement:items });
+  document.head.appendChild(script);
+})();
+
 // ── SCROLL PROGRESS ──────────────────────────────────────────
 const progressBar = document.createElement('div');
 progressBar.className = 'scroll-progress';
@@ -211,6 +231,18 @@ document.querySelectorAll('.cat-tab').forEach(tab => {
 // ── CONTACT FORM ─────────────────────────────────────────────
 const cf = document.getElementById('contact-form');
 if (cf) {
+  const params = new URLSearchParams(window.location.search);
+  const preset = (name, value) => {
+    const field = cf.elements.namedItem(name);
+    if (!field || !value) return;
+    if (field.tagName === 'SELECT' && !Array.from(field.options).some(option => option.value === value)) {
+      field.add(new Option(value, value));
+    }
+    field.value = value;
+  };
+  preset('product', params.get('product'));
+  preset('enquiry_type', params.get('enquiry_type'));
+  preset('message', params.get('requirements'));
   cf.addEventListener('submit', e => {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(cf).entries());
@@ -223,6 +255,7 @@ if (cf) {
     if (d.enquiry_type)    msg += `*Enquiry Type:* ${d.enquiry_type}\n`;
     if (d.product)         msg += `*Product:* ${d.product}\n`;
     if (d.message)         msg += `\n*Requirements:*\n${d.message}`;
+    document.dispatchEvent(new CustomEvent('sem:analytics', { detail: { event: 'contact_enquiry_started', product: d.product || '' } }));
     window.open('https://wa.me/919448283843?text=' + encodeURIComponent(msg.trim()), '_blank');
   });
 }
@@ -791,7 +824,7 @@ if (document.getElementById('product-grid')) {
     const tags = (product.applications || []).slice(0, 3).map(app => `<span class="usage-result-tag">${escHtml(app)}</span>`).join('');
     const models = (product.models || []).slice(0, 4).join(' · ') + ((product.models || []).length > 4 ? ' · ...' : '');
     return `
-      <a class="usage-result-card popular-card" href="/products/?product=${encodeURIComponent(product.id)}"${duplicate ? ' aria-hidden="true" tabindex="-1"' : ''} aria-label="View ${escHtml(product.name)} on products page">
+      <a class="usage-result-card popular-card" href="/products/${encodeURIComponent(product.id)}/"${duplicate ? ' aria-hidden="true" tabindex="-1"' : ''} aria-label="View the full page for ${escHtml(product.name)}">
         <div class="usage-result-image">${image}</div>
         <div class="usage-result-body">
           <div class="usage-result-cat">${escHtml(product.category)}</div>

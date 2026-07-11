@@ -1,5 +1,24 @@
 /* Shared SEM navigation behavior. */
 (function initSharedNav() {
+  // Privacy-conscious analytics hook. No data leaves the browser unless the
+  // site owner explicitly configures window.SEM_ANALYTICS_ENDPOINT.
+  document.addEventListener('sem:analytics', function(event) {
+    if (navigator.doNotTrack === '1' || !event.detail) return;
+    var payload = Object.assign({ path:location.pathname, time:new Date().toISOString() }, event.detail);
+    try { sessionStorage.setItem('sem-last-event', JSON.stringify(payload)); } catch(e) {}
+    if (window.SEM_ANALYTICS_ENDPOINT && navigator.sendBeacon) {
+      navigator.sendBeacon(window.SEM_ANALYTICS_ENDPOINT, new Blob([JSON.stringify(payload)], {type:'application/json'}));
+    }
+  });
+
+  document.addEventListener('click', function(event) {
+    var link = event.target.closest('a[href],button');
+    if (!link) return;
+    var href = link.getAttribute('href') || '';
+    if (/wa\.me|contact|downloads/.test(href)) {
+      document.dispatchEvent(new CustomEvent('sem:analytics', { detail:{ event:'conversion_action', target:href || link.textContent.trim().slice(0,60) } }));
+    }
+  });
   var nav = document.querySelector('.nav');
   var hamburger = document.querySelector('.nav-hamburger');
   var mobileNav = document.querySelector('.nav-mobile');
@@ -120,6 +139,15 @@
     document.addEventListener('click', function(e) {
       if ((nav && nav.contains(e.target)) || mobileNav.contains(e.target)) return;
       closeMobileNav();
+    });
+    mobileNav.addEventListener('click', function(e) {
+      if (e.target.closest('a')) closeMobileNav();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && hamburger.classList.contains('open')) {
+        closeMobileNav();
+        hamburger.focus();
+      }
     });
   }
 
