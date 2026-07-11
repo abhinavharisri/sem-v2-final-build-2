@@ -2911,9 +2911,9 @@ p { line-height: 1.75; }
     -webkit-overflow-scrolling: touch;
   }
   .client-marquee::-webkit-scrollbar { display: none; }
-  .client-marquee-track { animation: none; }
+  .client-marquee-track { animation: client-marquee-scroll 40s linear infinite; }
+  .client-marquee:active .client-marquee-track { animation-play-state: paused; }
   .client-logo-group { padding: 0 12px; }
-  .client-logo-group[aria-hidden="true"] { display: none; }
   .client-logo-card { width: 158px; height: 104px; padding: 16px 20px; scroll-snap-align: center; }
   .client-logo-note { margin-top: 22px; text-align: left; }
   .modal { width: 100%; }
