@@ -100,7 +100,10 @@
 <section class="hero" style="padding:0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;">
   <!-- FULL BACKGROUND VIDEO -->
   <div style="position:absolute;inset:0;z-index:0;background:#0d1520;">
-    <video id="hero-video" src="/assets/videos/optimized/sem-applications.mp4" poster="/assets/posters/sem-applications.jpg" muted loop autoplay playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+    <video id="hero-video" poster="/assets/posters/sem-applications.jpg" muted loop autoplay playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      <source src="/assets/videos/optimized/sem-applications-sharp.mp4" media="(min-width: 769px)" type="video/mp4">
+      <source src="/assets/videos/optimized/sem-applications.mp4" type="video/mp4">
+    </video>
     <!-- Fallback only appears if the video file fails -->
     <div id="hero-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#eef2f7 0%,#dce8f5 50%,#cfe0f0 100%);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
       <svg width="88" height="88" viewBox="0 0 88 88" fill="none"><circle cx="44" cy="44" r="34" stroke="#2A6496" stroke-width="1.5" stroke-dasharray="7 5"/><circle cx="44" cy="44" r="20" stroke="#2A6496" stroke-width="1.5"/><circle cx="44" cy="44" r="7" fill="#2A6496" opacity="0.25"/><line x1="44" y1="6" x2="44" y2="22" stroke="#2A6496" stroke-width="1.5"/><line x1="44" y1="66" x2="44" y2="82" stroke="#2A6496" stroke-width="1.5"/><line x1="6" y1="44" x2="22" y2="44" stroke="#2A6496" stroke-width="1.5"/><line x1="66" y1="44" x2="82" y2="44" stroke="#2A6496" stroke-width="1.5"/></svg>
