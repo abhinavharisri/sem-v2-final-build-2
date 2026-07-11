@@ -252,7 +252,7 @@
     <div class="compare-head">
       <div>
         <div class="compare-title">Product Comparison</div>
-        <div class="compare-sub">Review key catalogue data side by side.</div>
+        <div class="compare-sub">Compare the complete model range or choose exact models for a specification-level comparison.</div>
       </div>
       <button class="compare-close" id="compare-close" type="button" aria-label="Close comparison"><span class="ui-icon ui-icon-close" aria-hidden="true"></span></button>
     </div>
@@ -309,6 +309,7 @@ var carIdx = 0, carTotal = 1;
 var checkoutStep = 1;
 var cart = [];
 var compareIds = [];
+var compareVariants = {};
 var lastModalTrigger = null;
 var lastCartTrigger = null;
 var lastCompareTrigger = null;
@@ -439,9 +440,15 @@ function buildGrid(filter) {
 
 function toggleCompare(id) {
   var idx = compareIds.indexOf(id);
-  if (idx >= 0) compareIds.splice(idx, 1);
+  if (idx >= 0) {
+    compareIds.splice(idx, 1);
+    delete compareVariants[id];
+  }
   else {
-    if (compareIds.length >= 3) compareIds.shift();
+    if (compareIds.length >= 3) {
+      var removedId = compareIds.shift();
+      delete compareVariants[removedId];
+    }
     compareIds.push(id);
   }
   refreshCompareState();
@@ -477,10 +484,99 @@ function openCompare() {
   if (compareIds.length < 2) return;
   var products = compareIds.map(getProductById).filter(Boolean);
   lastCompareTrigger = document.activeElement;
-  document.getElementById('compare-table-wrap').innerHTML = buildCompareTable(products) + buildCompareCards(products);
+  renderCompareContent(products);
   document.getElementById('compare-modal').classList.add('show');
   document.getElementById('compare-close').focus();
   document.body.style.overflow = 'hidden';
+}
+
+function renderCompareContent(products) {
+  document.getElementById('compare-table-wrap').innerHTML =
+    '<div class="compare-guidance"><strong>Choose how to compare:</strong> “All models” shows the complete catalogue range. Select a specific model under each product for exact, like-for-like specifications.</div>' +
+    buildCompareTable(products) + buildCompareCards(products);
+}
+
+function selectedVariant(product) {
+  var value = compareVariants[product.id];
+  if (value === undefined || value === 'overview') return null;
+  var index = Number(value);
+  return product.specs && product.specs[index] ? product.specs[index] : null;
+}
+
+function variantSelector(product) {
+  var current = compareVariants[product.id] === undefined ? 'overview' : String(compareVariants[product.id]);
+  var options = ['<option value="overview"' + (current === 'overview' ? ' selected' : '') + '>All models (range)</option>'];
+  (product.specs || []).forEach(function(spec, index) {
+    var label = spec.type || ((product.models || [])[index]) || ('Model ' + (index + 1));
+    options.push('<option value="' + index + '"' + (current === String(index) ? ' selected' : '') + '>' + esc(label) + '</option>');
+  });
+  return '<label class="compare-model-label">Model variant<select class="compare-model-select" data-compare-variant="' + product.id + '">' + options.join('') + '</select></label>';
+}
+
+function numericValues(value) {
+  if (value === undefined || value === null || value === '' || value === '-' || value === '—') return [];
+  var matches = String(value).match(/-?\d+(?:\.\d+)?/g);
+  return matches ? matches.map(Number).filter(function(n) { return Number.isFinite(n); }) : [];
+}
+
+function compactNumber(value) {
+  return Number(value.toFixed(1)).toLocaleString('en-IN');
+}
+
+function familyRange(product, key, unit, transform) {
+  var values = [];
+  (product.specs || []).forEach(function(spec) {
+    numericValues(spec[key]).forEach(function(value) { values.push(transform ? transform(value) : value); });
+  });
+  if (!values.length) return 'Available on request';
+  var min = Math.min.apply(null, values);
+  var max = Math.max.apply(null, values);
+  return compactNumber(min) + (min === max ? '' : '–' + compactNumber(max)) + ' ' + unit;
+}
+
+function exactValue(spec, key, unit, transform) {
+  if (!spec || spec[key] === undefined || spec[key] === null || spec[key] === '-' || spec[key] === '—') return 'Available on request';
+  var values = numericValues(spec[key]);
+  if (transform && values.length) return values.map(function(value) { return compactNumber(transform(value)); }).join('/') + ' ' + unit;
+  var raw = String(spec[key]).replace(/\s*(V|W|A|Hz|RPM|rpm|kg|°C|dBA|mm-wc|CMH)\s*/gi, '').trim();
+  return esc(raw) + ' ' + unit;
+}
+
+function comparisonValue(product, key, unit, transform) {
+  var variant = selectedVariant(product);
+  return variant ? exactValue(variant, key, unit, transform) : familyRange(product, key, unit, transform);
+}
+
+function comparisonValueAny(product, keys, unit, transform) {
+  var variant = selectedVariant(product);
+  if (variant) {
+    var exactKey = keys.find(function(key) { return variant[key] !== undefined && variant[key] !== null && variant[key] !== '-' && variant[key] !== '—'; });
+    return exactKey ? exactValue(variant, exactKey, unit, transform) : 'Available on request';
+  }
+  var familyKey = keys.find(function(key) {
+    return (product.specs || []).some(function(spec) { return numericValues(spec[key]).length > 0; });
+  });
+  return familyKey ? familyRange(product, familyKey, unit, transform) : 'Available on request';
+}
+
+function supplyValue(product) {
+  var variant = selectedVariant(product);
+  if (!variant) {
+    var supplies = [];
+    (product.specs || []).forEach(function(spec) {
+      if (spec.supply && supplies.indexOf(spec.supply) < 0) supplies.push(spec.supply);
+    });
+    return supplies.length ? esc(supplies.slice(0, 3).join(' · ')) + (supplies.length > 3 ? ' · …' : '') : 'Available on request';
+  }
+  return esc(String(variant.supply || variant.voltage || 'Available on request')
+    .replace(/(\d)\s*V/g, '$1 V').replace(/(\d)\s*Hz/g, '$1 Hz'));
+}
+
+function modelValue(product) {
+  var variant = selectedVariant(product);
+  if (variant) return esc(variant.type || 'Selected model');
+  var count = (product.specs || []).length;
+  return count ? count + ' model variant' + (count === 1 ? '' : 's') : 'Custom specification';
 }
 
 function closeCompare() {
@@ -491,15 +587,18 @@ function closeCompare() {
 
 function buildCompareTable(products) {
   var rows = [
-    ['Product', function(p) { return '<div class="compare-product-name">' + esc(p.name) + '</div><div class="compare-product-cat">' + esc(p.category) + '</div>'; }],
-    ['Models', function(p) { return esc((p.models || []).join(' · ')); }],
+    ['Product', function(p) { return '<div class="compare-product-name">' + esc(p.name) + '</div><div class="compare-product-cat">' + esc(p.category) + '</div>' + variantSelector(p); }],
+    ['Selected scope', modelValue],
     ['Applications', function(p) { return esc((p.applications || []).slice(0, 5).join(' · ')); }],
-    ['Variants', function(p) { return p.specs && p.specs.length ? p.specs.length + ' model variants' : 'Custom specs'; }],
-    ['Airflow', function(p) { return esc(specRange(p, ['airflow_cmh','airflow','airflow_cfm'])); }],
-    ['Static Pressure', function(p) { return esc(specRange(p, ['static_pr'])); }],
-    ['Power', function(p) { return esc(specRange(p, ['watts','watts_max','current'])); }],
-    ['RPM', function(p) { return esc(specRange(p, ['rpm'])); }],
-    ['Supply', function(p) { return esc(specRange(p, ['supply','voltage'])); }],
+    ['Airflow', function(p) { return comparisonValueAny(p, ['airflow_cmh','airflow'], 'CMH'); }],
+    ['Static pressure', function(p) { return comparisonValue(p, 'static_pr', 'mm-wc'); }],
+    ['Input power', function(p) { return comparisonValueAny(p, ['watts','watts_max'], 'W'); }],
+    ['Speed', function(p) { return comparisonValue(p, 'rpm', 'RPM'); }],
+    ['Electrical supply', supplyValue],
+    ['Current', function(p) { return comparisonValueAny(p, ['amps','amps_max','current'], 'A'); }],
+    ['Sound level', function(p) { return comparisonValue(p, 'dba', 'dBA'); }],
+    ['Ambient temperature', function(p) { return comparisonValue(p, 'amb_temp', '°C'); }],
+    ['Weight', function(p) { return comparisonValue(p, 'weight', 'Kg'); }],
     ['Datasheet', function(p) { return PDF_MAP[p.id] ? '<a href="' + PDF_MAP[p.id] + '" target="_blank">Download</a>' : '<a href="https://wa.me/' + WA + '?text=' + encodeURIComponent('Hello SEM, please share the datasheet for ' + p.name + '.') + '" target="_blank">Request</a>'; }]
   ];
   return '<table class="compare-table"><tbody>' + rows.map(function(row) {
@@ -513,18 +612,21 @@ function buildCompareCards(products) {
       ? '<a href="' + PDF_MAP[p.id] + '" target="_blank">Download datasheet</a>'
       : '<a href="https://wa.me/' + WA + '?text=' + encodeURIComponent('Hello SEM, please share the datasheet for ' + p.name + '.') + '" target="_blank">Request datasheet</a>';
     var specs = [
-      ['Models', esc((p.models || []).join(' · '))],
+      ['Selected scope', modelValue(p)],
       ['Applications', esc((p.applications || []).slice(0, 5).join(' · '))],
-      ['Variants', p.specs && p.specs.length ? p.specs.length + ' model variants' : 'Custom specs'],
-      ['Airflow', esc(specRange(p, ['airflow_cmh','airflow','airflow_cfm']))],
-      ['Static Pressure', esc(specRange(p, ['static_pr']))],
-      ['Power', esc(specRange(p, ['watts','watts_max','current']))],
-      ['RPM', esc(specRange(p, ['rpm']))],
-      ['Supply', esc(specRange(p, ['supply','voltage']))],
+      ['Airflow', comparisonValueAny(p, ['airflow_cmh','airflow'], 'CMH')],
+      ['Static pressure', comparisonValue(p, 'static_pr', 'mm-wc')],
+      ['Input power', comparisonValueAny(p, ['watts','watts_max'], 'W')],
+      ['Speed', comparisonValue(p, 'rpm', 'RPM')],
+      ['Electrical supply', supplyValue(p)],
+      ['Current', comparisonValueAny(p, ['amps','amps_max','current'], 'A')],
+      ['Sound level', comparisonValue(p, 'dba', 'dBA')],
+      ['Ambient temperature', comparisonValue(p, 'amb_temp', '°C')],
+      ['Weight', comparisonValue(p, 'weight', 'Kg')],
       ['Datasheet', datasheet]
     ];
     return '<article class="compare-card">' +
-      '<div class="compare-card-head"><div class="compare-product-name">' + esc(p.name) + '</div><div class="compare-product-cat">' + esc(p.category) + '</div></div>' +
+      '<div class="compare-card-head"><div class="compare-product-name">' + esc(p.name) + '</div><div class="compare-product-cat">' + esc(p.category) + '</div>' + variantSelector(p) + '</div>' +
       specs.map(function(row) {
         return '<div class="compare-card-row"><div class="compare-card-label">' + row[0] + '</div><div class="compare-card-value">' + row[1] + '</div></div>';
       }).join('') +
@@ -1076,8 +1178,15 @@ document.getElementById('clear-btn').onclick = function() {
 document.getElementById('compare-open').onclick = openCompare;
 document.getElementById('compare-clear').onclick = function() {
   compareIds = [];
+  compareVariants = {};
   refreshCompareState();
 };
+document.getElementById('compare-table-wrap').addEventListener('change', function(event) {
+  var select = event.target.closest('[data-compare-variant]');
+  if (!select) return;
+  compareVariants[select.dataset.compareVariant] = select.value;
+  renderCompareContent(compareIds.map(getProductById).filter(Boolean));
+});
 document.getElementById('compare-close').onclick = closeCompare;
 document.getElementById('compare-bg').onclick = closeCompare;
 
