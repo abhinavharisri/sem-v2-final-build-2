@@ -384,11 +384,11 @@ function specRange(product, keys) {
 
 // Guided product selector
 var guideForm = document.getElementById('guided-selector-form');
-var guideApplication = document.getElementById('guide-application');
 var guideAirflow = document.getElementById('guide-airflow');
 var guidePressure = document.getElementById('guide-pressure');
 var guideSupply = document.getElementById('guide-supply');
 var guideResults = document.getElementById('guided-results');
+var guidedSelector = document.getElementById('guided-selector');
 
 function maxCatalogueValue(product, keys) {
   var values = [];
@@ -398,21 +398,18 @@ function maxCatalogueValue(product, keys) {
   return values.length ? Math.max.apply(null, values) : 0;
 }
 
-function populateGuideApplications() {
-  if (!guideApplication) return;
-  var applications = [];
-  SEM_PRODUCTS.forEach(function(product) {
-    (product.applications || []).forEach(function(application) {
-      if (applications.indexOf(application) < 0) applications.push(application);
-    });
-  });
-  applications.sort().forEach(function(application) {
-    guideApplication.insertAdjacentHTML('beforeend','<option value="' + esc(application) + '">' + esc(application) + '</option>');
-  });
-}
-
 function guideMatches() {
-  var application = normalizeUsage(guideApplication.value);
+  var purposeInput = guideForm.querySelector('[name="guide-purpose"]:checked');
+  var purpose = purposeInput ? purposeInput.value : '';
+  var purposes = {
+    hvac:{ label:'space cooling or ventilation', terms:['hvac','air conditioning','ventilation','refrigeration'] },
+    fume:{ label:'fume or contaminated-air removal', terms:['fume','extraction','welding','chemical','exhaust'] },
+    equipment:{ label:'machinery or equipment cooling', terms:['motor cooling','electronic cooling','condenser cooling','forced cooling','control panel'] },
+    duct:{ label:'ducted air movement', terms:['duct','inline','air handling'] },
+    process:{ label:'industrial process support', terms:['plastic extrusion','process','burner','industrial cooling'] },
+    railway:{ label:'railway applications', terms:['railway','indian railways'] }
+  };
+  var purposeInfo = purposes[purpose];
   var airflow = Number(guideAirflow.value) || 0;
   var pressure = Number(guidePressure.value) || 0;
   var supply = guideSupply.value;
@@ -423,8 +420,10 @@ function guideMatches() {
     var supplyMatch = !supply || (product.specs || []).some(function(spec) { return String(spec.supply || '').indexOf(supply) >= 0; });
     var reasons = [];
     var score = 0;
-    if (application && appText.indexOf(application) >= 0) { score += 45; reasons.push('catalogued for ' + guideApplication.value); }
-    else if (application) score -= 30;
+    var railwayModel = purpose === 'railway' && (product.id === 'induction-motors' || (product.models || []).some(function(model) { return /^IR\s/i.test(model); }));
+    var purposeMatch = purposeInfo && (railwayModel || purposeInfo.terms.some(function(term) { return appText.indexOf(normalizeUsage(term)) >= 0; }));
+    if (purposeMatch) { score += 45; reasons.push('suited to ' + purposeInfo.label); }
+    else if (purposeInfo) score -= 30;
     if (airflow && maxAirflow >= airflow) { score += 25; reasons.push('up to ' + compactNumber(maxAirflow) + ' CMH'); }
     else if (airflow) score -= 35;
     if (pressure && maxPressure >= pressure) { score += 20; reasons.push('up to ' + compactNumber(maxPressure) + ' mm-wc'); }
@@ -449,7 +448,49 @@ function renderGuideResults(matches) {
 }
 
 if (guideForm) {
-  populateGuideApplications();
+  var guidedSummary = guidedSelector.querySelector(':scope > summary');
+  var guidedBody = guidedSelector.querySelector('.guided-selector-body');
+  var guidedAnimation = null;
+  guidedSummary.addEventListener('click',function(event) {
+    event.preventDefault();
+    if (guidedAnimation) guidedAnimation.cancel();
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !guidedBody.animate) {
+      guidedSelector.open = !guidedSelector.open;
+      return;
+    }
+    var closing = guidedSelector.open;
+    if (!closing) guidedSelector.open = true;
+    guidedSelector.classList.toggle('closing',closing);
+    guidedSelector.classList.toggle('opening',!closing);
+    guidedBody.style.overflow = 'hidden';
+    var fullHeight = guidedBody.scrollHeight;
+    guidedAnimation = guidedBody.animate(closing ? [
+      { height:fullHeight + 'px', opacity:1 },
+      { height:'0px', opacity:0 }
+    ] : [
+      { height:'0px', opacity:0 },
+      { height:fullHeight + 'px', opacity:1 }
+    ], { duration:360, easing:'cubic-bezier(.22,.75,.2,1)' });
+    guidedAnimation.onfinish = function() {
+      if (closing) guidedSelector.open = false;
+      guidedBody.style.height = '';
+      guidedBody.style.opacity = '';
+      guidedBody.style.overflow = '';
+      guidedSelector.classList.remove('closing','opening');
+      guidedAnimation = null;
+    };
+    guidedAnimation.oncancel = function() {
+      guidedBody.style.height = '';
+      guidedBody.style.opacity = '';
+      guidedBody.style.overflow = '';
+      guidedSelector.classList.remove('closing','opening');
+      guidedAnimation = null;
+    };
+  });
+  guidedSelector.addEventListener('toggle',function() {
+    if (guidedSelector.open) clearUsageSearch(true);
+  });
   guideForm.addEventListener('submit',function(event) {
     event.preventDefault();
     var matches = guideMatches();
@@ -564,6 +605,10 @@ if (usageClear) usageClear.addEventListener('click', function() {
 
 function runUsageSearch(value) {
   var query = normalizeUsage(value);
+  if (query && guidedSelector) {
+    guidedSelector.open = false;
+    if (guideResults) guideResults.innerHTML = '';
+  }
   if (usageClear) usageClear.classList.toggle('show', !!query);
   document.querySelectorAll('.cat-tab').forEach(function(t) { t.classList.toggle('active', t.dataset.cat === 'all'); });
 

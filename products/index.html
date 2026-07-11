@@ -60,8 +60,8 @@
     <div class="usage-search-head product-usage-head" data-reveal>
       <div>
         <div class="eyebrow-line"><span class="eyebrow">Product Finder</span></div>
-        <h2>Search by Usage or Model</h2>
-        <p class="text-muted mt-8">Type an application or model number such as HVAC, fume extraction, 1EC, or SDB 133.</p>
+        <h2>Find a Product</h2>
+        <p class="text-muted mt-8">Search directly, or let us guide you if you are unsure which model you need.</p>
       </div>
     </div>
 
@@ -73,32 +73,31 @@
       </div>
       <div class="usage-search-chips" id="usage-search-chips" aria-label="Popular searches"></div>
       <div class="usage-search-status" id="usage-search-status">Start typing to filter the catalogue by usage or model number.</div>
+      <details class="guided-selector" id="guided-selector">
+        <summary><span><strong>Not sure what to search?</strong><small>Answer a few technical questions</small></span><span class="guided-summary-action">Help me choose <span aria-hidden="true">+</span></span></summary>
+        <div class="guided-selector-body">
+          <div class="guided-selector-intro"><span>Guided selection</span><h3>Find a Suitable Product</h3><p>Start with the job you need to accomplish. No technical knowledge is required.</p></div>
+          <form class="guided-selector-form" id="guided-selector-form">
+            <fieldset class="guided-purpose"><legend>What do you need the product to do?</legend><div class="guided-purpose-grid">
+              <label><input type="radio" name="guide-purpose" value="hvac" required><span><strong>Cool or ventilate a space</strong><small>HVAC, air conditioning or general ventilation</small></span></label>
+              <label><input type="radio" name="guide-purpose" value="fume"><span><strong>Remove fumes or contaminated air</strong><small>Welding fumes, chemicals, smoke or exhaust</small></span></label>
+              <label><input type="radio" name="guide-purpose" value="equipment"><span><strong>Cool machinery or equipment</strong><small>Motors, electronics, condensers or control panels</small></span></label>
+              <label><input type="radio" name="guide-purpose" value="duct"><span><strong>Move air through a duct</strong><small>Inline boosting or ducted ventilation</small></span></label>
+              <label><input type="radio" name="guide-purpose" value="process"><span><strong>Support an industrial process</strong><small>Plastic extrusion, burners or process cooling</small></span></label>
+              <label><input type="radio" name="guide-purpose" value="railway"><span><strong>Railway application</strong><small>Equipment cooling and railway-duty requirements</small></span></label>
+            </div></fieldset>
+            <details class="guided-advanced"><summary>I know my technical requirements <span>Optional</span></summary><div class="guided-advanced-grid">
+              <label>Minimum airflow <span class="tech-tip" tabindex="0" data-tip="Only enter this if it is already specified. CMH means cubic metres of air per hour.">?</span><div class="guided-input-unit"><input id="guide-airflow" type="number" min="0" step="50" inputmode="numeric" placeholder="Leave blank if unknown"><span>CMH</span></div></label>
+              <label>Minimum static pressure <span class="tech-tip" tabindex="0" data-tip="Only enter this if it is already specified. It represents resistance in ducts, filters or equipment.">?</span><div class="guided-input-unit"><input id="guide-pressure" type="number" min="0" step="1" inputmode="numeric" placeholder="Leave blank if unknown"><span>mm-wc</span></div></label>
+              <label>Electrical supply<select id="guide-supply"><option value="">Not sure / any supply</option><option value="1Ø">230 V · Single phase</option><option value="3Ø">415 V · Three phase</option></select></label>
+            </div></details>
+            <div class="guided-selector-actions"><button class="btn btn-primary" type="submit">Show Recommendations</button><button class="guided-reset" id="guided-reset" type="button">Reset</button></div>
+          </form>
+          <div class="guided-results" id="guided-results" aria-live="polite"></div>
+          <details class="technical-glossary"><summary>Technical terms explained</summary><dl><div><dt>CMH</dt><dd>Cubic metres of air moved per hour.</dd></div><div><dt>Static pressure</dt><dd>Resistance the fan overcomes, published in mm-wc.</dd></div><div><dt>RPM</dt><dd>Impeller or motor revolutions per minute.</dd></div><div><dt>dBA</dt><dd>A-weighted sound level measured in decibels.</dd></div><div><dt>Phase</dt><dd>Single-phase (1Ø) or three-phase (3Ø) electrical supply.</dd></div></dl></details>
+        </div>
+      </details>
     </div>
-
-    <section class="guided-selector" aria-labelledby="guided-selector-title" data-reveal>
-      <div class="guided-selector-copy">
-        <div class="eyebrow">Engineering Assistant</div>
-        <h2 id="guided-selector-title">Find a Suitable Product</h2>
-        <p>Enter what you know. We’ll rank catalogue matches and show why they fit. Final selection should be confirmed with SEM engineering.</p>
-      </div>
-      <form class="guided-selector-form" id="guided-selector-form">
-        <label>Application
-          <select id="guide-application"><option value="">Any application</option></select>
-        </label>
-        <label>Minimum airflow <span class="tech-tip" tabindex="0" data-tip="Volume of air delivered per hour. The catalogue expresses this as CMH.">?</span>
-          <div class="guided-input-unit"><input id="guide-airflow" type="number" min="0" step="50" inputmode="numeric" placeholder="e.g. 1200"><span>CMH</span></div>
-        </label>
-        <label>Minimum static pressure <span class="tech-tip" tabindex="0" data-tip="Resistance the fan must overcome in ducts, filters or equipment. The catalogue uses millimetres of water column.">?</span>
-          <div class="guided-input-unit"><input id="guide-pressure" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 50"><span>mm-wc</span></div>
-        </label>
-        <label>Electrical supply
-          <select id="guide-supply"><option value="">Any supply</option><option value="1Ø">230 V · Single phase</option><option value="3Ø">415 V · Three phase</option></select>
-        </label>
-        <div class="guided-selector-actions"><button class="btn btn-primary" type="submit">Show Recommendations</button><button class="guided-reset" id="guided-reset" type="button">Reset</button></div>
-      </form>
-      <div class="guided-results" id="guided-results" aria-live="polite"></div>
-      <details class="technical-glossary"><summary>Technical terms explained</summary><dl><div><dt>CMH</dt><dd>Cubic metres of air moved per hour.</dd></div><div><dt>Static pressure</dt><dd>Resistance the fan overcomes, published in mm-wc.</dd></div><div><dt>RPM</dt><dd>Impeller or motor revolutions per minute.</dd></div><div><dt>dBA</dt><dd>A-weighted sound level measured in decibels.</dd></div><div><dt>Phase</dt><dd>Single-phase (1Ø) or three-phase (3Ø) electrical supply.</dd></div></dl></details>
-    </section>
 
     <div class="catalogue-toolbar">
       <div class="cat-tabs" id="cat-tabs">

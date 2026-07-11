@@ -58,7 +58,7 @@ check('product cart empty state has browse action', /data-browse-products/.test(
 check('mobile compare cards are generated', /buildCompareCards/.test(productRuntime) && /compare-card-list/.test(productCss) && /@media \(max-width: 560px\)[\s\S]*\.compare-table \{ display:none; \}/.test(productCss));
 check('compare bar shows selected product chips', /compare-chip-row/.test(productRuntime) && /compare-chip/.test(productCss) && /getProductById\(id\)/.test(productRuntime));
 check('compare modal restores focus', /lastCompareTrigger/.test(productRuntime) && /compare-close'\)\.focus/.test(productRuntime));
-check('combined product finder supports models', /Search by Usage or Model/.test(products) && /SDB 133/.test(products) && /modelText/.test(productRuntime));
+check('combined product finder supports models', /Find a Product/.test(products) && /SDB 133/.test(products) && /modelText/.test(productRuntime));
 check('guided selector uses catalogue requirements', /guided-selector-form/.test(products) && /guideMatches/.test(productRuntime));
 check('fan selection helper is removed', !/selector-panel|sel-airflow|scoreSelectorProduct|model-finder-input/.test(productRuntime + productCss));
 check('customer details persist globally', /sem-customer-details/.test(main) && /saveCustomerDetails/.test(main) && /restoreCustomerDetails/.test(main));
