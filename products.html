@@ -155,6 +155,7 @@
     <div class="pm-sel-wrap">
       <div class="pm-sel-label">Select Model Variant for Cart</div>
       <select class="pm-sel" id="pm-sel"></select>
+      <button class="pm-copy-model-link" id="pm-copy-model-link" type="button">Copy link to this model</button>
     </div>
     <div class="pm-slabel">Technical Specification</div>
     <div class="pm-table-wrap" id="pm-table"></div>
@@ -273,19 +274,30 @@
 <div class="compare-modal" id="compare-modal" role="dialog" aria-modal="true" aria-label="Product comparison">
   <div class="compare-bg" id="compare-bg"></div>
   <div class="compare-box">
+    <div class="compare-print-brand">
+      <div class="compare-print-brand-main"><img src="/images/sem-logo.png" alt="SEM"><div><strong>Superior Electric Machines Private Limited</strong><span>Air Moving Solutions</span></div></div>
+      <div class="compare-print-contact">B-214, 5th Main Road, 2nd Stage, Peenya Industrial Area Phase IV<br>Bengaluru, Karnataka 560058 · India<br>+91 8028361383 · info@superiorelectric.in · www.superiorelectric.in</div>
+    </div>
+    <div class="compare-print-document"><div><span>Technical Document</span><h1>Product Comparison</h1><p>Catalogue specifications selected for side-by-side technical review</p></div><div class="compare-print-meta"><span>Generated</span><strong id="compare-print-date"></strong></div></div>
     <div class="compare-head">
       <div>
         <div class="compare-title">Product Comparison</div>
         <div class="compare-sub">Compare the complete model range or choose exact models for a specification-level comparison.</div>
       </div>
-      <button class="compare-close" id="compare-close" type="button" aria-label="Close comparison"><span class="ui-icon ui-icon-close" aria-hidden="true"></span></button>
+      <div class="compare-head-actions">
+        <button class="compare-head-action" id="compare-share" type="button">Share</button>
+        <button class="compare-head-action" id="compare-print" type="button">Print / Save PDF</button>
+        <button class="compare-head-action" id="compare-download" type="button">Download CSV</button>
+        <button class="compare-close" id="compare-close" type="button" aria-label="Close comparison"><span class="ui-icon ui-icon-close" aria-hidden="true"></span></button>
+      </div>
     </div>
     <div class="compare-table-wrap" id="compare-table-wrap"></div>
+    <div class="compare-print-footer"><p><strong>Selection note:</strong> Catalogue values are subject to published tolerances. Final model selection, operating point and installation suitability must be confirmed with SEM engineering.</p><div><span>SEM® Air Moving Solutions</span><span>superiorelectric.in</span></div></div>
   </div>
 </div>
 
 <script src="/js/nav.js?v=hide-nav-1"></script>
 <script src="/js/products.js"></script>
-<script src="/js/products-page.js?v=guided-selector-1"></script>
+<script src="/js/products-page.js?v=sharing-2"></script>
 </body>
 </html>

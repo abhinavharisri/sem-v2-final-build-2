@@ -221,9 +221,47 @@ function openCompare() {
   var products = compareIds.map(getProductById).filter(Boolean);
   lastCompareTrigger = document.activeElement;
   renderCompareContent(products);
+  document.getElementById('compare-print-date').textContent = new Intl.DateTimeFormat('en-IN', { day:'2-digit', month:'short', year:'numeric' }).format(new Date());
   document.getElementById('compare-modal').classList.add('show');
   document.getElementById('compare-close').focus();
   document.body.style.overflow = 'hidden';
+  syncCompareUrl();
+}
+
+function comparisonUrl() {
+  var url = new URL(window.location.href);
+  url.searchParams.delete('product');
+  url.searchParams.delete('model');
+  url.searchParams.set('compare', compareIds.map(function(id) {
+    var variant = compareVariants[id] === undefined ? 'overview' : compareVariants[id];
+    return id + ':' + variant;
+  }).join(','));
+  return url;
+}
+
+function syncCompareUrl() {
+  if (compareIds.length < 2) return;
+  history.replaceState(null,'',comparisonUrl().pathname + comparisonUrl().search);
+}
+
+function loadSharedComparison() {
+  var encoded = new URLSearchParams(window.location.search).get('compare');
+  if (!encoded) return false;
+  encoded.split(',').slice(0,3).forEach(function(entry) {
+    var parts = entry.split(':');
+    var product = getProductById(parts[0]);
+    if (!product || compareIds.indexOf(product.id) >= 0) return;
+    compareIds.push(product.id);
+    var variant = parts[1] || 'overview';
+    if (variant === 'overview' || (product.specs && product.specs[Number(variant)])) compareVariants[product.id] = variant;
+  });
+  return compareIds.length >= 2;
+}
+
+function clearComparisonUrl() {
+  var url = new URL(window.location.href);
+  url.searchParams.delete('compare');
+  history.replaceState(null,'',url.pathname + (url.searchParams.toString() ? '?' + url.searchParams.toString() : ''));
 }
 
 function renderCompareContent(products) {
@@ -703,6 +741,10 @@ function openModal(id) {
   } else {
     sel.innerHTML = '<option>Custom — contact for specs</option>';
   }
+  var requestedModel = new URLSearchParams(window.location.search).get('product') === p.id
+    ? new URLSearchParams(window.location.search).get('model') : '';
+  if (requestedModel && Array.from(sel.options).some(function(option) { return option.value === requestedModel; })) sel.value = requestedModel;
+  sel.onchange = function() { syncProductModelUrl(); };
 
   // Carousel
   var slot = document.getElementById('pm-carousel-slot');
@@ -778,7 +820,32 @@ function openModal(id) {
   var addBtn = document.getElementById('pm-add-cart');
   addBtn.innerHTML = '<span class="ui-icon ui-icon-cart" aria-hidden="true"></span> Add to Cart';
   addBtn.classList.remove('added');
+  syncProductModelUrl();
 }
+
+function syncProductModelUrl() {
+  if (!currentProduct) return;
+  var url = new URL(window.location.href);
+  url.searchParams.delete('compare');
+  url.searchParams.set('product',currentProduct.id);
+  var model = document.getElementById('pm-sel').value;
+  if (model) url.searchParams.set('model',model); else url.searchParams.delete('model');
+  history.replaceState(null,'',url.pathname + '?' + url.searchParams.toString());
+}
+
+document.getElementById('pm-copy-model-link').onclick = function() {
+  syncProductModelUrl();
+  var button = this;
+  var done = function() {
+    button.textContent = 'Model link copied';
+    window.setTimeout(function() { button.textContent = 'Copy link to this model'; },1600);
+  };
+  if (navigator.clipboard) navigator.clipboard.writeText(window.location.href).then(done);
+  else {
+    var field = document.createElement('textarea'); field.value = window.location.href;
+    document.body.appendChild(field); field.select(); document.execCommand('copy'); field.remove(); done();
+  }
+};
 
 function goCar(n) {
   carIdx = ((n % carTotal) + carTotal) % carTotal;
@@ -791,6 +858,10 @@ function closeModal() {
   document.getElementById('pm-backdrop').classList.remove('show');
   document.getElementById('pmodal').classList.remove('show');
   document.body.style.overflow = '';
+  var url = new URL(window.location.href);
+  url.searchParams.delete('product');
+  url.searchParams.delete('model');
+  history.replaceState(null,'',url.pathname + (url.searchParams.toString() ? '?' + url.searchParams.toString() : ''));
   if (lastModalTrigger && typeof lastModalTrigger.focus === 'function') lastModalTrigger.focus();
 }
 
@@ -1042,13 +1113,50 @@ document.getElementById('compare-clear').onclick = function() {
   compareIds = [];
   compareVariants = {};
   refreshCompareState();
+  clearComparisonUrl();
 };
 document.getElementById('compare-table-wrap').addEventListener('change', function(event) {
   var select = event.target.closest('[data-compare-variant]');
   if (!select) return;
   compareVariants[select.dataset.compareVariant] = select.value;
   renderCompareContent(compareIds.map(getProductById).filter(Boolean));
+  syncCompareUrl();
 });
+document.getElementById('compare-share').onclick = function() {
+  var button = this;
+  var url = comparisonUrl().toString();
+  var done = function() {
+    var original = button.textContent;
+    button.textContent = 'Link copied';
+    window.setTimeout(function() { button.textContent = original; },1600);
+    document.dispatchEvent(new CustomEvent('sem:analytics',{detail:{event:'comparison_shared',products:compareIds.length}}));
+  };
+  if (navigator.share) {
+    navigator.share({ title:'SEM Product Comparison', text:'Compare these SEM product models and specifications.', url:url }).then(done).catch(function() {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(done);
+  } else {
+    var field = document.createElement('textarea');
+    field.value = url; document.body.appendChild(field); field.select(); document.execCommand('copy'); field.remove(); done();
+  }
+};
+document.getElementById('compare-print').onclick = function() {
+  document.dispatchEvent(new CustomEvent('sem:analytics',{detail:{event:'comparison_printed',products:compareIds.length}}));
+  window.print();
+};
+document.getElementById('compare-download').onclick = function() {
+  var rows = Array.from(document.querySelectorAll('.compare-table tr')).map(function(row) {
+    return Array.from(row.cells).map(function(cell) {
+      return '"' + cell.innerText.replace(/\s+/g,' ').trim().replace(/"/g,'""') + '"';
+    }).join(',');
+  });
+  var blob = new Blob(['\ufeff' + rows.join('\n')],{type:'text/csv;charset=utf-8'});
+  var link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'SEM-product-comparison.csv';
+  document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(link.href);
+  document.dispatchEvent(new CustomEvent('sem:analytics',{detail:{event:'comparison_downloaded',products:compareIds.length}}));
+};
 document.getElementById('compare-close').onclick = closeCompare;
 document.getElementById('compare-bg').onclick = closeCompare;
 
@@ -1211,11 +1319,13 @@ document.addEventListener('keydown', function(e) {
 });
 
 // ── INIT ──────────────────────────────────────────────────────
+var hasSharedComparison = loadSharedComparison();
 buildGrid('all');
 renderProductSeoLinks();
 injectProductItemListSchema();
 updateBadge();
 openLinkedProduct();
+if (hasSharedComparison) window.setTimeout(openCompare,120);
 
 function openLinkedProduct() {
   var productId = new URLSearchParams(window.location.search).get('product');
