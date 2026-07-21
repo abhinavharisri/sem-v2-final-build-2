@@ -789,9 +789,7 @@ const SEM_PRODUCTS = [
     ],
     spec_columns: ["Type","I/P Supply","Current (A)","Power (W)","Speed (RPM)","Airflow (m3/h)","Static-PR (mmWc)"],
     images: [
-      "/images/products/roof-top-fans-npd-1.png",
-      "/images/products/roof-top-fans-npd-2.png",
-      "/images/products/roof-top-fans-npd-3.png"
+      "/images/products/roof-top-fans-npd-1.png"
     ],
     note: "New development product. Product range can be customized to suit project-specific requirements."
   },

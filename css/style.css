@@ -2776,6 +2776,8 @@ p { line-height: 1.75; }
   transition: filter var(--t) var(--ease), transform var(--t) var(--ease);
 }
 .client-logo-card:hover img { filter: saturate(1); transform: scale(1.04); }
+.client-logo-card img.client-logo-railways { transform: scale(1.35); }
+.client-logo-card:hover img.client-logo-railways { transform: scale(1.4); }
 .client-logo-note {
   margin-top: 26px;
   color: var(--text3);
